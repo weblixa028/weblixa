@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Weblixa - Simple Online Tools</title>
+
+<meta name="description"
+content="Weblixa provides simple, fast and free online tools for images, PDFs, text and everyday tasks.">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    color:#102a56;
+    background:#fff;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font-family:inherit;
+}
+
+.container{
+    width:min(1340px,calc(100% - 80px));
+    margin:auto;
+}
+
+
+/* ================= HEADER ================= */
+
+.site-header{
+    height:64px;
+    background:#fff;
+    border-bottom:1px solid #e5edf7;
+    position:relative;
+    z-index:20;
+}
+
+.header-inner{
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    min-width:180px;
+}
+
+.brand-logo{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+
+/* ================= WEBLIXA SVG LOGO ================= */
+
+.brand-logo-svg{
+    width:180px;
+    height:52px;
+    display:block;
+}
+
+
+/* ================= NAV ================= */
+
+.main-nav{
+    display:flex;
+    align-items:stretch;
+    height:64px;
+    gap:2px;
+}
+
+.nav-link{
+    position:relative;
+    height:64px;
+    padding:0 21px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:14px;
+    color:#172d51;
+    white-space:nowrap;
+}
+
+.nav-link span{
+    font-size:17px;
+    font-weight:700;
+}
+
+.nav-link:hover{
+    color:#1670e8;
+}
+
+.nav-link.active{
+    color:#096fe5;
+}
+
+.nav-link.active::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:10px;
+    right:10px;
+    height:4px;
+    border-radius:5px 5px 0 0;
+    background:#1678ef;
+}
+
+
+/* ================= HEADER ACTIONS ================= */
+
+.header-actions{
+    min-width:180px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:23px;
+}
+
+.theme-button{
+    border:0;
+    background:transparent;
+    color:#10264d;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.get-started{
+    background:linear-gradient(135deg,#1878ed,#1264df);
+    color:#fff;
+    padding:11px 22px;
+    border-radius:9px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 5px 15px rgba(23,112,231,.20);
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:273px;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #fff 0%,
+            #f2f9ff 62%,
+            #e9f5ff 100%
+        );
+    border-bottom:1px solid #edf4fb;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:410px;
+    height:250px;
+    left:-130px;
+    top:45px;
+    background:rgba(188,222,252,.27);
+    border-radius:55% 45% 60% 40%;
+    transform:rotate(-12deg);
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:390px;
+    height:250px;
+    right:-100px;
+    top:-20px;
+    background:rgba(196,226,251,.28);
+    border-radius:50%;
+    transform:rotate(18deg);
+}
+
+.hero-inner{
+    min-height:273px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.hero-content{
+    text-align:center;
+    position:relative;
+    z-index:3;
+    margin-top:-4px;
+}
+
+.hero-content h1{
+    font-size:49px;
+    line-height:1.04;
+    letter-spacing:-1.8px;
+    color:#102957;
+    font-weight:800;
+}
+
+.hero-content h1 span{
+    color:#1974e9;
+}
+
+.hero-content p{
+    margin-top:14px;
+    color:#526985;
+    font-size:17px;
+    line-height:1.35;
+    max-width:520px;
+}
+
+.hero-button{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    margin-top:15px;
+    padding:13px 31px;
+    border-radius:12px;
+    color:#fff;
+    background:linear-gradient(135deg,#167af0,#1468e2);
+    font-size:14px;
+    font-weight:700;
+    box-shadow:0 7px 18px rgba(20,107,224,.18);
+}
+
+.hero-button span{
+    font-size:18px;
+}
+
+.hero-icon{
+    position:absolute;
+    z-index:2;
+    width:75px;
+    height:75px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 10px 25px rgba(39,91,143,.12);
+    transform:rotate(-13deg);
+    font-weight:800;
+}
+
+.hero-icon-image{
+    left:9%;
+    top:82px;
+    background:linear-gradient(135deg,#3f9bf4,#2376e9);
+    color:#fff;
+    font-size:39px;
+}
+
+.hero-icon-pdf{
+    right:12%;
+    top:72px;
+    background:#f03450;
+    color:#fff;
+    font-size:28px;
+}
+
+.hero-icon-text{
+    right:8%;
+    top:158px;
+    width:61px;
+    height:61px;
+    background:#effbf5;
+    color:#20a977;
+    font-size:29px;
+    transform:rotate(9deg);
+}
+
+
+/* ================= POPULAR ================= */
+
+.popular-section{
+    padding:20px 0 30px;
+    background:#fff;
+}
+
+.section-heading{
+    margin-bottom:17px;
+}
+
+.section-label{
+    display:block;
+    color:#1173e7;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.5px;
+    margin-bottom:6px;
+}
+
+.section-heading h2{
+    font-size:24px;
+    color:#102957;
+    line-height:1.15;
+    font-weight:800;
+}
+
+.section-heading p{
+    margin-top:7px;
+    color:#71839c;
+    font-size:13px;
+}
+
+.tools-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:22px;
+}
+
+.tool-card{
+    min-height:191px;
+    padding:17px 20px 16px;
+    border:1px solid #dce8f3;
+    border-radius:12px;
+    background:#fff;
+    box-shadow:0 7px 20px rgba(40,91,137,.07);
+    display:flex;
+    flex-direction:column;
+    transition:.2s ease;
+
+    /* Smooth header-safe scrolling */
+    scroll-margin-top:84px;
+}
+
+.tool-card[role="link"]{
+    cursor:pointer;
+}
+
+.tool-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 28px rgba(40,91,137,.12);
+}
+
+.tool-icon{
+    width:47px;
+    height:47px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:23px;
+    font-weight:700;
+    margin-bottom:14px;
+    background:linear-gradient(135deg,#49a4fa,#267ce7);
+}
+
+.tool-card:nth-child(2) .tool-icon{
+    background:linear-gradient(135deg,#38c68d,#20a973);
+}
+
+.tool-card:nth-child(3) .tool-icon{
+    background:linear-gradient(135deg,#9652ef,#6831db);
+}
+
+.tool-card:nth-child(4) .tool-icon{
+    background:linear-gradient(135deg,#ff9c24,#f27413);
+}
+
+.tool-card:nth-child(5) .tool-icon{
+    background:linear-gradient(135deg,#ff4c68,#ed294b);
+}
+
+.tool-card:nth-child(6) .tool-icon{
+    background:linear-gradient(135deg,#20b8bb,#159fa6);
+}
+
+.tool-card h3{
+    font-size:14px;
+    color:#112a51;
+    margin-bottom:8px;
+    font-weight:800;
+}
+
+.tool-card p{
+    color:#657992;
+    font-size:12.5px;
+    line-height:1.45;
+    min-height:36px;
+}
+
+.tool-card a{
+    margin-top:auto;
+    padding-top:10px;
+    color:#0872e8;
+    font-size:13px;
+    font-weight:700;
+}
+
+.tool-card a span{
+    margin-left:7px;
+    font-size:17px;
+}
+
+
+/* ================= CATEGORIES ================= */
+
+.category-section{
+    padding:2px 0 24px;
+    background:#fff;
+}
+
+.category-section .container{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:20px;
+    align-items:center;
+}
+
+.category-section .section-heading{
+    margin-bottom:0;
+}
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+}
+
+.category-card{
+    min-height:123px;
+    padding:17px 19px;
+    border:1px solid #dce8f3;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    position:relative;
+    background:linear-gradient(135deg,#fbfdff,#f6fbff);
+    transition:.2s ease;
+}
+
+.category-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(40,91,137,.08);
+}
+
+.category-card:nth-child(2){
+    background:linear-gradient(135deg,#fffaff,#fff8fb);
+}
+
+.category-card:nth-child(3){
+    background:linear-gradient(135deg,#fbfaff,#f9f7ff);
+}
+
+.category-card:nth-child(4){
+    background:linear-gradient(135deg,#fbfffd,#f5fffb);
+}
+
+.category-icon{
+    flex:0 0 40px;
+    width:40px;
+    height:40px;
+    border-radius:9px;
+    background:linear-gradient(135deg,#49a4fa,#267ce7);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    font-weight:700;
+}
+
+.category-card:nth-child(2) .category-icon{
+    background:linear-gradient(135deg,#ff5870,#e82c4d);
+}
+
+.category-card:nth-child(3) .category-icon{
+    background:linear-gradient(135deg,#9150ef,#6933d8);
+}
+
+.category-card:nth-child(4) .category-icon{
+    background:linear-gradient(135deg,#32c88c,#20a978);
+}
+
+.category-content h3{
+    color:#102957;
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.category-content p{
+    color:#6d8199;
+    font-size:12px;
+}
+
+.category-arrow{
+    position:absolute;
+    right:18px;
+    color:#1478e9;
+    font-size:20px;
+}
+
+
+/* ================= WHY ================= */
+
+.why-section{
+    background:#f3faff;
+    border-top:1px solid #e9f2fa;
+    padding:25px 0;
+}
+
+.why-section .container{
+    display:grid;
+    grid-template-columns:290px 1fr;
+    gap:20px;
+    align-items:center;
+}
+
+.why-section .section-heading{
+    margin-bottom:0;
+}
+
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+}
+
+.feature-item{
+    min-height:74px;
+    padding:0 27px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    border-left:1px solid #d9e7f3;
+}
+
+.feature-item:first-child{
+    border-left:0;
+}
+
+.feature-icon{
+    flex:0 0 48px;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#e5f1ff;
+    color:#1175e7;
+    font-size:25px;
+}
+
+.feature-item h3{
+    font-size:13px;
+    color:#112b54;
+    margin-bottom:6px;
+}
+
+.feature-item p{
+    color:#71849d;
+    font-size:10.5px;
+    line-height:1.5;
+}
+
+
+/* ================= FOOTER ================= */
+
+.site-footer{
+    background:#122744;
+    color:#fff;
+    padding:18px 0;
+}
+
+.footer-inner{
+    min-height:54px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.footer-brand{
+    display:flex;
+    align-items:center;
+    gap:17px;
+}
+
+.footer-brand-svg{
+    width:150px;
+    height:auto;
+    display:block;
+    filter:brightness(0) invert(1);
+}
+
+.footer-brand p{
+    color:#c8d4e4;
+    font-size:10px;
+}
+
+.footer-links{
+    display:flex;
+    align-items:center;
+    gap:24px;
+}
+
+.footer-links a{
+    color:#d7e0ed;
+    font-size:10px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1150px){
+
+    .container{
+        width:min(100% - 40px,1100px);
+    }
+
+    .main-nav .nav-link{
+        padding:0 12px;
+    }
+
+    .tools-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .category-section .container,
+    .why-section .container{
+        grid-template-columns:1fr;
+    }
+
+    .category-section .section-heading,
+    .why-section .section-heading{
+        margin-bottom:18px;
+    }
+}
+
+
+@media(max-width:850px){
+
+    .site-header,
+    .header-inner{
+        height:auto;
+    }
+
+    .header-inner{
+        padding:12px 0;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    .main-nav{
+        order:3;
+        width:100%;
+        height:auto;
+        overflow-x:auto;
+        justify-content:center;
+    }
+
+    .nav-link{
+        height:42px;
+    }
+
+    .header-actions{
+        min-width:auto;
+    }
+
+    .hero-icon{
+        display:none;
+    }
+
+    .hero{
+        min-height:330px;
+    }
+
+    .hero-inner{
+        min-height:330px;
+    }
+
+    .tools-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .category-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .features-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:20px;
+    }
+
+    .feature-item{
+        border-left:0;
+        padding:0;
+    }
+}
+
+
+@media(max-width:560px){
+
+    .container{
+        width:calc(100% - 28px);
+    }
+
+    .brand{
+        min-width:auto;
+    }
+
+    .brand-logo-svg{
+        width:145px;
+        height:auto;
+    }
+
+    .header-actions{
+        gap:10px;
+    }
+
+    .get-started{
+        padding:9px 13px;
+        font-size:11px;
+    }
+
+    .main-nav{
+        justify-content:flex-start;
+    }
+
+    .nav-link{
+        padding:0 10px;
+        font-size:12px;
+    }
+
+    .hero-content h1{
+        font-size:39px;
+    }
+
+    .hero-content p{
+        font-size:14px;
+    }
+
+    .tools-grid,
+    .category-grid,
+    .features-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .footer-links{
+        flex-wrap:wrap;
+        gap:15px;
+    }
+
+    .footer-brand-svg{
+        width:130px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="site-header">
+
+<div class="container header-inner">
+
+    <a href="index.html" class="brand">
+
+        <div class="brand-logo">
+
+            <!-- SAME WEBLIXA SVG LOGO -->
+
+            <svg
+                class="brand-logo-svg"
+                width="180"
+                height="52"
+                viewBox="0 0 180 52"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+
+                    <linearGradient
+                        id="weblixaGradient"
+                        x1="4"
+                        y1="4"
+                        x2="44"
+                        y2="48"
+                        gradientUnits="userSpaceOnUse"
+                    >
+
+                        <stop
+                            offset="0"
+                            stop-color="#2563EB"
+                        />
+
+                        <stop
+                            offset="0.5"
+                            stop-color="#7C3AED"
+                        />
+
+                        <stop
+                            offset="1"
+                            stop-color="#06B6D4"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <path
+                    d="M6 9L15 38L25 14L35 38L44 9"
+                    stroke="url(#weblixaGradient)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+
+                <text
+                    x="58"
+                    y="35"
+                    font-family="Arial, Helvetica, sans-serif"
+                    font-size="27"
+                    font-weight="700"
+                    fill="#102A56"
+                >
+                    Weblixa
+                </text>
+
+            </svg>
+
+        </div>
+
+    </a>
+
+
+    <nav class="main-nav">
+
+        <a href="index.html" class="nav-link active">
+
+            <span>⌂</span>
+
+            Home
+
+        </a>
+
+
+        <a href="#popular-tools" class="nav-link">
+
+            <span>▧</span>
+
+            Image Tools
+
+        </a>
+
+
+        <a href="#pdf-tools" class="nav-link">
+
+            <span>▤</span>
+
+            PDF Tools
+
+        </a>
+
+
+        <a href="#text-tools" class="nav-link">
+
+            <span>T</span>
+
+            Text Tools
+
+        </a>
+
+
+        <a href="#more-tools" class="nav-link">
+
+            <span>⊞</span>
+
+            More Tools
+
+        </a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+        <button
+            class="theme-button"
+            type="button"
+        >
+            ☾
+        </button>
+
+
+        <a
+            href="#popular-tools"
+            class="get-started"
+        >
+            Get Started
+        </a>
+
+    </div>
+
+</div>
+
+</header>
+
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+<div class="hero-inner container">
+
+
+    <div class="hero-icon hero-icon-image">
+        ▧
+    </div>
+
+
+    <div class="hero-content">
+
+        <h1>
+
+            Simple Tools.<br>
+
+            <span>Fast Results.</span>
+
+        </h1>
+
+
+        <p>
+
+            Free online tools to compress, resize, convert, crop images
+            and more.
+
+        </p>
+
+
+        <a
+            href="#popular-tools"
+            class="hero-button"
+        >
+
+            Explore Tools
+
+            <span>→</span>
+
+        </a>
+
+    </div>
+
+
+    <div class="hero-icon hero-icon-pdf">
+        PDF
+    </div>
+
+
+    <div class="hero-icon hero-icon-text">
+        T
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= POPULAR TOOLS ================= -->
+
+<section
+    class="popular-section"
+    id="popular-tools"
+>
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <span class="section-label">
+            POPULAR TOOLS
+        </span>
+
+        <h2>
+            Most Used Tools
+        </h2>
+
+        <p>
+            Quick access to our most popular tools.
+        </p>
+
+    </div>
+
+
+    <div class="tools-grid">
+
+
+        <!-- COMPRESSOR -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                ⛶
+            </div>
+
+            <h3>
+                Image Compressor
+            </h3>
+
+            <p>
+                Reduce image file size while keeping good quality.
+            </p>
+
+            <a href="image-tools/compressor/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- CROPPER -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                ⛶
+            </div>
+
+            <h3>
+                Image Cropper
+            </h3>
+
+            <p>
+                Crop your images to the exact size you need.
+            </p>
+
+            <a href="image-tools/cropper/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- RESIZER -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                ↗
+            </div>
+
+            <h3>
+                Image Resizer
+            </h3>
+
+            <p>
+                Resize images quickly without complicated software.
+            </p>
+
+            <a href="image-tools/resizer/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- CONVERTER -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                ⟳
+            </div>
+
+            <h3>
+                Image Converter
+            </h3>
+
+            <p>
+                Convert images between JPG, PNG and WebP formats.
+            </p>
+
+            <a href="image-tools/converter/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- PDF MAKER -->
+
+        <div
+            class="tool-card"
+            id="pdf-tools"
+        >
+
+            <div class="tool-icon">
+                ▤
+            </div>
+
+            <h3>
+                PDF Maker
+            </h3>
+
+            <p>
+                Create PDF documents quickly and easily online.
+            </p>
+
+            <a href="pdf-tools/pdf-maker/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- QR GENERATOR -->
+
+        <div
+            class="tool-card"
+            id="more-tools"
+        >
+
+            <div class="tool-icon">
+                ▦
+            </div>
+
+            <h3>
+                QR Generator
+            </h3>
+
+            <p>
+                Create QR codes quickly and easily.
+            </p>
+
+            <a href="utility-tools/qr-generator/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- ROTATE & FLIP -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                ↻
+            </div>
+
+            <h3>
+                Image Rotate & Flip
+            </h3>
+
+            <p>
+                Rotate and flip your images easily online.
+            </p>
+
+            <a href="image-tools/rotate/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- METADATA REMOVER -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                🛡
+            </div>
+
+            <h3>
+                Metadata Remover
+            </h3>
+
+            <p>
+                Remove hidden metadata from your images easily.
+            </p>
+
+            <a href="image-tools/metadata-remover/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- PDF COMPRESSOR -->
+
+        <div
+            class="tool-card"
+            onclick="window.location.href='pdf-tools/compressor/index.html';"
+            role="link"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter' || event.key===' '){event.preventDefault();window.location.href='pdf-tools/compressor/index.html';}"
+        >
+
+            <div class="tool-icon">
+                📦
+            </div>
+
+            <h3>
+                PDF Compressor
+            </h3>
+
+            <p>
+                Reduce PDF file size while keeping useful quality.
+            </p>
+
+            <a href="./pdf-tools/compress/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- IMAGE TO PDF -->
+
+        <div
+            class="tool-card"
+            onclick="window.location.href='./pdf-tools/images-to-pdf/index.html';"
+            role="link"
+            tabindex="0"
+            onkeydown="if(event.key==='Enter' || event.key===' '){event.preventDefault();window.location.href='./pdf-tools/images-to-pdf/index.html';}"
+        >
+
+            <div class="tool-icon">
+                🖼
+            </div>
+
+            <h3>
+                Image to PDF
+            </h3>
+
+            <p>
+                Convert your images into a PDF file quickly and easily.
+            </p>
+
+            <a href="./pdf-tools/images-to-pdf/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- MERGE PDF -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                🔗
+            </div>
+
+            <h3>
+                Merge PDF
+            </h3>
+
+            <p>
+                Combine multiple PDF files into one PDF quickly and easily.
+            </p>
+
+            <a href="pdf-tools/merge/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- PDF REORDER -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                ↕
+            </div>
+
+            <h3>
+                PDF Reorder
+            </h3>
+
+            <p>
+                Reorder PDF pages easily and arrange them in the order you need.
+            </p>
+
+            <a href="pdf-tools/reorder/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- PDF ROTATE -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                ↻
+            </div>
+
+            <h3>
+                PDF Rotate
+            </h3>
+
+            <p>
+                Rotate PDF pages easily and save your PDF in the correct orientation.
+            </p>
+
+            <a href="pdf-tools/rotate/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- SPLIT PDF -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                ✂
+            </div>
+
+            <h3>
+                Split PDF
+            </h3>
+
+            <p>
+                Split PDF files into separate pages or smaller PDF files easily.
+            </p>
+
+            <a href="pdf-tools/split/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- BASE64 -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                B64
+            </div>
+
+            <h3>
+                Base64
+            </h3>
+
+            <p>
+                Encode and decode text using Base64 quickly and easily.
+            </p>
+
+            <a href="utility-tools/base64/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- UTILITY CASE CONVERTER -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                Aa
+            </div>
+
+            <h3>
+                Utility Case Converter
+            </h3>
+
+            <p>
+                Convert text between uppercase, lowercase and other cases easily.
+            </p>
+
+            <a href="utility-tools/case-converter/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- PASSWORD GENERATOR -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                🔑
+            </div>
+
+            <h3>
+                Password Generator
+            </h3>
+
+            <p>
+                Generate strong and secure passwords quickly and easily.
+            </p>
+
+            <a href="utility-tools/password-generator/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- URL ENCODER -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                %
+            </div>
+
+            <h3>
+                URL Encoder
+            </h3>
+
+            <p>
+                Encode and decode URLs quickly and easily.
+            </p>
+
+            <a href="utility-tools/url-encoder/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- CHARACTER COUNTER -->
+
+        <div
+            class="tool-card"
+            id="text-tools"
+        >
+
+            <div class="tool-icon">
+                C
+            </div>
+
+            <h3>
+                Character Counter
+            </h3>
+
+            <p>
+                Count characters in your text quickly and easily.
+            </p>
+
+            <a href="utility-tools/character-counter/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- WORD COUNTER -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                W
+            </div>
+
+            <h3>
+                Word Counter
+            </h3>
+
+            <p>
+                Count words in your text quickly and easily.
+            </p>
+
+            <a href="utility-tools/word-counter/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- UUID GENERATOR -->
+
+        <div class="tool-card">
+
+            <div class="tool-icon">
+                ID
+            </div>
+
+            <h3>
+                UUID Generator
+            </h3>
+
+            <p>
+                Generate unique UUIDs quickly and easily.
+            </p>
+
+            <a href="utility-tools/uuid-generator/index.html">
+
+                Open Tool
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= CATEGORY SECTION ================= -->
+
+<section class="category-section">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <span class="section-label">
+            TOOL CATEGORIES
+        </span>
+
+        <h2>
+            Browse by Category
+        </h2>
+
+        <p>
+            Find the right tool for your needs.
+        </p>
+
+    </div>
+
+
+    <div class="category-grid">
+
+
+        <a
+            href="#popular-tools"
+            class="category-card"
+        >
+
+            <div class="category-icon">
+                ▧
+            </div>
+
+            <div class="category-content">
+
+                <h3>
+                    Image Tools
+                </h3>
+
+                <p>
+                    Compress, crop, resize, convert and rotate images.
+                </p>
+
+            </div>
+
+            <div class="category-arrow">
+                →
+            </div>
+
+        </a>
+
+
+
+        <a
+            href="#pdf-tools"
+            class="category-card"
+        >
+
+            <div class="category-icon">
+                ▤
+            </div>
+
+            <div class="category-content">
+
+                <h3>
+                    PDF Tools
+                </h3>
+
+                <p>
+                    Simple tools for working with PDF files.
+                </p>
+
+            </div>
+
+            <div class="category-arrow">
+                →
+            </div>
+
+        </a>
+
+
+
+        <a
+            href="#text-tools"
+            class="category-card"
+        >
+
+            <div class="category-icon">
+                T
+            </div>
+
+            <div class="category-content">
+
+                <h3>
+                    Text Tools
+                </h3>
+
+                <p>
+                    Useful tools for text and writing tasks.
+                </p>
+
+            </div>
+
+            <div class="category-arrow">
+                →
+            </div>
+
+        </a>
+
+
+
+        <a
+            href="#more-tools"
+            class="category-card"
+        >
+
+            <div class="category-icon">
+                ⊞
+            </div>
+
+            <div class="category-content">
+
+                <h3>
+                    Utility Tools
+                </h3>
+
+                <p>
+                    Helpful everyday online utilities.
+                </p>
+
+            </div>
+
+            <div class="category-arrow">
+                →
+            </div>
+
+        </a>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= WHY ================= -->
+
+<section class="why-section">
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <span class="section-label">
+            WHY WEBLIXA
+        </span>
+
+        <h2>
+            Simple & Useful
+        </h2>
+
+        <p>
+            Tools designed for everyday tasks.
+        </p>
+
+    </div>
+
+
+    <div class="features-grid">
+
+
+        <div class="feature-item">
+
+            <div class="feature-icon">
+                ⚡
+            </div>
+
+            <div>
+
+                <h3>
+                    Fast & Simple
+                </h3>
+
+                <p>
+                    Get your work done quickly.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature-item">
+
+            <div class="feature-icon">
+                🔒
+            </div>
+
+            <div>
+
+                <h3>
+                    Privacy Friendly
+                </h3>
+
+                <p>
+                    Your files stay private.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature-item">
+
+            <div class="feature-icon">
+                ◉
+            </div>
+
+            <div>
+
+                <h3>
+                    Works Everywhere
+                </h3>
+
+                <p>
+                    Use Weblixa on any device.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature-item">
+
+            <div class="feature-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <h3>
+                    100% Free
+                </h3>
+
+                <p>
+                    Simple tools without extra cost.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="site-footer">
+
+<div class="container footer-inner">
+
+
+    <div class="footer-brand">
+
+        <svg
+            class="footer-brand-svg"
+            width="150"
+            viewBox="0 0 180 52"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+
+            <defs>
+
+                <linearGradient
+                    id="footerGradient"
+                    x1="4"
+                    y1="4"
+                    x2="44"
+                    y2="48"
+                    gradientUnits="userSpaceOnUse"
+                >
+
+                    <stop
+                        offset="0"
+                        stop-color="#2563EB"
+                    />
+
+                    <stop
+                        offset="0.5"
+                        stop-color="#7C3AED"
+                    />
+
+                    <stop
+                        offset="1"
+                        stop-color="#06B6D4"
+                    />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <path
+                d="M6 9L15 38L25 14L35 38L44 9"
+                stroke="url(#footerGradient)"
+                stroke-width="8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+
+
+            <text
+                x="58"
+                y="35"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="27"
+                font-weight="700"
+                fill="#FFFFFF"
+            >
+                Weblixa
+            </text>
+
+        </svg>
+
+
+        <p>
+            Simple tools. Fast results.
+        </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+        <!-- ABOUT PAGE -->
+        <a href="pages/about/index.html">
+            About
+        </a>
+
+        <!-- PRIVACY PAGE -->
+        <a href="pages/privacy/index.html">
+            Privacy
+        </a>
+
+        <!-- TERMS PAGE -->
+        <a href="pages/terms/index.html">
+            Terms
+        </a>
+
+        <!-- CONTACT PAGE -->
+        <a href="pages/contact/index.html">
+            Contact
+        </a>
+
+    </div>
+
+</div>
+
+</footer>
+
+
+</body>
+</html>
