@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Cropper - Weblixa</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef6ff;
+    color: #111;
+    min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    height: 92px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 1px solid #e1e8ef;
+    box-shadow: 0 1px 5px rgba(0,0,0,.04);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    min-width: 205px;
+}
+
+.weblixa-logo {
+    width: 180px;
+    height: 52px;
+    display: block;
+}
+
+.header-button {
+    margin-left: auto;
+}
+
+.get-started {
+    border: 0;
+    background: #1769aa;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 15px 25px;
+    border-radius: 9px;
+    cursor: pointer;
+    box-shadow: 0 3px 7px rgba(23,105,170,.25);
+}
+
+.get-started:hover {
+    background: #12598f;
+}
+
+/* ================= MAIN ================= */
+
+.main {
+    padding: 70px 28px 100px;
+}
+
+.tool-layout {
+    display: grid;
+    grid-template-columns: 230px minmax(0, 1000px) 230px;
+    justify-content: center;
+    gap: 20px;
+    align-items: start;
+}
+
+.side-box {
+    background: #fff;
+    border: 1px solid #d9e1e8;
+    border-radius: 17px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+
+.side-box h2 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 14px;
+}
+
+.insight {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+.insight:last-child {
+    border-bottom: none;
+}
+
+.insight span {
+    color: #6b7280;
+}
+
+.insight strong {
+    color: #111;
+    text-align: right;
+    word-break: break-word;
+}
+
+.tip {
+    padding: 9px 12px;
+    margin-bottom: 8px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #374151;
+}
+
+.tip:last-child {
+    margin-bottom: 0;
+}
+
+.tool-card {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 17px;
+    overflow: hidden;
+    border: 1px solid #d9e1e8;
+    box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+
+.tool-header {
+    background: #eef6ff;
+    text-align: center;
+    padding: 32px 20px 31px;
+}
+
+.tool-label {
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #2563eb;
+    margin-bottom: 14px;
+}
+
+.tool-header h1 {
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-size: 56px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #1a1a24;
+    margin-bottom: 14px;
+}
+
+.tool-header h1 span {
+    color: #1d6fdc;
+}
+
+.tool-header p {
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #6b7280;
+}
+
+.tool-body {
+    padding: 32px 30px 25px;
+}
+
+/* ================= UPLOAD ================= */
+
+.upload-box {
+    height: 325px;
+    border: 3px dotted #777;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #fff;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.upload-box:hover {
+    background: #fafcff;
+    border-color: #1769aa;
+}
+
+.upload-box.dragging {
+    background: #eef7ff;
+    border-color: #1769aa;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-icon {
+    font-size: 50px;
+    color: #1769aa;
+    margin-bottom: 13px;
+}
+
+.upload-title {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 7px;
+}
+
+.upload-subtitle {
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.choose-btn {
+    border: 0;
+    background: #1769aa;
+    color: #fff;
+    padding: 14px 31px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.choose-btn:hover {
+    background: #12598f;
+}
+
+#fileInput {
+    display: none;
+}
+
+/* ================= PREVIEW ================= */
+
+.preview-area {
+    display: none;
+    margin-top: 22px;
+    text-align: center;
+}
+
+.preview-area.show {
+    display: block;
+}
+
+.image-workspace {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #111;
+    line-height: 0;
+}
+
+#previewImage {
+    display: block;
+    max-width: 100%;
+    max-height: 430px;
+    object-fit: contain;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* ================= CROP BOX ================= */
+
+.crop-box {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    width: 80%;
+    height: 80%;
+    border: 3px solid #fff;
+    box-shadow:
+        0 0 0 9999px rgba(0,0,0,.45),
+        inset 0 0 0 1px rgba(23,105,170,.8);
+    cursor: move;
+    display: none;
+    touch-action: none;
+}
+
+.crop-box.active {
+    display: block;
+}
+
+.handle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #1769aa;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    z-index: 10;
+    touch-action: none;
+}
+
+.handle.tl {
+    left: -9px;
+    top: -9px;
+    cursor: nwse-resize;
+}
+
+.handle.tr {
+    right: -9px;
+    top: -9px;
+    cursor: nesw-resize;
+}
+
+.handle.bl {
+    left: -9px;
+    bottom: -9px;
+    cursor: nesw-resize;
+}
+
+.handle.br {
+    right: -9px;
+    bottom: -9px;
+    cursor: nwse-resize;
+}
+
+/* ================= CONTROLS ================= */
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.control-btn {
+    border: 0;
+    background: #9aaec0;
+    color: #fff;
+    min-width: 180px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.control-btn:hover {
+    background: #8399ad;
+}
+
+.control-btn.primary {
+    background: #1769aa;
+}
+
+.control-btn.primary:hover {
+    background: #12598f;
+}
+
+.control-btn:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+/* ================= DOWNLOAD ================= */
+
+.download-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 9px;
+}
+
+.download-btn {
+    border: 0;
+    background: #1769aa;
+    color: #fff;
+    padding: 13px 30px;
+    border-radius: 10px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.download-btn:hover {
+    background: #12598f;
+}
+
+.download-btn:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+/* ================= RATIO ================= */
+
+.ratio-area {
+    text-align: center;
+    margin-top: 9px;
+}
+
+.ratio-select {
+    width: 205px;
+    height: 42px;
+    border: 1px solid #c9c9c9;
+    border-radius: 7px;
+    padding: 0 12px;
+    font-size: 17px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.ratio-label {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 15px;
+}
+
+/* ================= MESSAGE ================= */
+
+.status-message {
+    text-align: center;
+    margin-top: 14px;
+    min-height: 22px;
+    font-size: 15px;
+    color: #1769aa;
+    font-weight: 600;
+}
+
+/* ================= LARGE TABLET ================= */
+
+@media(max-width:1300px) {
+    .tool-layout {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tool-card {
+        grid-column: 1 / -1;
+        order: -1;
+        width: 100%;
+    }
+}
+
+/* ================= TABLET ================= */
+
+@media(max-width:950px) {
+    .header {
+        height: auto;
+        min-height: 80px;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    .logo {
+        min-width: auto;
+    }
+
+    .weblixa-logo {
+        width: 180px;
+        height: 52px;
+    }
+
+    .header-button {
+        margin-left: auto;
+    }
+
+    .tool-header h1 {
+        font-size: 44px;
+    }
+
+    .tool-header p {
+        font-size: 17px;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px) {
+    .tool-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .main {
+        padding: 35px 12px 70px;
+    }
+
+    .tool-header {
+        padding: 27px 15px;
+    }
+
+    .tool-header h1 {
+        font-size: 36px;
+    }
+
+    .tool-header p {
+        font-size: 16px;
+    }
+
+    .tool-body {
+        padding: 20px 15px;
+    }
+
+    .upload-box {
+        height: 270px;
+    }
+
+    .upload-title {
+        font-size: 25px;
+    }
+
+    .upload-subtitle {
+        font-size: 17px;
+    }
+
+    .choose-btn {
+        font-size: 17px;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .control-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .get-started {
+        padding: 11px 16px;
+        font-size: 14px;
+    }
+
+    .weblixa-logo {
+        width: 155px;
+        height: auto;
+    }
+
+    #previewImage {
+        max-height: 330px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="logo">
+        <svg
+            width="180"
+            height="52"
+            viewBox="0 0 180 52"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="weblixa-logo"
+            aria-label="Weblixa logo"
+            role="img"
+        >
+            <defs>
+                <linearGradient
+                    id="weblixaGradient"
+                    x1="4"
+                    y1="4"
+                    x2="44"
+                    y2="48"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop offset="0" stop-color="#2563EB"/>
+                    <stop offset="0.5" stop-color="#7C3AED"/>
+                    <stop offset="1" stop-color="#06B6D4"/>
+                </linearGradient>
+            </defs>
+
+            <path
+                d="M6 9L15 38L25 14L35 38L44 9"
+                stroke="url(#weblixaGradient)"
+                stroke-width="8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+
+            <text
+                x="58"
+                y="35"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="27"
+                font-weight="700"
+                fill="#102A56"
+            >Weblixa</text>
+        </svg>
+    </div>
+
+    <!-- Navigation menu removed as requested -->
+
+    <div class="header-button">
+        <button
+            class="get-started"
+            type="button"
+            id="getStartedBtn"
+        >
+            Get Started
+        </button>
+    </div>
+
+</header>
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+<div class="tool-layout">
+
+<aside class="side-box">
+    <h2>Crop Details</h2>
+    <div class="insight"><span>Original</span><strong id="detOriginal">-</strong></div>
+    <div class="insight"><span>Crop Area</span><strong id="detCrop">-</strong></div>
+    <div class="insight"><span>Output</span><strong>PNG</strong></div>
+    <div class="insight"><span>Status</span><strong id="detStatus">Waiting</strong></div>
+</aside>
+
+<section class="tool-card">
+
+    <div class="tool-header">
+        <div class="tool-label">Weblixa Image Tools</div>
+        <h1>Image <span>Cropper</span></h1>
+        <p>Crop your image easily. Fast, free and easy to use.</p>
+    </div>
+
+    <div class="tool-body">
+
+        <!-- UPLOAD -->
+
+        <div class="upload-box" id="uploadBox">
+            <div class="upload-content">
+                <div class="upload-icon">⇧</div>
+
+                <div class="upload-title">
+                    Upload Your Image
+                </div>
+
+                <div class="upload-subtitle">
+                    Drag &amp; Drop your image here or
+                </div>
+
+                <button
+                    class="choose-btn"
+                    type="button"
+                    id="chooseBtn"
+                >
+                    ▣ &nbsp; Choose Image
+                </button>
+            </div>
+        </div>
+
+        <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+        >
+
+        <!-- PREVIEW -->
+
+        <div class="preview-area" id="previewArea">
+            <div class="image-workspace" id="imageWorkspace">
+
+                <img
+                    id="previewImage"
+                    alt="Selected Image"
+                >
+
+                <div class="crop-box" id="cropBox">
+                    <div class="handle tl" data-handle="tl"></div>
+                    <div class="handle tr" data-handle="tr"></div>
+                    <div class="handle bl" data-handle="bl"></div>
+                    <div class="handle br" data-handle="br"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- BUTTONS -->
+
+        <div class="controls">
+            <button
+                class="control-btn primary"
+                id="cropBtn"
+                type="button"
+                disabled
+            >
+                Crop
+            </button>
+
+            <button
+                class="control-btn"
+                id="ratioBtn"
+                type="button"
+                disabled
+            >
+                Crop by Ratio
+            </button>
+        </div>
+
+        <!-- DOWNLOAD -->
+
+        <div class="download-row">
+            <button
+                class="download-btn"
+                id="downloadBtn"
+                type="button"
+                disabled
+            >
+                ⇩ &nbsp; Download
+            </button>
+        </div>
+
+        <!-- RATIO -->
+
+        <div class="ratio-area">
+            <select class="ratio-select" id="ratioSelect">
+                <option value="16:9">16:9</option>
+                <option value="1:1">1:1</option>
+                <option value="4:3">4:3</option>
+                <option value="3:2">3:2</option>
+                <option value="3:4">3:4</option>
+                <option value="9:16">9:16</option>
+            </select>
+
+            <div class="ratio-label">
+                Set Crop Area (Optional)
+            </div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+
+    </div>
+</section>
+
+<aside class="side-box">
+    <h2>How to Crop</h2>
+    <div class="tip">Drag the crop box to move it over the area you want.</div>
+    <div class="tip">Drag the corner handles to resize the crop area.</div>
+    <div class="tip">Pick a ratio like 16:9 or 1:1 for a fixed shape.</div>
+    <div class="tip">Press Crop, then Download your image.</div>
+</aside>
+
+</div>
+
+</main>
+
+<footer class="footer">
+    © 2026 Weblixa. All rights reserved.
+</footer>
+
+<script>
+"use strict";
+
+/* ================= ELEMENTS ================= */
+
+const fileInput = document.getElementById("fileInput");
+const uploadBox = document.getElementById("uploadBox");
+const chooseBtn = document.getElementById("chooseBtn");
+const previewArea = document.getElementById("previewArea");
+const previewImage = document.getElementById("previewImage");
+const imageWorkspace = document.getElementById("imageWorkspace");
+const cropBox = document.getElementById("cropBox");
+const cropBtn = document.getElementById("cropBtn");
+const ratioBtn = document.getElementById("ratioBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const ratioSelect = document.getElementById("ratioSelect");
+const getStartedBtn = document.getElementById("getStartedBtn");
+const statusMessage = document.getElementById("statusMessage");
+
+/* ================= VARIABLES ================= */
+
+let originalImage = null;
+let croppedCanvas = null;
+let loadingOriginalPreview = false;
+
+let isDragging = false;
+let isResizing = false;
+let activeHandle = null;
+
+let startX = 0;
+let startY = 0;
+let startLeft = 0;
+let startTop = 0;
+let startWidth = 0;
+let startHeight = 0;
+
+const MIN_SIZE = 40;
+
+/* ================= STATUS ================= */
+
+function showStatus(message) {
+    statusMessage.textContent = message;
+}
+
+/* ================= CHOOSE IMAGE ================= */
+
+chooseBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    fileInput.click();
+});
+
+/* ================= UPLOAD BOX CLICK ================= */
+
+uploadBox.addEventListener("click", function(event) {
+    if (event.target === chooseBtn) {
+        return;
+    }
+    fileInput.click();
+});
+
+/* ================= FILE INPUT ================= */
+
+fileInput.addEventListener("change", function() {
+    const file = fileInput.files && fileInput.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    loadImage(file);
+    fileInput.value = "";
+});
+
+/* ================= LOAD IMAGE ================= */
+
+function loadImage(file) {
+    if (!file.type.startsWith("image/")) {
+        alert("Please select a valid image.");
+        return;
+    }
+
+    showStatus("Loading image...");
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const image = new Image();
+
+        image.onload = function() {
+            originalImage = image;
+
+            previewImage.onload = function() {
+                if (!loadingOriginalPreview) {
+                    return;
+                }
+
+                loadingOriginalPreview = false;
+                previewArea.classList.add("show");
+                cropBox.classList.add("active");
+                cropBtn.disabled = false;
+                ratioBtn.disabled = false;
+                downloadBtn.disabled = true;
+                croppedCanvas = null;
+
+                requestAnimationFrame(function() {
+                    resetCropBox();
+                    showStatus("Image loaded. Select the area you want to crop.");
+                });
+            };
+
+            loadingOriginalPreview = true;
+            previewImage.src = event.target.result;
+        };
+
+        image.onerror = function() {
+            alert("Unable to load this image.");
+            showStatus("");
+        };
+
+        image.src = event.target.result;
+    };
+
+    reader.onerror = function() {
+        alert("Unable to read this file.");
+    };
+
+    reader.readAsDataURL(file);
+}
+
+/* ================= DRAG & DROP ================= */
+
+uploadBox.addEventListener("dragenter", function(event) {
+    event.preventDefault();
+    uploadBox.classList.add("dragging");
+});
+
+uploadBox.addEventListener("dragover", function(event) {
+    event.preventDefault();
+    uploadBox.classList.add("dragging");
+});
+
+uploadBox.addEventListener("dragleave", function(event) {
+    event.preventDefault();
+    uploadBox.classList.remove("dragging");
+});
+
+uploadBox.addEventListener("drop", function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    uploadBox.classList.remove("dragging");
+
+    const files = event.dataTransfer.files;
+
+    if (!files || !files.length) {
+        return;
+    }
+
+    loadImage(files[0]);
+});
+
+/* ================= RESET CROP BOX ================= */
+
+function resetCropBox() {
+    const workspaceWidth = imageWorkspace.clientWidth;
+    const workspaceHeight = imageWorkspace.clientHeight;
+
+    if (!workspaceWidth || !workspaceHeight) {
+        return;
+    }
+
+    const width = workspaceWidth * 0.80;
+    const height = workspaceHeight * 0.80;
+    const left = (workspaceWidth - width) / 2;
+    const top = (workspaceHeight - height) / 2;
+
+    cropBox.style.left = left + "px";
+    cropBox.style.top = top + "px";
+    cropBox.style.width = width + "px";
+    cropBox.style.height = height + "px";
+    cropBox.classList.add("active");
+}
+
+/* ================= DRAG CROP BOX ================= */
+
+cropBox.addEventListener("pointerdown", function(event) {
+    if (event.target.classList.contains("handle")) {
+        return;
+    }
+
+    if (!originalImage) {
+        return;
+    }
+
+    event.preventDefault();
+
+    isDragging = true;
+    startX = event.clientX;
+    startY = event.clientY;
+    startLeft = cropBox.offsetLeft;
+    startTop = cropBox.offsetTop;
+
+    cropBox.setPointerCapture(event.pointerId);
+});
+
+cropBox.addEventListener("pointermove", function(event) {
+    if (!isDragging) {
+        return;
+    }
+
+    const workspaceWidth = imageWorkspace.clientWidth;
+    const workspaceHeight = imageWorkspace.clientHeight;
+
+    let newLeft = startLeft + (event.clientX - startX);
+    let newTop = startTop + (event.clientY - startY);
+
+    const maxLeft = workspaceWidth - cropBox.offsetWidth;
+    const maxTop = workspaceHeight - cropBox.offsetHeight;
+
+    newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+    newTop = Math.max(0, Math.min(newTop, maxTop));
+
+    cropBox.style.left = newLeft + "px";
+    cropBox.style.top = newTop + "px";
+});
+
+cropBox.addEventListener("pointerup", function() {
+    isDragging = false;
+});
+
+cropBox.addEventListener("pointercancel", function() {
+    isDragging = false;
+});
+
+/* ================= HANDLE RESIZE ================= */
+
+document.querySelectorAll(".handle").forEach(function(handle) {
+    handle.addEventListener("pointerdown", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!originalImage) {
+            return;
+        }
+
+        isResizing = true;
+        activeHandle = handle.dataset.handle;
+
+        startX = event.clientX;
+        startY = event.clientY;
+        startLeft = cropBox.offsetLeft;
+        startTop = cropBox.offsetTop;
+        startWidth = cropBox.offsetWidth;
+        startHeight = cropBox.offsetHeight;
+
+        handle.setPointerCapture(event.pointerId);
+    });
+
+    handle.addEventListener("pointermove", function(event) {
+        if (!isResizing) {
+            return;
+        }
+        resizeCropBox(event);
+    });
+
+    handle.addEventListener("pointerup", function() {
+        isResizing = false;
+        activeHandle = null;
+    });
+
+    handle.addEventListener("pointercancel", function() {
+        isResizing = false;
+        activeHandle = null;
+    });
+});
+
+/* ================= NORMAL RESIZE ================= */
+
+function resizeCropBox(event) {
+    const workspaceWidth = imageWorkspace.clientWidth;
+    const workspaceHeight = imageWorkspace.clientHeight;
+
+    const dx = event.clientX - startX;
+    const dy = event.clientY - startY;
+
+    let left = startLeft;
+    let top = startTop;
+    let width = startWidth;
+    let height = startHeight;
+
+    if (activeHandle === "tl") {
+        left = startLeft + dx;
+        top = startTop + dy;
+        width = startWidth - dx;
+        height = startHeight - dy;
+    }
+
+    if (activeHandle === "tr") {
+        top = startTop + dy;
+        width = startWidth + dx;
+        height = startHeight - dy;
+    }
+
+    if (activeHandle === "bl") {
+        left = startLeft + dx;
+        width = startWidth - dx;
+        height = startHeight + dy;
+    }
+
+    if (activeHandle === "br") {
+        width = startWidth + dx;
+        height = startHeight + dy;
+    }
+
+    if (width < MIN_SIZE) {
+        if (activeHandle === "tl" || activeHandle === "bl") {
+            left = startLeft + startWidth - MIN_SIZE;
+        }
+        width = MIN_SIZE;
+    }
+
+    if (height < MIN_SIZE) {
+        if (activeHandle === "tl" || activeHandle === "tr") {
+            top = startTop + startHeight - MIN_SIZE;
+        }
+        height = MIN_SIZE;
+    }
+
+    if (left < 0) {
+        width += left;
+        left = 0;
+    }
+
+    if (top < 0) {
+        height += top;
+        top = 0;
+    }
+
+    if (left + width > workspaceWidth) {
+        width = workspaceWidth - left;
+    }
+
+    if (top + height > workspaceHeight) {
+        height = workspaceHeight - top;
+    }
+
+    width = Math.max(MIN_SIZE, width);
+    height = Math.max(MIN_SIZE, height);
+
+    cropBox.style.left = left + "px";
+    cropBox.style.top = top + "px";
+    cropBox.style.width = width + "px";
+    cropBox.style.height = height + "px";
+}
+
+/* ================= RATIO CALCULATION ================= */
+
+function getRatio() {
+    const value = ratioSelect.value;
+    const parts = value.split(":");
+
+    return {
+        width: parseFloat(parts[0]),
+        height: parseFloat(parts[1])
+    };
+}
+
+/* ================= APPLY RATIO ================= */
+
+function applyRatio() {
+    if (!originalImage) {
+        return;
+    }
+
+    const ratio = getRatio();
+    const workspaceWidth = imageWorkspace.clientWidth;
+    const workspaceHeight = imageWorkspace.clientHeight;
+
+    if (!workspaceWidth || !workspaceHeight) {
+        return;
+    }
+
+    const targetRatio = ratio.width / ratio.height;
+
+    let boxWidth = workspaceWidth * 0.80;
+    let boxHeight = boxWidth / targetRatio;
+
+    if (boxHeight > workspaceHeight * 0.80) {
+        boxHeight = workspaceHeight * 0.80;
+        boxWidth = boxHeight * targetRatio;
+    }
+
+    if (boxWidth > workspaceWidth) {
+        boxWidth = workspaceWidth * 0.80;
+        boxHeight = boxWidth / targetRatio;
+    }
+
+    if (boxHeight > workspaceHeight) {
+        boxHeight = workspaceHeight * 0.80;
+        boxWidth = boxHeight * targetRatio;
+    }
+
+    const left = (workspaceWidth - boxWidth) / 2;
+    const top = (workspaceHeight - boxHeight) / 2;
+
+    cropBox.style.left = left + "px";
+    cropBox.style.top = top + "px";
+    cropBox.style.width = boxWidth + "px";
+    cropBox.style.height = boxHeight + "px";
+
+    cropBox.classList.add("active");
+
+    showStatus("Crop area set to " + ratioSelect.value + " ratio.");
+}
+
+/* ================= RATIO BUTTON ================= */
+
+ratioBtn.addEventListener("click", function() {
+    applyRatio();
+});
+
+/* ================= RATIO SELECT ================= */
+
+ratioSelect.addEventListener("change", function() {
+    applyRatio();
+});
+
+/* ================= CROP ================= */
+
+cropBtn.addEventListener("click", function() {
+    if (!originalImage) {
+        return;
+    }
+
+    if (!cropBox.classList.contains("active")) {
+        return;
+    }
+
+    const displayedWidth = previewImage.clientWidth;
+    const displayedHeight = previewImage.clientHeight;
+
+    if (!displayedWidth || !displayedHeight) {
+        return;
+    }
+
+    const scaleX = originalImage.naturalWidth / displayedWidth;
+    const scaleY = originalImage.naturalHeight / displayedHeight;
+
+    const sourceX = cropBox.offsetLeft * scaleX;
+    const sourceY = cropBox.offsetTop * scaleY;
+    const sourceWidth = cropBox.offsetWidth * scaleX;
+    const sourceHeight = cropBox.offsetHeight * scaleY;
+
+    const canvas = document.createElement("canvas");
+
+    canvas.width = Math.max(1, Math.round(sourceWidth));
+    canvas.height = Math.max(1, Math.round(sourceHeight));
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+        originalImage,
+        sourceX,
+        sourceY,
+        sourceWidth,
+        sourceHeight,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    croppedCanvas = canvas;
+
+    previewImage.src = canvas.toDataURL("image/png");
+
+    cropBox.classList.remove("active");
+    downloadBtn.disabled = false;
+
+    showStatus("Image cropped successfully.");
+});
+
+/* ================= DOWNLOAD ================= */
+
+downloadBtn.addEventListener("click", function() {
+    if (!croppedCanvas) {
+        showStatus("Please crop the image first.");
+        return;
+    }
+
+    croppedCanvas.toBlob(function(blob) {
+        if (!blob) {
+            showStatus("Unable to download image.");
+            return;
+        }
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "weblixa-cropped-image.png";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setTimeout(function() {
+            URL.revokeObjectURL(url);
+        }, 1000);
+
+        showStatus("Image downloaded successfully.");
+    }, "image/png");
+});
+
+/* ================= GET STARTED ================= */
+
+getStartedBtn.addEventListener("click", function() {
+    window.location.href = "../../index.html#popular-tools";
+});
+
+/* ================= SIDE BOX DETAILS ================= */
+
+const detOriginal = document.getElementById("detOriginal");
+const detCrop = document.getElementById("detCrop");
+const detStatus = document.getElementById("detStatus");
+
+function updateDetails() {
+    if (!originalImage) {
+        detOriginal.textContent = "-";
+        detCrop.textContent = "-";
+        detStatus.textContent = "Waiting";
+        return;
+    }
+
+    detOriginal.textContent =
+        originalImage.naturalWidth + " x " + originalImage.naturalHeight;
+
+    if (croppedCanvas) {
+        detCrop.textContent =
+            croppedCanvas.width + " x " + croppedCanvas.height;
+        detStatus.textContent = "Cropped";
+        return;
+    }
+
+    const displayedWidth = previewImage.clientWidth;
+    const displayedHeight = previewImage.clientHeight;
+
+    if (displayedWidth && displayedHeight && cropBox.classList.contains("active")) {
+        const w = Math.round(cropBox.offsetWidth * originalImage.naturalWidth / displayedWidth);
+        const h = Math.round(cropBox.offsetHeight * originalImage.naturalHeight / displayedHeight);
+        detCrop.textContent = w + " x " + h;
+    }
+
+    detStatus.textContent = "Select area";
+}
+
+new MutationObserver(updateDetails).observe(cropBox, {
+    attributes: true,
+    attributeFilter: ["style", "class"]
+});
+
+previewImage.addEventListener("load", updateDetails);
+
+cropBtn.addEventListener("click", updateDetails);
+</script>
+
+</body>
+</html>

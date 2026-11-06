@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Rotate - Weblixa</title>
+<meta name="description" content="Rotate PDF pages easily with Weblixa.">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, Helvetica, sans-serif; background: #f5f7fb; color: #1f2937; min-height: 100vh; }
+header { background: #ffffff; border-bottom: 1px solid #e5e7eb; padding: 18px 20px; }
+.header-inner { max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; }
+.logo { text-decoration: none; display: inline-flex; align-items: center; }
+.logo svg { width: 180px; height: 52px; display: block; }
+.back-link { text-decoration: none; color: #374151; font-size: 15px; font-weight: 600; }
+.back-link:hover { color: #2563eb; }
+main { max-width: 900px; margin: 45px auto; padding: 0 20px; }
+.tool-header { text-align: center; margin-bottom: 30px; }
+.tool-label { display: inline-block; margin-bottom: 14px; padding: 6px 14px; border-radius: 999px; background: #eff6ff; color: #1d4ed8; font-size: 14px; font-weight: 700; }
+.tool-header h1 { font-size: 34px; margin-bottom: 10px; color: #111827; }
+.tool-header h1 span { color: #2563eb; }
+.tool-header p { color: #6b7280; font-size: 16px; line-height: 1.6; }
+.tool-box { background: #ffffff; border-radius: 16px; padding: 30px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
+.upload-area { border: 2px dashed #cbd5e1; border-radius: 14px; padding: 45px 20px; text-align: center; cursor: pointer; transition: 0.2s ease; background: #f8fafc; }
+.upload-area:hover, .upload-area.dragover { border-color: #2563eb; background: #eff6ff; }
+.upload-icon { font-size: 48px; margin-bottom: 15px; }
+.upload-area h2 { font-size: 20px; margin-bottom: 8px; color: #111827; }
+.upload-area p { color: #6b7280; margin-bottom: 18px; }
+.upload-button { display: inline-block; background: #2563eb; color: #ffffff; padding: 12px 22px; border-radius: 8px; font-weight: 600; }
+#fileInput { display: none; }
+.file-info { display: none; margin-top: 25px; padding: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; line-height: 1.7; }
+.controls { display: none; margin-top: 25px; }
+.controls h3 { margin-bottom: 15px; color: #111827; }
+.rotation-buttons { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.rotation-buttons button { background: #eef2ff; color: #3730a3; }
+.rotation-buttons button:hover { background: #e0e7ff; }
+.action-buttons { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 25px; }
+button { border: none; cursor: pointer; padding: 12px 22px; border-radius: 8px; font-size: 15px; font-weight: 600; transition: 0.2s ease; }
+.rotate-btn { background: #2563eb; color: #ffffff; }
+.rotate-btn:hover { background: #1d4ed8; }
+.rotate-btn:disabled { background: #93c5fd; cursor: not-allowed; }
+.reset-btn { background: #e5e7eb; color: #374151; }
+.reset-btn:hover { background: #d1d5db; }
+.download-btn { display: none; background: #16a34a; color: #ffffff; }
+.download-btn:hover { background: #15803d; }
+.status { display: none; margin-top: 20px; padding: 14px; border-radius: 8px; text-align: center; font-size: 14px; line-height: 1.5; }
+.success { background: #dcfce7; color: #166534; }
+.error { background: #fee2e2; color: #991b1b; }
+.info { background: #eff6ff; color: #1e40af; }
+.info-box { margin-top: 30px; padding: 18px; background: #eff6ff; border-left: 4px solid #2563eb; border-radius: 8px; }
+.info-box h3 { margin-bottom: 8px; color: #1e40af; }
+.info-box p { color: #374151; font-size: 14px; line-height: 1.6; }
+footer { text-align: center; padding: 30px 20px; color: #6b7280; font-size: 14px; }
+@media (max-width: 600px) {
+  header { padding: 12px 15px; }
+  .logo svg { width: 145px; height: auto; }
+  .back-link { font-size: 14px; }
+  main { margin: 25px auto; }
+  .tool-box { padding: 20px; }
+  .tool-header h1 { font-size: 28px; }
+  .upload-area { padding: 35px 15px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg width="180" height="52" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="weblixaGradient" x1="4" y1="4" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#2563EB"/>
+            <stop offset="0.5" stop-color="#7C3AED"/>
+            <stop offset="1" stop-color="#06B6D4"/>
+          </linearGradient>
+        </defs>
+        <path d="M6 9L15 38L25 14L35 38L44 9" stroke="url(#weblixaGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="58" y="35" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#102A56">Weblixa</text>
+      </svg>
+    </a>
+    <a href="../../index.html" class="back-link">← Back to Home</a>
+  </div>
+</header>
+
+<main>
+  <div class="tool-header">
+    <div class="tool-label">Weblixa PDF Tool</div>
+    <h1>Rotate <span>PDF</span></h1>
+    <p>Rotate every page of your PDF clockwise or counterclockwise.</p>
+  </div>
+
+  <div class="tool-box">
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">🔄</div>
+      <h2>Select a PDF File</h2>
+      <p>Upload the PDF you want to rotate</p>
+      <span class="upload-button">Choose PDF</span>
+      <input type="file" id="fileInput" accept="application/pdf">
+    </div>
+
+    <div class="file-info" id="fileInfo">
+      <strong>File:</strong> <span id="fileName"></span><br>
+      <strong>Size:</strong> <span id="fileSize"></span><br>
+      <strong>Total Pages:</strong> <span id="pageCount"></span>
+    </div>
+
+    <div class="controls" id="controls">
+      <h3>Choose Rotation</h3>
+      <div class="rotation-buttons">
+        <button type="button" id="leftBtn">↺ Rotate Left 90°</button>
+        <button type="button" id="rightBtn">↻ Rotate Right 90°</button>
+        <button type="button" id="upsideBtn">Rotate 180°</button>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button type="button" class="rotate-btn" id="applyBtn" disabled>Apply Rotation</button>
+      <button type="button" class="reset-btn" id="resetBtn">Clear</button>
+      <button type="button" class="download-btn" id="downloadBtn">Download PDF</button>
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div class="info-box">
+      <h3>How it works</h3>
+      <p>Upload your PDF, choose a rotation angle, and apply it. The rotation will be applied to all pages of the PDF.</p>
+    </div>
+  </div>
+</main>
+
+<footer>© 2026 Weblixa. All rights reserved.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+<script>
+const uploadArea = document.getElementById("uploadArea");
+const fileInput = document.getElementById("fileInput");
+const fileInfo = document.getElementById("fileInfo");
+const fileName = document.getElementById("fileName");
+const fileSize = document.getElementById("fileSize");
+const pageCount = document.getElementById("pageCount");
+const controls = document.getElementById("controls");
+const leftBtn = document.getElementById("leftBtn");
+const rightBtn = document.getElementById("rightBtn");
+const upsideBtn = document.getElementById("upsideBtn");
+const applyBtn = document.getElementById("applyBtn");
+const resetBtn = document.getElementById("resetBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const statusBox = document.getElementById("status");
+
+let selectedFile = null;
+let rotation = 0;
+let downloadUrl = null;
+
+uploadArea.addEventListener("click", function () {
+  fileInput.click();
+});
+
+fileInput.addEventListener("change", function () {
+  if (this.files.length > 0) loadPdf(this.files[0]);
+});
+
+uploadArea.addEventListener("dragover", function (event) {
+  event.preventDefault();
+  uploadArea.classList.add("dragover");
+});
+
+uploadArea.addEventListener("dragleave", function () {
+  uploadArea.classList.remove("dragover");
+});
+
+uploadArea.addEventListener("drop", function (event) {
+  event.preventDefault();
+  uploadArea.classList.remove("dragover");
+
+  if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+    const droppedFile = event.dataTransfer.files[0];
+
+    if (droppedFile.type === "application/pdf" || droppedFile.name.toLowerCase().endsWith(".pdf")) {
+      loadPdf(droppedFile);
+    } else {
+      showStatus("Please upload a valid PDF file.", "error");
+    }
+  }
+});
+
+function formatBytes(bytes) {
+  if (!bytes) return "0 Bytes";
+
+  const units = ["Bytes", "KB", "MB", "GB"];
+  const index = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+  const value = bytes / Math.pow(1024, index);
+
+  return `${value.toFixed(value >= 10 || index === 0 ? 0 : 1)} ${units[index]}`;
+}
+
+function showStatus(message, type = "info") {
+  statusBox.textContent = message;
+  statusBox.className = `status ${type}`;
+  statusBox.style.display = "block";
+}
+
+function resetSelection() {
+  selectedFile = null;
+  rotation = 0;
+
+  if (downloadUrl) {
+    URL.revokeObjectURL(downloadUrl);
+    downloadUrl = null;
+  }
+
+  fileInput.value = "";
+  fileInfo.style.display = "none";
+  controls.style.display = "none";
+  applyBtn.disabled = true;
+  downloadBtn.style.display = "none";
+  downloadBtn.onclick = null;
+  statusBox.style.display = "none";
+  fileName.textContent = "";
+  fileSize.textContent = "";
+  pageCount.textContent = "";
+
+  updateButtons();
+}
+
+function updateButtons() {
+  [leftBtn, rightBtn, upsideBtn].forEach(function (btn) {
+    btn.style.background = "#eef2ff";
+    btn.style.color = "#3730a3";
+  });
+
+  let active = null;
+  if (rotation === 270) active = leftBtn;
+  else if (rotation === 90) active = rightBtn;
+  else if (rotation === 180) active = upsideBtn;
+
+  if (active) {
+    active.style.background = "#2563eb";
+    active.style.color = "#ffffff";
+  }
+}
+
+leftBtn.addEventListener("click", function () {
+  rotation = (rotation - 90 + 360) % 360;
+  updateButtons();
+  showStatus(`Rotation set to ${rotation}°`, "info");
+  applyBtn.disabled = false;
+});
+
+rightBtn.addEventListener("click", function () {
+  rotation = (rotation + 90) % 360;
+  updateButtons();
+  showStatus(`Rotation set to ${rotation}°`, "info");
+  applyBtn.disabled = false;
+});
+
+upsideBtn.addEventListener("click", function () {
+  rotation = 180;
+  updateButtons();
+  showStatus("Rotation set to 180°", "info");
+  applyBtn.disabled = false;
+});
+
+function loadPdf(file) {
+  if (!file) {
+    showStatus("Please select a PDF file.", "error");
+    return;
+  }
+
+  if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+    showStatus("Please select a valid PDF file.", "error");
+    return;
+  }
+
+  if (downloadUrl) {
+    URL.revokeObjectURL(downloadUrl);
+    downloadUrl = null;
+  }
+
+  selectedFile = file;
+  rotation = 0;
+
+  fileName.textContent = file.name;
+  fileSize.textContent = formatBytes(file.size);
+  fileInfo.style.display = "block";
+  controls.style.display = "block";
+  applyBtn.disabled = false;
+  downloadBtn.style.display = "none";
+  downloadBtn.onclick = null;
+  statusBox.style.display = "none";
+
+  const reader = new FileReader();
+
+  reader.onload = async function () {
+    try {
+      const pdfDoc = await PDFLib.PDFDocument.load(reader.result);
+      pageCount.textContent = String(pdfDoc.getPageCount());
+      showStatus("PDF loaded successfully. Choose a rotation and apply it.", "success");
+      updateButtons();
+    } catch (error) {
+      showStatus("Unable to read the PDF. Please try another file.", "error");
+    }
+  };
+
+  reader.readAsArrayBuffer(file);
+}
+
+applyBtn.addEventListener("click", async function () {
+  if (!selectedFile) {
+    showStatus("Please upload a PDF before applying rotation.", "error");
+    return;
+  }
+
+  if (rotation === 0) {
+    showStatus("Please choose a rotation angle first.", "error");
+    return;
+  }
+
+  applyBtn.disabled = true;
+  showStatus("Applying rotation to PDF...", "info");
+
+  try {
+    const fileBytes = await selectedFile.arrayBuffer();
+    const pdfDoc = await PDFLib.PDFDocument.load(fileBytes);
+    const pages = pdfDoc.getPages();
+
+    for (const page of pages) {
+      // add to the page's existing rotation instead of replacing it
+      const current = page.getRotation().angle;
+      page.setRotation(PDFLib.degrees((current + rotation) % 360));
+    }
+
+    const pdfBytes = await pdfDoc.save();
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+
+    if (downloadUrl) URL.revokeObjectURL(downloadUrl);
+    downloadUrl = URL.createObjectURL(blob);
+
+    downloadBtn.style.display = "inline-block";
+
+    downloadBtn.onclick = function () {
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = selectedFile.name.replace(/\.pdf$/i, "") + "-rotated.pdf";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    };
+
+    showStatus("Rotation applied successfully. You can now download the PDF.", "success");
+  } catch (error) {
+    showStatus("An error occurred while rotating the PDF. Please try again.", "error");
+  } finally {
+    applyBtn.disabled = false;
+  }
+});
+
+resetBtn.addEventListener("click", function () {
+  resetSelection();
+  showStatus("Selection cleared.", "info");
+});
+
+updateButtons();
+</script>
+
+</body>
+</html>

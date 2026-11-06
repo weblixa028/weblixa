@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Password Generator - Weblixa</title>
+<meta name="description" content="Generate strong random passwords with Weblixa Password Generator.">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, Helvetica, sans-serif; background: #f5f7fb; color: #1f2937; min-height: 100vh; }
+header { background: #ffffff; border-bottom: 1px solid #e5e7eb; padding: 18px 20px; }
+.header-inner { max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.logo { text-decoration: none; color: #111827; font-size: 25px; font-weight: 800; display: flex; align-items: center; }
+.logo svg { width: 180px; height: 52px; display: block; }
+.back-link { text-decoration: none; color: #2563eb; font-weight: 600; }
+.container { width: 92%; max-width: 850px; margin: 45px auto; }
+.title { text-align: center; font-size: 32px; margin-bottom: 10px; color: #111827; }
+.title span { color: #2563eb; }
+.subtitle { text-align: center; color: #6b7280; margin-bottom: 30px; }
+.tool-box { background: #ffffff; border-radius: 16px; padding: 30px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
+.password-row { display: flex; gap: 8px; margin-bottom: 25px; }
+.password-input { flex: 1; min-width: 0; padding: 13px; border: 1px solid #d1d5db; border-radius: 9px; font-size: 17px; font-family: monospace; outline: none; }
+.password-input:focus { border-color: #2563eb; }
+.copy-btn { border: none; background: #2563eb; color: #ffffff; padding: 0 18px; border-radius: 9px; cursor: pointer; font-weight: 700; }
+.copy-btn:hover { background: #1d4ed8; }
+.length-row { margin-bottom: 22px; }
+.length-top { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.length-value { font-weight: 700; color: #2563eb; }
+input[type="range"] { width: 100%; cursor: pointer; }
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.option { border: 1px solid #e5e7eb; border-radius: 9px; padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.option:hover { background: #f8fafc; }
+.option input { width: 17px; height: 17px; cursor: pointer; }
+.option label { cursor: pointer; font-weight: 600; }
+.generate-btn { width: 100%; margin-top: 25px; border: none; border-radius: 9px; padding: 13px; background: #2563eb; color: #ffffff; font-size: 16px; font-weight: 700; cursor: pointer; }
+.generate-btn:hover { background: #1d4ed8; }
+.strength { margin-top: 20px; }
+.strength-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+.strength-bar { width: 100%; height: 8px; background: #e5e7eb; border-radius: 20px; overflow: hidden; }
+.strength-fill { height: 100%; width: 0%; transition: 0.3s; }
+.info-box { margin-top: 25px; background: #f8fafc; border-left: 4px solid #2563eb; padding: 15px; border-radius: 8px; color: #475569; line-height: 1.6; font-size: 14px; }
+.status { display: none; margin-top: 15px; padding: 11px; border-radius: 8px; text-align: center; }
+footer { text-align: center; color: #6b7280; padding: 30px 20px; font-size: 14px; }
+@media (max-width: 650px) {
+  .container { width: 94%; margin: 30px auto; }
+  .tool-box { padding: 20px; }
+  .title { font-size: 27px; }
+  .password-row { flex-direction: column; }
+  .copy-btn { padding: 12px; }
+  .options { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="../../index.html">
+      <svg width="180" height="52" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="weblixaGradient" x1="4" y1="4" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#2563EB"/>
+            <stop offset="0.5" stop-color="#7C3AED"/>
+            <stop offset="1" stop-color="#06B6D4"/>
+          </linearGradient>
+        </defs>
+        <path d="M6 9L15 38L25 14L35 38L44 9" stroke="url(#weblixaGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="58" y="35" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#102A56">Weblixa</text>
+      </svg>
+    </a>
+    <a class="back-link" href="../../index.html">← Back to Home</a>
+  </div>
+</header>
+
+<main class="container">
+  <h1 class="title">Password <span>Generator</span></h1>
+  <p class="subtitle">Generate strong random passwords instantly.</p>
+
+  <section class="tool-box">
+    <div class="password-row">
+      <input type="text" id="password" class="password-input" readonly placeholder="Your password will appear here">
+      <button type="button" class="copy-btn" id="copyBtn">Copy</button>
+    </div>
+
+    <div class="length-row">
+      <div class="length-top">
+        <strong>Password Length</strong>
+        <span class="length-value" id="lengthValue">16</span>
+      </div>
+      <input type="range" id="length" min="6" max="64" value="16">
+    </div>
+
+    <div class="options">
+      <div class="option">
+        <input type="checkbox" id="uppercase" checked>
+        <label for="uppercase">Uppercase Letters</label>
+      </div>
+      <div class="option">
+        <input type="checkbox" id="lowercase" checked>
+        <label for="lowercase">Lowercase Letters</label>
+      </div>
+      <div class="option">
+        <input type="checkbox" id="numbers" checked>
+        <label for="numbers">Numbers</label>
+      </div>
+      <div class="option">
+        <input type="checkbox" id="symbols" checked>
+        <label for="symbols">Symbols</label>
+      </div>
+    </div>
+
+    <button type="button" class="generate-btn" id="generateBtn">Generate Password</button>
+
+    <div class="strength">
+      <div class="strength-label">
+        <span>Password Strength</span>
+        <strong id="strengthText">-</strong>
+      </div>
+      <div class="strength-bar">
+        <div class="strength-fill" id="strengthFill"></div>
+      </div>
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div class="info-box">
+      <strong>Security:</strong><br>
+      Passwords are generated directly in your browser.<br>
+      Weblixa does not send your generated password to a server.<br>
+      For better security, use a unique password for every account.
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 Weblixa. All rights reserved.</footer>
+
+<script>
+const passwordInput = document.getElementById("password");
+const lengthInput = document.getElementById("length");
+const lengthValue = document.getElementById("lengthValue");
+const uppercase = document.getElementById("uppercase");
+const lowercase = document.getElementById("lowercase");
+const numbers = document.getElementById("numbers");
+const symbols = document.getElementById("symbols");
+const generateBtn = document.getElementById("generateBtn");
+const copyBtn = document.getElementById("copyBtn");
+const strengthText = document.getElementById("strengthText");
+const strengthFill = document.getElementById("strengthFill");
+const statusBox = document.getElementById("status");
+
+lengthInput.addEventListener("input", function () {
+  lengthValue.textContent = lengthInput.value;
+});
+
+generateBtn.addEventListener("click", generatePassword);
+
+copyBtn.addEventListener("click", async function () {
+  if (!passwordInput.value) {
+    showStatus("Generate a password first.", true);
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(passwordInput.value);
+    showStatus("Password copied to clipboard.", false);
+  } catch (error) {
+    passwordInput.select();
+    document.execCommand("copy");
+    showStatus("Password copied.", false);
+  }
+});
+
+function generatePassword() {
+  let characters = "";
+  let required = "";
+
+  if (uppercase.checked) {
+    characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    required += getSecureRandomCharacter("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  }
+
+  if (lowercase.checked) {
+    characters += "abcdefghijklmnopqrstuvwxyz";
+    required += getSecureRandomCharacter("abcdefghijklmnopqrstuvwxyz");
+  }
+
+  if (numbers.checked) {
+    characters += "0123456789";
+    required += getSecureRandomCharacter("0123456789");
+  }
+
+  if (symbols.checked) {
+    characters += "!@#$%^&*()-_=+[]{};:,.?";
+    required += getSecureRandomCharacter("!@#$%^&*()-_=+[]{};:,.?");
+  }
+
+  if (!characters) {
+    showStatus("Please select at least one character type.", true);
+    return;
+  }
+
+  const length = parseInt(lengthInput.value, 10);
+  let password = required;
+
+  while (password.length < length) {
+    password += getSecureRandomCharacter(characters);
+  }
+
+  password = shuffleSecurely(password);
+  passwordInput.value = password;
+  updateStrength(password, characters);
+  statusBox.style.display = "none";
+}
+
+function getSecureRandomCharacter(characters) {
+  const array = new Uint32Array(1);
+  crypto.getRandomValues(array);
+  return characters[array[0] % characters.length];
+}
+
+function shuffleSecurely(value) {
+  const array = value.split("");
+
+  for (let i = array.length - 1; i > 0; i--) {
+    const random = new Uint32Array(1);
+    crypto.getRandomValues(random);
+    const j = random[0] % (i + 1);
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array.join("");
+}
+
+function updateStrength(password, characters) {
+  let score = 0;
+
+  if (password.length >= 8) score++;
+  if (password.length >= 12) score++;
+  if (password.length >= 16) score++;
+  if (characters.length >= 50) score++;
+
+  if (score <= 1) {
+    strengthText.textContent = "Weak";
+    strengthFill.style.width = "25%";
+  } else if (score === 2) {
+    strengthText.textContent = "Medium";
+    strengthFill.style.width = "50%";
+  } else if (score === 3) {
+    strengthText.textContent = "Strong";
+    strengthFill.style.width = "75%";
+  } else {
+    strengthText.textContent = "Very Strong";
+    strengthFill.style.width = "100%";
+  }
+}
+
+function showStatus(message, isError) {
+  statusBox.textContent = message;
+  statusBox.style.display = "block";
+  statusBox.style.background = isError ? "#fee2e2" : "#eff6ff";
+  statusBox.style.color = isError ? "#991b1b" : "#1e40af";
+}
+
+generatePassword();
+</script>
+
+</body>
+</html>

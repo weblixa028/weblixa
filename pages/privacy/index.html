@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Privacy Policy - Weblixa</title>
+
+<meta name="description"
+      content="Weblixa Privacy Policy.">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    color:#102a56;
+    background:#fff;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font-family:inherit;
+}
+
+.container{
+    width:min(1340px,calc(100% - 80px));
+    margin:auto;
+}
+
+.site-header{
+    height:64px;
+    background:#fff;
+    border-bottom:1px solid #e5edf7;
+    position:relative;
+    z-index:20;
+}
+
+.header-inner{
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    min-width:180px;
+}
+
+.brand-logo{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.brand-logo-svg{
+    width:180px;
+    height:52px;
+    display:block;
+}
+
+.main-nav{
+    display:flex;
+    align-items:stretch;
+    height:64px;
+    gap:2px;
+}
+
+.nav-link{
+    position:relative;
+    height:64px;
+    padding:0 21px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:14px;
+    color:#172d51;
+    white-space:nowrap;
+}
+
+.nav-link span{
+    font-size:17px;
+    font-weight:700;
+}
+
+.nav-link:hover{
+    color:#1670e8;
+}
+
+.nav-link.active{
+    color:#096fe5;
+}
+
+.nav-link.active::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:10px;
+    right:10px;
+    height:4px;
+    border-radius:5px 5px 0 0;
+    background:#1678ef;
+}
+
+.header-actions{
+    min-width:180px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:23px;
+}
+
+.theme-button{
+    border:0;
+    background:transparent;
+    color:#10264d;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.get-started{
+    background:linear-gradient(135deg,#1878ed,#1264df);
+    color:#fff;
+    padding:11px 22px;
+    border-radius:9px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 5px 15px rgba(23,112,231,.20);
+}
+
+.page-hero{
+    min-height:230px;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #fff 0%,
+            #f2f9ff 62%,
+            #e9f5ff 100%
+        );
+    border-bottom:1px solid #edf4fb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.page-hero::before{
+    content:"";
+    position:absolute;
+    width:410px;
+    height:250px;
+    left:-130px;
+    top:20px;
+    background:rgba(188,222,252,.27);
+    border-radius:55% 45% 60% 40%;
+    transform:rotate(-12deg);
+}
+
+.page-hero::after{
+    content:"";
+    position:absolute;
+    width:390px;
+    height:250px;
+    right:-100px;
+    top:-30px;
+    background:rgba(196,226,251,.28);
+    border-radius:50%;
+    transform:rotate(18deg);
+}
+
+.page-hero-content{
+    position:relative;
+    z-index:3;
+}
+
+.page-hero h1{
+    font-size:44px;
+    line-height:1.1;
+    color:#102957;
+    font-weight:800;
+}
+
+.page-hero p{
+    margin-top:12px;
+    color:#526985;
+    font-size:16px;
+}
+
+.content-section{
+    padding:40px 0 50px;
+    background:#fff;
+}
+
+.content-box{
+    max-width:900px;
+    margin:auto;
+}
+
+.content-box h2{
+    font-size:24px;
+    color:#102957;
+    margin-bottom:12px;
+}
+
+.content-box h3{
+    font-size:17px;
+    color:#102957;
+    margin-top:28px;
+    margin-bottom:8px;
+}
+
+.content-box p{
+    color:#657992;
+    font-size:14px;
+    line-height:1.7;
+    margin-bottom:16px;
+}
+
+.site-footer{
+    background:#122744;
+    color:#fff;
+    padding:18px 0;
+}
+
+.footer-inner{
+    min-height:54px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.footer-brand{
+    display:flex;
+    align-items:center;
+    gap:17px;
+}
+
+.footer-brand-svg{
+    width:150px;
+    height:auto;
+    display:block;
+}
+
+.footer-brand p{
+    color:#c8d4e4;
+    font-size:10px;
+}
+
+.footer-links{
+    display:flex;
+    align-items:center;
+    gap:24px;
+}
+
+.footer-links a{
+    color:#d7e0ed;
+    font-size:10px;
+}
+
+@media(max-width:850px){
+
+    .site-header,
+    .header-inner{
+        height:auto;
+    }
+
+    .header-inner{
+        padding:12px 0;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    .main-nav{
+        order:3;
+        width:100%;
+        height:auto;
+        overflow-x:auto;
+        justify-content:center;
+    }
+
+    .nav-link{
+        height:42px;
+    }
+
+    .header-actions{
+        min-width:auto;
+    }
+
+}
+
+@media(max-width:560px){
+
+    .container{
+        width:calc(100% - 28px);
+    }
+
+    .brand{
+        min-width:auto;
+    }
+
+    .brand-logo-svg{
+        width:145px;
+        height:auto;
+    }
+
+    .header-actions{
+        gap:10px;
+    }
+
+    .get-started{
+        padding:9px 13px;
+        font-size:11px;
+    }
+
+    .main-nav{
+        justify-content:flex-start;
+    }
+
+    .nav-link{
+        padding:0 10px;
+        font-size:12px;
+    }
+
+    .page-hero h1{
+        font-size:36px;
+    }
+
+    .page-hero p{
+        font-size:14px;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .footer-links{
+        flex-wrap:wrap;
+        gap:15px;
+    }
+
+    .footer-brand-svg{
+        width:130px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+<div class="container header-inner">
+
+<a href="../../index.html" class="brand">
+
+<svg
+    class="brand-logo-svg"
+    width="180"
+    height="52"
+    viewBox="0 0 180 52"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+<defs>
+
+<linearGradient
+    id="weblixaGradient"
+    x1="4"
+    y1="4"
+    x2="44"
+    y2="48"
+    gradientUnits="userSpaceOnUse"
+>
+
+<stop offset="0" stop-color="#2563EB"/>
+<stop offset="0.5" stop-color="#7C3AED"/>
+<stop offset="1" stop-color="#06B6D4"/>
+
+</linearGradient>
+
+</defs>
+
+<path
+    d="M6 9L15 38L25 14L35 38L44 9"
+    stroke="url(#weblixaGradient)"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+/>
+
+<text
+    x="58"
+    y="35"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="27"
+    font-weight="700"
+    fill="#102A56"
+>
+Weblixa
+</text>
+
+</svg>
+
+</a>
+
+<nav class="main-nav">
+
+<a href="../../index.html" class="nav-link">
+<span>⌂</span>
+Home
+</a>
+
+<a href="../../index.html#popular-tools" class="nav-link">
+<span>▧</span>
+Image Tools
+</a>
+
+<a href="../../index.html#pdf-tools" class="nav-link">
+<span>▤</span>
+PDF Tools
+</a>
+
+<a href="../../index.html#text-tools" class="nav-link">
+<span>T</span>
+Text Tools
+</a>
+
+<a href="../../index.html" class="nav-link">
+<span>⊞</span>
+More Tools
+</a>
+
+</nav>
+
+<div class="header-actions">
+
+<button class="theme-button" type="button">
+☾
+</button>
+
+<a href="../../index.html#popular-tools" class="get-started">
+Get Started
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+<section class="page-hero">
+
+<div class="page-hero-content">
+
+<h1>Privacy Policy</h1>
+
+<p>
+Your privacy matters to Weblixa.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="content-section">
+
+<div class="container">
+
+<div class="content-box">
+
+<h2>
+Privacy Policy
+</h2>
+
+<p>
+Weblixa is designed to provide simple online tools for everyday digital tasks.
+</p>
+
+<h3>
+Information
+</h3>
+
+<p>
+Weblixa aims to keep the use of its online tools simple and convenient. Any information submitted through a tool should only be used for the purpose of providing that tool's functionality.
+</p>
+
+<h3>
+Files
+</h3>
+
+<p>
+When you use a tool that works with files, the files are used to perform the requested task.
+</p>
+
+<h3>
+Changes
+</h3>
+
+<p>
+This Privacy Policy may be updated in the future as Weblixa develops new features and services.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer class="site-footer">
+
+<div class="container footer-inner">
+
+<div class="footer-brand">
+
+<svg
+    class="footer-brand-svg"
+    width="150"
+    viewBox="0 0 180 52"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+<path
+    d="M6 9L15 38L25 14L35 38L44 9"
+    stroke="#2563EB"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+/>
+
+<text
+    x="58"
+    y="35"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="27"
+    font-weight="700"
+    fill="#FFFFFF"
+>
+Weblixa
+</text>
+
+</svg>
+
+<p>
+Simple tools. Fast results.
+</p>
+
+</div>
+
+<div class="footer-links">
+
+<a href="../about/index.html">About</a>
+
+<a href="index.html">Privacy</a>
+
+<a href="../terms/index.html">Terms</a>
+
+<a href="../contact/index.html">Contact</a>
+
+</div>
+
+</div>
+
+</footer>
+
+</body>
+</html>

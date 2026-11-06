@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Split - Weblixa</title>
+<meta name="description" content="Split PDF pages into a separate PDF file with Weblixa.">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, Helvetica, sans-serif; background: #f5f7fb; color: #1f2937; min-height: 100vh; }
+header { background: #ffffff; border-bottom: 1px solid #e5e7eb; padding: 18px 20px; }
+.header-inner { max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; }
+.logo { text-decoration: none; display: inline-flex; align-items: center; }
+.logo svg { width: 180px; height: 52px; display: block; }
+.back-link { text-decoration: none; color: #374151; font-size: 15px; font-weight: 600; }
+.back-link:hover { color: #2563eb; }
+main { max-width: 900px; margin: 45px auto; padding: 0 20px; }
+.tool-header { text-align: center; margin-bottom: 30px; }
+.tool-label { display: inline-block; margin-bottom: 14px; padding: 6px 14px; border-radius: 999px; background: #eff6ff; color: #1d4ed8; font-size: 14px; font-weight: 700; }
+.tool-header h1 { font-size: 34px; margin-bottom: 10px; color: #111827; }
+.tool-header h1 span { color: #2563eb; }
+.tool-header p { color: #6b7280; font-size: 16px; line-height: 1.6; }
+.tool-box { background: #ffffff; border-radius: 16px; padding: 30px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
+.upload-area { border: 2px dashed #cbd5e1; border-radius: 14px; padding: 45px 20px; text-align: center; cursor: pointer; transition: 0.2s ease; background: #f8fafc; }
+.upload-area:hover, .upload-area.dragover { border-color: #2563eb; background: #eff6ff; }
+.upload-icon { font-size: 48px; margin-bottom: 15px; }
+.upload-area h2 { font-size: 20px; margin-bottom: 8px; color: #111827; }
+.upload-area p { color: #6b7280; margin-bottom: 18px; }
+.upload-button { display: inline-block; background: #2563eb; color: #ffffff; padding: 12px 22px; border-radius: 8px; font-weight: 600; }
+#fileInput { display: none; }
+.file-info { display: none; margin-top: 25px; padding: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; line-height: 1.7; }
+.page-controls { display: none; margin-top: 25px; }
+.page-controls h3 { margin-bottom: 10px; color: #111827; }
+.page-controls p { color: #6b7280; font-size: 14px; margin-bottom: 15px; }
+.page-input { width: 100%; padding: 13px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; outline: none; }
+.page-input:focus { border-color: #2563eb; }
+.example { margin-top: 8px; color: #6b7280; font-size: 13px; }
+.action-buttons { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 25px; }
+button { border: none; cursor: pointer; padding: 12px 22px; border-radius: 8px; font-size: 15px; font-weight: 600; transition: 0.2s ease; }
+.split-btn { background: #2563eb; color: #ffffff; }
+.split-btn:hover { background: #1d4ed8; }
+.split-btn:disabled { background: #93c5fd; cursor: not-allowed; }
+.reset-btn { background: #e5e7eb; color: #374151; }
+.reset-btn:hover { background: #d1d5db; }
+.download-btn { display: none; background: #16a34a; color: #ffffff; }
+.download-btn:hover { background: #15803d; }
+.status { display: none; margin-top: 20px; padding: 14px; border-radius: 8px; text-align: center; font-size: 14px; line-height: 1.5; }
+.success { background: #dcfce7; color: #166534; }
+.error { background: #fee2e2; color: #991b1b; }
+.info-box { margin-top: 30px; padding: 18px; background: #eff6ff; border-left: 4px solid #2563eb; border-radius: 8px; }
+.info-box h3 { margin-bottom: 8px; color: #1e40af; }
+.info-box p { color: #374151; font-size: 14px; line-height: 1.6; }
+footer { text-align: center; padding: 30px 20px; color: #6b7280; font-size: 14px; }
+@media (max-width: 600px) {
+  main { margin: 25px auto; }
+  .tool-box { padding: 20px; }
+  .tool-header h1 { font-size: 28px; }
+  .upload-area { padding: 35px 15px; }
+  .logo svg { width: 145px; height: auto; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg width="180" height="52" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="weblixaGradient" x1="4" y1="4" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#2563EB"/>
+            <stop offset="0.5" stop-color="#7C3AED"/>
+            <stop offset="1" stop-color="#06B6D4"/>
+          </linearGradient>
+        </defs>
+        <path d="M6 9L15 38L25 14L35 38L44 9" stroke="url(#weblixaGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="58" y="35" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#102A56">Weblixa</text>
+      </svg>
+    </a>
+    <a href="../../index.html" class="back-link">← Back to Home</a>
+  </div>
+</header>
+
+<main>
+  <div class="tool-header">
+    <div class="tool-label">Weblixa PDF Tool</div>
+    <h1>Split <span>PDF</span></h1>
+    <p>Extract selected pages from a PDF and create a new PDF file.</p>
+  </div>
+
+  <div class="tool-box">
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📑</div>
+      <h2>Select a PDF File</h2>
+      <p>Upload the PDF you want to split</p>
+      <span class="upload-button">Choose PDF</span>
+      <input type="file" id="fileInput" accept="application/pdf">
+    </div>
+
+    <div class="file-info" id="fileInfo">
+      <strong>File:</strong> <span id="fileName"></span><br>
+      <strong>Size:</strong> <span id="fileSize"></span><br>
+      <strong>Total Pages:</strong> <span id="pageCount"></span>
+    </div>
+
+    <div class="page-controls" id="pageControls">
+      <h3>Select Pages</h3>
+      <p>Enter page numbers separated by commas. You can also enter ranges.</p>
+      <input type="text" id="pageInput" class="page-input" placeholder="Example: 1, 3, 5-7">
+      <div class="example">Example: 1, 3, 5-7 means pages 1, 3, 5, 6 and 7.</div>
+    </div>
+
+    <div class="action-buttons">
+      <button type="button" class="split-btn" id="splitBtn" disabled>Split PDF</button>
+      <button type="button" class="reset-btn" id="resetBtn">Clear</button>
+      <button type="button" class="download-btn" id="downloadBtn">Download PDF</button>
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div class="info-box">
+      <h3>Privacy Friendly</h3>
+      <p>Your PDF is processed in your browser. No PDF file needs to be uploaded to an external server.</p>
+    </div>
+  </div>
+</main>
+
+<footer>© 2026 Weblixa. All rights reserved.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+<script>
+const uploadArea = document.getElementById("uploadArea");
+const fileInput = document.getElementById("fileInput");
+const fileInfo = document.getElementById("fileInfo");
+const fileName = document.getElementById("fileName");
+const fileSize = document.getElementById("fileSize");
+const pageCount = document.getElementById("pageCount");
+const pageControls = document.getElementById("pageControls");
+const pageInput = document.getElementById("pageInput");
+const splitBtn = document.getElementById("splitBtn");
+const resetBtn = document.getElementById("resetBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const statusBox = document.getElementById("status");
+
+let selectedFile = null;
+let totalPages = 0;
+let downloadUrl = null;
+
+uploadArea.addEventListener("click", function () {
+  fileInput.click();
+});
+
+fileInput.addEventListener("change", function () {
+  if (this.files.length > 0) loadPdf(this.files[0]);
+});
+
+uploadArea.addEventListener("dragover", function (event) {
+  event.preventDefault();
+  uploadArea.classList.add("dragover");
+});
+
+uploadArea.addEventListener("dragleave", function () {
+  uploadArea.classList.remove("dragover");
+});
+
+uploadArea.addEventListener("drop", function (event) {
+  event.preventDefault();
+  uploadArea.classList.remove("dragover");
+  if (event.dataTransfer.files.length > 0) loadPdf(event.dataTransfer.files[0]);
+});
+
+async function loadPdf(file) {
+  if (file.type !== "application/pdf") {
+    showStatus("Please select a valid PDF file.", "error");
+    return;
+  }
+
+  try {
+    selectedFile = file;
+
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+    totalPages = pdf.getPageCount();
+
+    fileName.textContent = file.name;
+    fileSize.textContent = formatBytes(file.size);
+    pageCount.textContent = totalPages;
+
+    fileInfo.style.display = "block";
+    pageControls.style.display = "block";
+    splitBtn.disabled = false;
+    downloadBtn.style.display = "none";
+    statusBox.style.display = "none";
+  } catch (error) {
+    console.error(error);
+    showStatus("Could not read this PDF file.", "error");
+  }
+}
+
+splitBtn.addEventListener("click", async function () {
+  if (!selectedFile) return;
+
+  const pageText = pageInput.value.trim();
+
+  if (!pageText) {
+    showStatus("Please enter the page numbers you want to extract.", "error");
+    return;
+  }
+
+  let pages;
+
+  try {
+    pages = parsePages(pageText, totalPages);
+  } catch (error) {
+    showStatus(error.message, "error");
+    return;
+  }
+
+  if (pages.length === 0) {
+    showStatus("Please enter at least one valid page number.", "error");
+    return;
+  }
+
+  splitBtn.disabled = true;
+  splitBtn.textContent = "Splitting...";
+
+  try {
+    const arrayBuffer = await selectedFile.arrayBuffer();
+    const sourcePdf = await PDFLib.PDFDocument.load(arrayBuffer);
+    const newPdf = await PDFLib.PDFDocument.create();
+
+    const pageIndexes = pages.map(function (page) {
+      return page - 1;
+    });
+
+    const copiedPages = await newPdf.copyPages(sourcePdf, pageIndexes);
+    copiedPages.forEach(function (page) {
+      newPdf.addPage(page);
+    });
+
+    const pdfBytes = await newPdf.save();
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+
+    if (downloadUrl) URL.revokeObjectURL(downloadUrl);
+    downloadUrl = URL.createObjectURL(blob);
+
+    downloadBtn.style.display = "inline-block";
+    showStatus("PDF split successfully. Your selected pages are ready.", "success");
+  } catch (error) {
+    console.error(error);
+    showStatus("Could not split this PDF. Please make sure the file is valid.", "error");
+  }
+
+  splitBtn.disabled = false;
+  splitBtn.textContent = "Split PDF";
+});
+
+downloadBtn.addEventListener("click", function () {
+  if (!downloadUrl) return;
+
+  const link = document.createElement("a");
+  link.href = downloadUrl;
+  link.download = "weblixa-split.pdf";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
+
+resetBtn.addEventListener("click", resetTool);
+
+function resetTool() {
+  selectedFile = null;
+  totalPages = 0;
+  fileInput.value = "";
+  pageInput.value = "";
+
+  fileInfo.style.display = "none";
+  pageControls.style.display = "none";
+  splitBtn.disabled = true;
+  downloadBtn.style.display = "none";
+  statusBox.style.display = "none";
+
+  if (downloadUrl) {
+    URL.revokeObjectURL(downloadUrl);
+    downloadUrl = null;
+  }
+}
+
+function parsePages(input, maxPage) {
+  const result = [];
+  const parts = input.split(",");
+
+  for (const part of parts) {
+    const value = part.trim();
+    if (!value) continue;
+
+    if (value.includes("-")) {
+      const range = value.split("-");
+
+      if (range.length !== 2) {
+        throw new Error("Invalid page range: " + value);
+      }
+
+      const start = parseInt(range[0].trim(), 10);
+      const end = parseInt(range[1].trim(), 10);
+
+      if (isNaN(start) || isNaN(end) || start < 1 || end < 1 || start > end || end > maxPage) {
+        throw new Error("Invalid page range: " + value);
+      }
+
+      for (let i = start; i <= end; i++) {
+        if (!result.includes(i)) result.push(i);
+      }
+    } else {
+      const page = parseInt(value, 10);
+
+      if (isNaN(page) || page < 1 || page > maxPage) {
+        throw new Error("Invalid page number: " + value);
+      }
+
+      if (!result.includes(page)) result.push(page);
+    }
+  }
+
+  return result;
+}
+
+function showStatus(message, type) {
+  statusBox.textContent = message;
+  statusBox.className = "status " + type;
+  statusBox.style.display = "block";
+}
+
+function formatBytes(bytes) {
+  if (bytes === 0) return "0 Bytes";
+
+  const units = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+
+  return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + " " + units[i];
+}
+</script>
+
+</body>
+</html>

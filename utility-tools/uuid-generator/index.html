@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UUID Generator - Weblixa</title>
+    <meta name="description" content="Generate secure UUID v4 identifiers instantly with Weblixa UUID Generator.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 20px;
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: #111827;
+            font-size: 26px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo svg {
+            width: 180px;
+            height: 52px;
+            display: block;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 1280px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tool-label {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #2563eb;
+            margin-bottom: 14px;
+        }
+
+        .tool-header h1 {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            color: #1a1a24;
+            margin-bottom: 14px;
+        }
+
+        .tool-header h1 span {
+            color: #1d6fdc;
+        }
+
+        .tool-header p {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            color: #6b7280;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .tool-layout {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr) 230px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .side-box {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .side-box h2 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 14px;
+        }
+
+        .insight {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .insight:last-child {
+            border-bottom: none;
+        }
+
+        .insight span {
+            color: #6b7280;
+        }
+
+        .insight strong {
+            color: #111827;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .tip {
+            padding: 9px 12px;
+            margin-bottom: 8px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #374151;
+        }
+
+        .tip:last-child {
+            margin-bottom: 0;
+        }
+
+        .tool-box {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .uuid-display {
+            width: 100%;
+            min-height: 90px;
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            word-break: break-all;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 22px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 22px;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 13px 22px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #ffffff;
+            background: #2563eb;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .copy-btn {
+            background: #374151;
+        }
+
+        .clear-btn {
+            background: #ef4444;
+        }
+
+        .info-box {
+            margin-top: 25px;
+            padding: 18px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            color: #1e40af;
+            line-height: 1.6;
+        }
+
+        .history {
+            margin-top: 25px;
+        }
+
+        .history h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .history-item {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1100px) {
+            .tool-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .tool-box {
+                grid-column: 1 / -1;
+                order: -1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tool-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .header-inner {
+                flex-direction: column;
+            }
+
+            main {
+                margin-top: 30px;
+            }
+
+            .tool-box {
+                padding: 20px;
+            }
+
+            .tool-header h1 {
+                font-size: 40px;
+            }
+
+            .uuid-display {
+                font-size: 17px;
+                min-height: 80px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <a href="../../index.html" class="logo">
+
+            <svg width="180" height="52" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="weblixaGradient"
+                                    x1="4"
+                                    y1="4"
+                                    x2="44"
+                                    y2="48"
+                                    gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#2563EB"/>
+                        <stop offset="0.5" stop-color="#7C3AED"/>
+                        <stop offset="1" stop-color="#06B6D4"/>
+                    </linearGradient>
+                </defs>
+
+                <path
+                    d="M6 9L15 38L25 14L35 38L44 9"
+                    stroke="url(#weblixaGradient)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+                <text
+                    x="58"
+                    y="35"
+                    font-family="Arial, Helvetica, sans-serif"
+                    font-size="27"
+                    font-weight="700"
+                    fill="#102A56">
+                    Weblixa
+                </text>
+            </svg>
+
+        </a>
+
+        <a href="../../index.html" class="back-link">
+            ← Back to Home
+        </a>
+
+    </div>
+</header>
+
+
+<main>
+
+    <div class="tool-header">
+
+        <div class="tool-label">Weblixa Developer Tools</div>
+
+        <h1>UUID <span>Generator</span></h1>
+
+        <p>
+            Generate random UUID v4 identifiers instantly.
+        </p>
+
+    </div>
+
+
+    <div class="tool-layout">
+
+    <div class="side-box">
+        <h2>UUID Details</h2>
+        <div class="insight"><span>Version</span><strong id="detVersion">-</strong></div>
+        <div class="insight"><span>Length</span><strong id="detLength">-</strong></div>
+        <div class="insight"><span>Format</span><strong id="detFormat">-</strong></div>
+        <div class="insight"><span>Generated</span><strong id="detTotal">0</strong></div>
+    </div>
+
+
+    <div class="tool-box">
+
+        <div class="uuid-display" id="uuidDisplay">
+            Click Generate UUID
+        </div>
+
+
+        <div class="buttons">
+
+            <button id="generateBtn">
+                Generate UUID
+            </button>
+
+            <button class="copy-btn" id="copyBtn">
+                Copy UUID
+            </button>
+
+            <button class="clear-btn" id="clearBtn">
+                Clear
+            </button>
+
+        </div>
+
+
+        <div class="info-box" id="status">
+            UUID v4 values are generated directly in your browser.
+        </div>
+
+
+        <div class="history">
+
+            <h2>Recent UUIDs</h2>
+
+            <div class="history-list" id="historyList">
+                <div class="history-item">
+                    No UUIDs generated yet.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="side-box">
+        <h2>About UUID v4</h2>
+        <div class="tip">Built from 122 random bits, so collisions are practically impossible.</div>
+        <div class="tip">Safe to use as database IDs, file names and API keys.</div>
+        <div class="tip">Generated locally in your browser. Nothing is sent to a server.</div>
+    </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+    © 2026 Weblixa. All rights reserved.
+</footer>
+
+
+<script>
+
+    const uuidDisplay =
+        document.getElementById("uuidDisplay");
+
+    const generateBtn =
+        document.getElementById("generateBtn");
+
+    const copyBtn =
+        document.getElementById("copyBtn");
+
+    const clearBtn =
+        document.getElementById("clearBtn");
+
+    const status =
+        document.getElementById("status");
+
+    const historyList =
+        document.getElementById("historyList");
+
+    const detVersion =
+        document.getElementById("detVersion");
+
+    const detLength =
+        document.getElementById("detLength");
+
+    const detFormat =
+        document.getElementById("detFormat");
+
+    const detTotal =
+        document.getElementById("detTotal");
+
+
+    let currentUUID = "";
+
+    let uuidHistory = [];
+
+    let totalGenerated = 0;
+
+
+    function updateDetails() {
+
+        detTotal.textContent = totalGenerated;
+
+        if (!currentUUID || currentUUID.length !== 36) {
+
+            detVersion.textContent = "-";
+            detLength.textContent = "-";
+            detFormat.textContent = "-";
+
+            return;
+        }
+
+        detVersion.textContent = "v" + currentUUID.charAt(14);
+        detLength.textContent = currentUUID.length + " chars";
+        detFormat.textContent = "8-4-4-4-12";
+    }
+
+
+    function generateUUID() {
+
+        if (
+            window.crypto &&
+            typeof window.crypto.randomUUID === "function"
+        ) {
+
+            return window.crypto.randomUUID();
+
+        }
+
+
+        if (
+            window.crypto &&
+            window.crypto.getRandomValues
+        ) {
+
+            const bytes =
+                new Uint8Array(16);
+
+            window.crypto.getRandomValues(bytes);
+
+
+            bytes[6] =
+                (bytes[6] & 0x0f) | 0x40;
+
+            bytes[8] =
+                (bytes[8] & 0x3f) | 0x80;
+
+
+            const hex =
+                Array.from(bytes, function(byte) {
+
+                    return byte
+                        .toString(16)
+                        .padStart(2, "0");
+
+                });
+
+
+            return (
+                hex.slice(0, 4).join("") +
+                "-" +
+                hex.slice(4, 6).join("") +
+                "-" +
+                hex.slice(6, 8).join("") +
+                "-" +
+                hex.slice(8, 10).join("") +
+                "-" +
+                hex.slice(10, 16).join("")
+            );
+
+        }
+
+
+        return "UUID generation is not supported by this browser.";
+    }
+
+
+    function addToHistory(uuid) {
+
+        uuidHistory.unshift(uuid);
+
+        if (uuidHistory.length > 10) {
+            uuidHistory.pop();
+        }
+
+
+        historyList.innerHTML = "";
+
+
+        uuidHistory.forEach(function(item) {
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "history-item";
+
+            div.textContent =
+                item;
+
+            historyList.appendChild(div);
+
+        });
+
+    }
+
+
+    generateBtn.addEventListener(
+        "click",
+        function() {
+
+            currentUUID =
+                generateUUID();
+
+            uuidDisplay.textContent =
+                currentUUID;
+
+            addToHistory(currentUUID);
+
+            totalGenerated++;
+
+            updateDetails();
+
+            status.textContent =
+                "New UUID v4 generated successfully.";
+
+        }
+    );
+
+
+    copyBtn.addEventListener(
+        "click",
+        async function() {
+
+            if (!currentUUID) {
+
+                status.textContent =
+                    "Generate a UUID first.";
+
+                return;
+            }
+
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    currentUUID
+                );
+
+                status.textContent =
+                    "UUID copied successfully.";
+
+            } catch (error) {
+
+                const temp =
+                    document.createElement("textarea");
+
+                temp.value =
+                    currentUUID;
+
+                document.body.appendChild(temp);
+
+                temp.select();
+
+                document.execCommand("copy");
+
+                temp.remove();
+
+                status.textContent =
+                    "UUID copied successfully.";
+            }
+
+        }
+    );
+
+
+    clearBtn.addEventListener(
+        "click",
+        function() {
+
+            currentUUID = "";
+
+            uuidDisplay.textContent =
+                "Click Generate UUID";
+
+            uuidHistory = [];
+
+            totalGenerated = 0;
+
+            updateDetails();
+
+            historyList.innerHTML =
+                '<div class="history-item">No UUIDs generated yet.</div>';
+
+            status.textContent =
+                "UUID generator cleared.";
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

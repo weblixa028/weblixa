@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Image Metadata Remover - Weblixa</title>
+
+    <meta
+        name="description"
+        content="Remove metadata from images quickly and securely in your browser with Weblixa."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 20px;
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 26px;
+            font-weight: 700;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo svg {
+            width: 180px;
+            height: 52px;
+            display: block;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #374151;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+
+        main {
+            max-width: 1280px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tool-label {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #2563eb;
+            margin-bottom: 14px;
+        }
+
+        .tool-header h1 {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+            color: #1a1a24;
+        }
+
+        .tool-header h1 span {
+            color: #1d6fdc;
+        }
+
+        .tool-header p {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            color: #6b7280;
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .tool-layout {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr) 230px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .side-box {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .side-box h2 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 14px;
+        }
+
+        .insight {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .insight:last-child {
+            border-bottom: none;
+        }
+
+        .insight span {
+            color: #6b7280;
+        }
+
+        .insight strong {
+            color: #111827;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .removed-item {
+            padding: 9px 12px;
+            margin-bottom: 8px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #374151;
+        }
+
+        .removed-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .tool-box {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 14px;
+            padding: 45px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s ease;
+            background: #f8fafc;
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .upload-area h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #111827;
+        }
+
+        .upload-area p {
+            color: #6b7280;
+            margin-bottom: 18px;
+        }
+
+        .upload-button {
+            display: inline-block;
+            background: #2563eb;
+            color: #ffffff;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .file-info {
+            display: none;
+            margin-top: 25px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .file-info strong {
+            color: #111827;
+        }
+
+        .preview-container {
+            display: none;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .preview-container h3 {
+            margin-bottom: 15px;
+        }
+
+        #previewImage {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            object-fit: contain;
+        }
+
+        .controls {
+            display: none;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .controls label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        #formatSelect {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #ffffff;
+            font-size: 15px;
+            outline: none;
+        }
+
+        #formatSelect:focus {
+            border-color: #2563eb;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .remove-btn {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .remove-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .reset-btn {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .reset-btn:hover {
+            background: #d1d5db;
+        }
+
+        .download-btn {
+            display: none;
+            background: #16a34a;
+            color: #ffffff;
+        }
+
+        .download-btn:hover {
+            background: #15803d;
+        }
+
+        .status {
+            display: none;
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .info-box {
+            margin-top: 30px;
+            padding: 18px;
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            border-radius: 8px;
+        }
+
+        .info-box h3 {
+            margin-bottom: 8px;
+            color: #1e40af;
+        }
+
+        .info-box p {
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1100px) {
+
+            .tool-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .tool-box {
+                grid-column: 1 / -1;
+                order: -1;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .tool-layout {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                margin: 25px auto;
+            }
+
+            .tool-box {
+                padding: 20px;
+            }
+
+            .tool-header h1 {
+                font-size: 40px;
+            }
+
+            .upload-area {
+                padding: 35px 15px;
+            }
+
+            .header-inner {
+                gap: 15px;
+            }
+
+            .logo svg {
+                width: 180px;
+                height: 52px;
+            }
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <!-- Weblixa Logo -->
+
+        <a
+            href="../../index.html"
+            class="logo"
+        >
+
+            <svg
+                width="180"
+                height="52"
+                viewBox="0 0 180 52"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+
+                    <linearGradient
+                        id="weblixaGradient"
+                        x1="4"
+                        y1="4"
+                        x2="44"
+                        y2="48"
+                        gradientUnits="userSpaceOnUse"
+                    >
+
+                        <stop
+                            offset="0"
+                            stop-color="#2563EB"
+                        />
+
+                        <stop
+                            offset="0.5"
+                            stop-color="#7C3AED"
+                        />
+
+                        <stop
+                            offset="1"
+                            stop-color="#06B6D4"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+                <path
+                    d="M6 9L15 38L25 14L35 38L44 9"
+                    stroke="url(#weblixaGradient)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+                <text
+                    x="58"
+                    y="35"
+                    font-family="Arial, Helvetica, sans-serif"
+                    font-size="27"
+                    font-weight="700"
+                    fill="#102A56"
+                >
+                    Weblixa
+                </text>
+
+            </svg>
+
+        </a>
+
+        <a
+            href="../../index.html"
+            class="back-link"
+        >
+            ← Back to Home
+        </a>
+
+    </div>
+</header>
+
+<main>
+
+    <div class="tool-header">
+
+        <div class="tool-label">Weblixa Image Tools</div>
+
+        <h1>
+            Image Metadata <span>Remover</span>
+        </h1>
+
+        <p>
+            Remove embedded metadata from your image by creating a clean
+            browser-generated copy.
+        </p>
+
+    </div>
+
+
+    <div class="tool-layout">
+
+
+    <div class="side-box">
+
+        <h2>Image Details</h2>
+
+        <div class="insight"><span>Format</span><strong id="detFormat">-</strong></div>
+        <div class="insight"><span>Dimensions</span><strong id="detDimensions">-</strong></div>
+        <div class="insight"><span>File Size</span><strong id="detSize">-</strong></div>
+        <div class="insight"><span>Status</span><strong id="detStatus">Waiting</strong></div>
+
+    </div>
+
+
+    <div class="tool-box">
+
+
+        <div
+            class="upload-area"
+            id="uploadArea"
+        >
+
+            <div class="upload-icon">
+                🧹
+            </div>
+
+            <h2>
+                Upload Your Image
+            </h2>
+
+            <p>
+                JPG, PNG or WebP
+            </p>
+
+            <span class="upload-button">
+                Choose Image
+            </span>
+
+            <input
+                type="file"
+                id="fileInput"
+                accept="image/jpeg,image/png,image/webp"
+            >
+
+        </div>
+
+
+        <div
+            class="file-info"
+            id="fileInfo"
+        >
+
+            <strong>
+                Selected file:
+            </strong>
+
+            <span id="fileName"></span>
+
+            <br>
+
+            <strong>
+                Original size:
+            </strong>
+
+            <span id="fileSize"></span>
+
+        </div>
+
+
+        <div
+            class="preview-container"
+            id="previewContainer"
+        >
+
+            <h3>
+                Image Preview
+            </h3>
+
+            <img
+                id="previewImage"
+                alt="Selected image preview"
+            >
+
+        </div>
+
+
+        <div
+            class="controls"
+            id="controls"
+        >
+
+            <label for="formatSelect">
+                Output Format
+            </label>
+
+            <select id="formatSelect">
+
+                <option value="image/jpeg">
+                    JPG
+                </option>
+
+                <option value="image/png">
+                    PNG
+                </option>
+
+                <option value="image/webp">
+                    WebP
+                </option>
+
+            </select>
+
+
+            <div class="action-buttons">
+
+
+                <button
+                    type="button"
+                    class="remove-btn"
+                    id="removeBtn"
+                >
+                    Remove Metadata
+                </button>
+
+
+                <button
+                    type="button"
+                    class="reset-btn"
+                    id="resetBtn"
+                >
+                    Choose Another
+                </button>
+
+
+                <button
+                    type="button"
+                    class="download-btn"
+                    id="downloadBtn"
+                >
+                    Download Clean Image
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="status"
+            id="status"
+        ></div>
+
+
+        <div class="info-box">
+
+            <h3>
+                Privacy Friendly
+            </h3>
+
+            <p>
+                Your image is processed directly inside your browser.
+                No external API or server is required. The image is
+                re-created through the browser canvas, which removes
+                common embedded metadata such as EXIF information.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="side-box">
+
+        <h2>What Gets Removed</h2>
+
+        <div class="removed-item">GPS location data</div>
+        <div class="removed-item">Camera make and model</div>
+        <div class="removed-item">Date and time taken</div>
+        <div class="removed-item">Software and editing info</div>
+
+    </div>
+
+
+    </div>
+</main>
+
+<footer>
+    © 2026 Weblixa. All rights reserved.
+</footer>
+
+<script>
+
+    const uploadArea =
+        document.getElementById("uploadArea");
+
+    const fileInput =
+        document.getElementById("fileInput");
+
+    const fileInfo =
+        document.getElementById("fileInfo");
+
+    const fileName =
+        document.getElementById("fileName");
+
+    const fileSize =
+        document.getElementById("fileSize");
+
+    const previewContainer =
+        document.getElementById("previewContainer");
+
+    const previewImage =
+        document.getElementById("previewImage");
+
+    const controls =
+        document.getElementById("controls");
+
+    const formatSelect =
+        document.getElementById("formatSelect");
+
+    const removeBtn =
+        document.getElementById("removeBtn");
+
+    const resetBtn =
+        document.getElementById("resetBtn");
+
+    const downloadBtn =
+        document.getElementById("downloadBtn");
+
+    const status =
+        document.getElementById("status");
+
+
+    let selectedFile = null;
+    let downloadUrl = null;
+
+
+    /* =========================================================
+       HELPERS
+       ========================================================= */
+
+    function showStatus(message, type){
+
+        status.textContent = message;
+        status.className = "status " + type;
+        status.style.display = "block";
+
+    }
+
+
+    function formatBytes(bytes){
+
+        if(bytes === 0){
+            return "0 Bytes";
+        }
+
+        const units = ["Bytes", "KB", "MB", "GB"];
+
+        const i = Math.floor(Math.log(bytes) / Math.log(1024));
+
+        const value = bytes / Math.pow(1024, i);
+
+        return value.toFixed(2) + " " + units[i];
+
+    }
+
+
+    function getExtension(mimeType){
+
+        if(mimeType === "image/png"){
+            return "png";
+        }
+
+        if(mimeType === "image/webp"){
+            return "webp";
+        }
+
+        return "jpg";
+
+    }
+
+
+    /* =========================================================
+       UPLOAD
+       ========================================================= */
+
+    uploadArea.addEventListener("click", function(){
+
+        fileInput.click();
+
+    });
+
+
+    fileInput.addEventListener("change", function(){
+
+        if(this.files.length > 0){
+            handleFile(this.files[0]);
+        }
+
+    });
+
+
+    uploadArea.addEventListener("dragover", function(event){
+
+        event.preventDefault();
+        uploadArea.classList.add("dragover");
+
+    });
+
+
+    uploadArea.addEventListener("dragleave", function(){
+
+        uploadArea.classList.remove("dragover");
+
+    });
+
+
+    uploadArea.addEventListener("drop", function(event){
+
+        event.preventDefault();
+        uploadArea.classList.remove("dragover");
+
+        if(event.dataTransfer.files.length > 0){
+            handleFile(event.dataTransfer.files[0]);
+        }
+
+    });
+
+
+    function handleFile(file){
+
+        if(!file.type.startsWith("image/")){
+
+            showStatus(
+                "Please select a valid image file.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        selectedFile = file;
+
+        fileName.textContent = file.name;
+
+        fileSize.textContent =
+            formatBytes(file.size);
+
+
+        if(downloadUrl){
+            URL.revokeObjectURL(downloadUrl);
+            downloadUrl = null;
+        }
+
+        downloadBtn.style.display = "none";
+
+
+        const reader = new FileReader();
+
+
+        reader.onload = function(event){
+
+            previewImage.src =
+                event.target.result;
+
+            previewContainer.style.display =
+                "block";
+
+            fileInfo.style.display =
+                "block";
+
+            controls.style.display =
+                "block";
+
+            downloadBtn.style.display =
+                "none";
+
+            status.style.display =
+                "none";
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    }
+
+
+    /* =========================================================
+       REMOVE METADATA
+       ========================================================= */
+
+    removeBtn.addEventListener("click", function(){
+
+        if(!selectedFile){
+
+            showStatus(
+                "Please select an image first.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        showStatus(
+            "Removing metadata...",
+            "success"
+        );
+
+        const image = new Image();
+
+        const imageUrl =
+            URL.createObjectURL(selectedFile);
+
+
+        image.onload = function(){
+
+            URL.revokeObjectURL(imageUrl);
+
+            const canvas =
+                document.createElement("canvas");
+
+            const context =
+                canvas.getContext("2d");
+
+
+            if(!context){
+
+                showStatus(
+                    "Could not process the image.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
+
+            context.drawImage(image, 0, 0);
+
+
+            const outputFormat =
+                formatSelect.value;
+
+
+            canvas.toBlob(
+                function(blob){
+
+                    if(!blob){
+
+                        showStatus(
+                            "Could not process the image.",
+                            "error"
+                        );
+
+                        return;
+
+                    }
+
+
+                    if(downloadUrl){
+                        URL.revokeObjectURL(downloadUrl);
+                    }
+
+
+                    downloadUrl =
+                        URL.createObjectURL(blob);
+
+
+                    const extension =
+                        getExtension(outputFormat);
+
+
+                    downloadBtn.dataset.filename =
+                        "weblixa-clean-image." + extension;
+
+
+                    downloadBtn.style.display =
+                        "inline-block";
+
+
+                    showStatus(
+                        "Metadata removed successfully. Your clean image is ready.",
+                        "success"
+                    );
+
+                },
+                outputFormat,
+                0.92
+            );
+
+        };
+
+
+        image.onerror = function(){
+
+            URL.revokeObjectURL(imageUrl);
+
+            showStatus(
+                "Could not read this image.",
+                "error"
+            );
+
+        };
+
+
+        image.src = imageUrl;
+
+    });
+
+
+    /* =========================================================
+       DOWNLOAD CLEAN IMAGE
+       ========================================================= */
+
+    downloadBtn.addEventListener("click", function(){
+
+        if(!downloadUrl){
+
+            showStatus(
+                "Please remove metadata first.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.href = downloadUrl;
+
+
+        link.download =
+            this.dataset.filename ||
+            "weblixa-clean-image.jpg";
+
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+    });
+
+
+    /* =========================================================
+       RESET / CHOOSE ANOTHER
+       ========================================================= */
+
+    resetBtn.addEventListener("click", function(){
+
+        selectedFile = null;
+
+
+        if(downloadUrl){
+            URL.revokeObjectURL(downloadUrl);
+            downloadUrl = null;
+        }
+
+
+        fileInput.value = "";
+
+        previewImage.src = "";
+        previewContainer.style.display = "none";
+        fileInfo.style.display = "none";
+        controls.style.display = "none";
+        downloadBtn.style.display = "none";
+        status.style.display = "none";
+
+    });
+
+
+    /* =========================================================
+       SIDE BOX DETAILS
+       ========================================================= */
+
+    const detFormat =
+        document.getElementById("detFormat");
+
+    const detDimensions =
+        document.getElementById("detDimensions");
+
+    const detSize =
+        document.getElementById("detSize");
+
+    const detStatus =
+        document.getElementById("detStatus");
+
+
+    function resetDetails(){
+
+        detFormat.textContent = "-";
+        detDimensions.textContent = "-";
+        detSize.textContent = "-";
+        detStatus.textContent = "Waiting";
+
+    }
+
+
+    previewImage.addEventListener("load", function(){
+
+        if(!selectedFile){
+            return;
+        }
+
+        detFormat.textContent =
+            selectedFile.type.replace("image/", "").toUpperCase();
+
+        detDimensions.textContent =
+            previewImage.naturalWidth + " x " + previewImage.naturalHeight;
+
+        detSize.textContent =
+            formatBytes(selectedFile.size);
+
+        detStatus.textContent =
+            "Ready to clean";
+
+    });
+
+
+    new MutationObserver(function(){
+
+        if(downloadBtn.style.display !== "none"){
+
+            detStatus.textContent = "Clean copy ready";
+
+        } else if(selectedFile){
+
+            detStatus.textContent = "Ready to clean";
+
+        }
+
+    }).observe(downloadBtn, { attributes: true, attributeFilter: ["style"] });
+
+
+    resetBtn.addEventListener("click", resetDetails);
+
+</script>
+
+</body>
+</html>

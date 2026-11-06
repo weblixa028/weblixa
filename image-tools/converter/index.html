@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter - Weblixa</title>
+    <meta name="description" content="Convert JPG, PNG and WebP images online with Weblixa.">
+    <link rel="stylesheet" href="converter.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== Heading style (matches Video Resizer) ===== */
+
+        .converter-hero .eyebrow {
+            font-family: "Inter", Arial, Helvetica, sans-serif !important;
+            font-size: 14px !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.14em !important;
+            text-transform: uppercase;
+            color: #2563eb !important;
+        }
+
+        .converter-hero h1 {
+            font-family: "Inter", Arial, Helvetica, sans-serif !important;
+            font-size: 56px !important;
+            font-weight: 800 !important;
+            letter-spacing: -0.04em !important;
+            line-height: 1.1 !important;
+            color: #1a1a24 !important;
+        }
+
+        .converter-hero h1 span {
+            color: #1d6fdc;
+        }
+
+        .converter-hero p {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        /* ===== Side boxes ===== */
+
+        .side-layout {
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr) 220px;
+            gap: 20px;
+            align-items: start;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .side-layout > .container {
+            max-width: none;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .side-box {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .side-box h2 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 14px;
+        }
+
+        .insight {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .insight:last-child {
+            border-bottom: none;
+        }
+
+        .insight span {
+            color: #6b7280;
+        }
+
+        .insight strong {
+            color: #111827;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .tip {
+            padding: 9px 12px;
+            margin-bottom: 8px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #374151;
+        }
+
+        .tip:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .side-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .side-layout > .container {
+                grid-column: 1 / -1;
+                order: -1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .side-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .converter-hero h1 {
+                font-size: 40px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="../../index.html" class="brand">
+                <svg
+                    class="brand-logo-svg"
+                    width="180"
+                    height="52"
+                    viewBox="0 0 180 52"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <defs>
+                        <linearGradient
+                            id="weblixaGradient"
+                            x1="4"
+                            y1="4"
+                            x2="44"
+                            y2="48"
+                            gradientUnits="userSpaceOnUse"
+                        >
+                            <stop offset="0" stop-color="#2563EB" />
+                            <stop offset="0.5" stop-color="#7C3AED" />
+                            <stop offset="1" stop-color="#06B6D4" />
+                        </linearGradient>
+                    </defs>
+
+                    <path
+                        d="M6 9L15 38L25 14L35 38L44 9"
+                        stroke="url(#weblixaGradient)"
+                        stroke-width="8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
+                    <text
+                        x="58"
+                        y="35"
+                        font-family="Arial, Helvetica, sans-serif"
+                        font-size="27"
+                        font-weight="700"
+                        fill="#102A56"
+                    >Weblixa</text>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+        <section class="converter-hero">
+            <div class="container">
+                <span class="eyebrow">WEBLIXA IMAGE TOOLS</span>
+                <h1>Image <span>Converter</span></h1>
+                <p>
+                    Convert your images between JPG, PNG and WebP
+                    quickly and easily.
+                </p>
+            </div>
+        </section>
+
+        <!-- CONVERTER -->
+        <section class="converter-section">
+            <div class="side-layout">
+
+            <aside class="side-box">
+                <h2>Format Details</h2>
+                <div class="insight"><span>Convert To</span><strong id="fmtName">JPG</strong></div>
+                <div class="insight"><span>Compression</span><strong id="fmtCompression">Lossy</strong></div>
+                <div class="insight"><span>Transparency</span><strong id="fmtTransparency">No</strong></div>
+                <div class="insight"><span>Best For</span><strong id="fmtBest">Photos</strong></div>
+            </aside>
+
+            <div class="container">
+                <div class="upload-card" id="uploadArea">
+                    <div class="upload-icon">↑</div>
+                    <h2>Convert an Image</h2>
+                    <p>Upload JPG, PNG or WebP image</p>
+
+                    <label for="imageInput" class="choose-button">
+                        Choose Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="imageInput"
+                        accept="image/jpeg,image/png,image/webp"
+                        hidden
+                    >
+
+                    <p class="drag-text">
+                        or drag and drop your image here
+                    </p>
+                </div>
+
+                <!-- EDITOR -->
+                <div class="editor" id="editor" hidden>
+                    <div class="preview-card">
+                        <div class="preview-title">Original Image</div>
+                        <div class="preview-box">
+                            <img id="originalPreview" alt="Original image preview">
+                        </div>
+                        <div class="image-info" id="originalInfo"></div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h2>Conversion Settings</h2>
+
+                        <label for="format">Convert To</label>
+                        <select id="format">
+                            <option value="image/jpeg">JPG</option>
+                            <option value="image/png">PNG</option>
+                            <option value="image/webp">WebP</option>
+                        </select>
+
+                        <button type="button" id="convertBtn" class="primary-button">
+                            Convert Image
+                        </button>
+
+                        <button type="button" id="resetBtn" class="secondary-button">
+                            Choose Another
+                        </button>
+
+                        <div id="result" class="result-message"></div>
+                    </div>
+
+                    <div class="preview-card">
+                        <div class="preview-title">Converted Image</div>
+                        <div class="preview-box">
+                            <img id="convertedPreview" alt="Converted image preview">
+                            <span id="emptyMessage" class="empty-message">
+                                Converted image will appear here.
+                            </span>
+                        </div>
+
+                        <div class="image-info" id="convertedInfo"></div>
+
+                        <a href="#" id="downloadBtn" class="download-button disabled">
+                            Download Image
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="side-box">
+                <h2>Supported Formats</h2>
+                <div class="tip"><strong>JPG</strong>: small files, great for photos.</div>
+                <div class="tip"><strong>PNG</strong>: sharp quality with transparency.</div>
+                <div class="tip"><strong>WebP</strong>: modern format with small size.</div>
+                <div class="tip">Conversion happens in your browser. Nothing is uploaded.</div>
+            </aside>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <strong>Weblixa</strong>
+            <span>© 2026 Weblixa. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="converter.js"></script>
+
+    <script>
+        (function () {
+
+            const formatSelect = document.getElementById("format");
+
+            const info = {
+                "image/jpeg": ["JPG", "Lossy", "No", "Photos"],
+                "image/png": ["PNG", "Lossless", "Yes", "Graphics"],
+                "image/webp": ["WebP", "Lossy / Lossless", "Yes", "Web use"]
+            };
+
+            function updateFormatDetails() {
+
+                const values = info[formatSelect.value];
+
+                if (!values) {
+                    return;
+                }
+
+                document.getElementById("fmtName").textContent = values[0];
+                document.getElementById("fmtCompression").textContent = values[1];
+                document.getElementById("fmtTransparency").textContent = values[2];
+                document.getElementById("fmtBest").textContent = values[3];
+
+            }
+
+            formatSelect.addEventListener("change", updateFormatDetails);
+
+            updateFormatDetails();
+
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Contact - Weblixa</title>
+
+<meta name="description"
+      content="Contact Weblixa for questions, feedback, suggestions and general inquiries.">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    color:#102a56;
+    background:#fff;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+.container{
+    width:min(1340px,calc(100% - 80px));
+    margin:auto;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.site-header{
+    height:64px;
+    background:#fff;
+    border-bottom:1px solid #e5edf7;
+    position:relative;
+    z-index:20;
+}
+
+.header-inner{
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    min-width:180px;
+}
+
+.brand-logo-svg{
+    width:180px;
+    height:52px;
+    display:block;
+}
+
+.main-nav{
+    display:flex;
+    align-items:stretch;
+    height:64px;
+    gap:2px;
+}
+
+.nav-link{
+    position:relative;
+    height:64px;
+    padding:0 21px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:14px;
+    color:#172d51;
+    white-space:nowrap;
+}
+
+.nav-link span{
+    font-size:17px;
+    font-weight:700;
+}
+
+.nav-link:hover{
+    color:#1670e8;
+}
+
+.nav-link.active{
+    color:#096fe5;
+}
+
+.nav-link.active::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:10px;
+    right:10px;
+    height:4px;
+    border-radius:5px 5px 0 0;
+    background:#1678ef;
+}
+
+.header-actions{
+    min-width:180px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:23px;
+}
+
+.theme-button{
+    border:0;
+    background:transparent;
+    color:#10264d;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.get-started{
+    background:linear-gradient(135deg,#1878ed,#1264df);
+    color:#fff;
+    padding:11px 22px;
+    border-radius:9px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 5px 15px rgba(23,112,231,.20);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.page-hero{
+    min-height:245px;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #fff 0%,
+            #f2f9ff 62%,
+            #e9f5ff 100%
+        );
+    border-bottom:1px solid #edf4fb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.page-hero::before{
+    content:"";
+    position:absolute;
+    width:410px;
+    height:250px;
+    left:-130px;
+    top:20px;
+    background:rgba(188,222,252,.27);
+    border-radius:55% 45% 60% 40%;
+    transform:rotate(-12deg);
+}
+
+.page-hero::after{
+    content:"";
+    position:absolute;
+    width:390px;
+    height:250px;
+    right:-100px;
+    top:-30px;
+    background:rgba(196,226,251,.28);
+    border-radius:50%;
+    transform:rotate(18deg);
+}
+
+.page-hero-content{
+    position:relative;
+    z-index:3;
+    max-width:760px;
+    padding:20px;
+}
+
+.page-hero h1{
+    font-size:44px;
+    color:#102957;
+    font-weight:800;
+}
+
+.page-hero p{
+    margin-top:12px;
+    color:#526985;
+    font-size:16px;
+    line-height:1.6;
+}
+
+
+/* =========================
+   CONTACT SECTION
+========================= */
+
+.contact-section{
+    padding:65px 0 75px;
+    background:#fff;
+}
+
+.contact-layout{
+    display:grid;
+    grid-template-columns:0.85fr 1.25fr;
+    gap:32px;
+    max-width:1100px;
+    margin:auto;
+}
+
+
+/* =========================
+   LEFT INFORMATION
+========================= */
+
+.contact-info{
+    background:
+        linear-gradient(
+            145deg,
+            #f7fbff 0%,
+            #eef7ff 100%
+        );
+    border:1px solid #dceaf7;
+    border-radius:18px;
+    padding:32px;
+    box-shadow:0 12px 35px rgba(31,91,145,.07);
+}
+
+.info-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:#e7f2ff;
+    color:#1269dc;
+    padding:7px 12px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.info-badge span{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#1678ef;
+}
+
+.contact-info h2{
+    font-size:28px;
+    line-height:1.25;
+    color:#102957;
+    margin-bottom:13px;
+}
+
+.contact-info > p{
+    color:#667b95;
+    font-size:14px;
+    line-height:1.75;
+    margin-bottom:27px;
+}
+
+.info-item{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    padding:17px 0;
+    border-top:1px solid #dce8f3;
+}
+
+.info-icon{
+    width:42px;
+    height:42px;
+    flex:0 0 42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:11px;
+    background:#fff;
+    border:1px solid #dce8f3;
+    color:#1472e8;
+    font-size:19px;
+    font-weight:700;
+}
+
+.info-item h3{
+    font-size:14px;
+    color:#102957;
+    margin-bottom:5px;
+}
+
+.info-item p{
+    font-size:12px;
+    color:#71849a;
+    line-height:1.55;
+}
+
+.response-note{
+    margin-top:20px;
+    padding:16px;
+    border-radius:11px;
+    background:#fff;
+    border:1px solid #dce8f3;
+    color:#657992;
+    font-size:11px;
+    line-height:1.6;
+}
+
+
+/* =========================
+   CONTACT FORM
+========================= */
+
+.contact-form-card{
+    background:#fff;
+    border:1px solid #dce8f3;
+    border-radius:18px;
+    padding:32px;
+    box-shadow:0 14px 40px rgba(28,77,123,.08);
+}
+
+.form-heading{
+    margin-bottom:25px;
+}
+
+.form-heading h2{
+    font-size:25px;
+    color:#102957;
+    margin-bottom:8px;
+}
+
+.form-heading p{
+    color:#71849a;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.form-group{
+    margin-bottom:19px;
+}
+
+.form-group label{
+    display:block;
+    color:#20395f;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.required{
+    color:#1472e8;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    border:1px solid #d8e4ef;
+    background:#fbfdff;
+    color:#18345b;
+    border-radius:9px;
+    padding:13px 14px;
+    font-size:13px;
+    outline:none;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.form-group input,
+.form-group select{
+    height:46px;
+}
+
+.form-group textarea{
+    min-height:145px;
+    resize:vertical;
+    line-height:1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+    color:#9aabbd;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#4b91ed;
+    background:#fff;
+    box-shadow:0 0 0 3px rgba(43,126,234,.10);
+}
+
+.form-group select{
+    cursor:pointer;
+}
+
+
+/* =========================
+   CHECKBOX
+========================= */
+
+.form-consent{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:2px;
+    margin-bottom:20px;
+}
+
+.form-consent input{
+    width:16px;
+    height:16px;
+    margin-top:2px;
+    accent-color:#1678ef;
+    cursor:pointer;
+}
+
+.form-consent label{
+    color:#71849a;
+    font-size:11px;
+    line-height:1.6;
+    cursor:pointer;
+}
+
+.form-consent a{
+    color:#1672e5;
+    font-weight:600;
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+
+.submit-button{
+    width:100%;
+    height:48px;
+    border:0;
+    border-radius:9px;
+    background:linear-gradient(135deg,#1878ed,#1264df);
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 7px 18px rgba(23,112,231,.20);
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.submit-button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 10px 22px rgba(23,112,231,.25);
+}
+
+.submit-button:active{
+    transform:translateY(0);
+}
+
+.form-security{
+    text-align:center;
+    color:#9aaabd;
+    font-size:10px;
+    margin-top:12px;
+}
+
+
+/* =========================
+   SUCCESS MESSAGE
+========================= */
+
+.form-message{
+    display:none;
+    margin-bottom:20px;
+    padding:14px 16px;
+    border-radius:10px;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.form-message.success{
+    display:block;
+    background:#edf9f2;
+    border:1px solid #ccebd8;
+    color:#237246;
+}
+
+.form-message.error{
+    display:block;
+    background:#fff3f3;
+    border:1px solid #f1cccc;
+    color:#a43d3d;
+}
+
+
+/* =========================
+   FAQ SECTION
+========================= */
+
+.faq-section{
+    padding:0 0 75px;
+}
+
+.faq-wrapper{
+    max-width:1100px;
+    margin:auto;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.section-heading span{
+    display:inline-block;
+    color:#1675e8;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    margin-bottom:9px;
+}
+
+.section-heading h2{
+    color:#102957;
+    font-size:28px;
+}
+
+.faq-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.faq-item{
+    padding:22px;
+    border:1px solid #dce8f3;
+    border-radius:13px;
+    background:#fff;
+}
+
+.faq-item h3{
+    color:#102957;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.faq-item p{
+    color:#71849a;
+    font-size:12px;
+    line-height:1.7;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.site-footer{
+    background:#122744;
+    color:#fff;
+    padding:18px 0;
+}
+
+.footer-inner{
+    min-height:54px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.footer-brand{
+    display:flex;
+    align-items:center;
+    gap:17px;
+}
+
+.footer-brand-svg{
+    width:150px;
+    height:auto;
+    display:block;
+}
+
+.footer-brand p{
+    color:#c8d4e4;
+    font-size:10px;
+}
+
+.footer-links{
+    display:flex;
+    align-items:center;
+    gap:24px;
+}
+
+.footer-links a{
+    color:#d7e0ed;
+    font-size:10px;
+}
+
+.footer-links a:hover{
+    color:#fff;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width:950px){
+
+    .contact-layout{
+        grid-template-columns:1fr;
+        max-width:760px;
+    }
+
+    .faq-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+/* =========================
+   HEADER RESPONSIVE
+========================= */
+
+@media(max-width:850px){
+
+    .site-header,
+    .header-inner{
+        height:auto;
+    }
+
+    .header-inner{
+        padding:12px 0;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    .main-nav{
+        order:3;
+        width:100%;
+        height:auto;
+        overflow-x:auto;
+        justify-content:center;
+    }
+
+    .nav-link{
+        height:42px;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:560px){
+
+    .container{
+        width:calc(100% - 28px);
+    }
+
+    .brand-logo-svg{
+        width:145px;
+        height:auto;
+    }
+
+    .header-actions{
+        gap:10px;
+    }
+
+    .get-started{
+        padding:9px 13px;
+        font-size:11px;
+    }
+
+    .main-nav{
+        justify-content:flex-start;
+    }
+
+    .nav-link{
+        padding:0 10px;
+        font-size:12px;
+    }
+
+    .page-hero{
+        min-height:210px;
+    }
+
+    .page-hero h1{
+        font-size:36px;
+    }
+
+    .page-hero p{
+        font-size:14px;
+    }
+
+    .contact-section{
+        padding:42px 0 55px;
+    }
+
+    .contact-info,
+    .contact-form-card{
+        padding:22px;
+        border-radius:14px;
+    }
+
+    .contact-info h2{
+        font-size:24px;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+
+    .faq-section{
+        padding-bottom:55px;
+    }
+
+    .section-heading h2{
+        font-size:24px;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .footer-links{
+        flex-wrap:wrap;
+        gap:15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="site-header">
+
+<div class="container header-inner">
+
+<a href="../../index.html" class="brand">
+
+<svg
+    class="brand-logo-svg"
+    viewBox="0 0 180 52"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+<defs>
+
+<linearGradient
+    id="weblixaGradient"
+    x1="4"
+    y1="4"
+    x2="44"
+    y2="48"
+    gradientUnits="userSpaceOnUse"
+>
+
+<stop offset="0" stop-color="#2563EB"/>
+<stop offset="0.5" stop-color="#7C3AED"/>
+<stop offset="1" stop-color="#06B6D4"/>
+
+</linearGradient>
+
+</defs>
+
+<path
+    d="M6 9L15 38L25 14L35 38L44 9"
+    stroke="url(#weblixaGradient)"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+/>
+
+<text
+    x="58"
+    y="35"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="27"
+    font-weight="700"
+    fill="#102A56"
+>
+Weblixa
+</text>
+
+</svg>
+
+</a>
+
+
+<nav class="main-nav">
+
+<a href="../../index.html" class="nav-link">
+<span>⌂</span>
+Home
+</a>
+
+<a href="../../index.html#popular-tools" class="nav-link">
+<span>▧</span>
+Image Tools
+</a>
+
+<a href="../../index.html#pdf-tools" class="nav-link">
+<span>▤</span>
+PDF Tools
+</a>
+
+<a href="../../index.html#text-tools" class="nav-link">
+<span>T</span>
+Text Tools
+</a>
+
+<a href="../../index.html" class="nav-link">
+<span>⊞</span>
+More Tools
+</a>
+
+</nav>
+
+
+<div class="header-actions">
+
+<button class="theme-button" type="button">
+☾
+</button>
+
+<a href="../../index.html#popular-tools" class="get-started">
+Get Started
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="page-hero">
+
+<div class="page-hero-content">
+
+<h1>Contact Weblixa</h1>
+
+<p>
+Have a question, suggestion or feedback? We'd love to hear from you.
+</p>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     CONTACT AREA
+========================= -->
+
+<section class="contact-section">
+
+<div class="container">
+
+<div class="contact-layout">
+
+
+<!-- =========================
+     CONTACT INFORMATION
+========================= -->
+
+<div class="contact-info">
+
+<div class="info-badge">
+<span></span>
+We're here to help
+</div>
+
+<h2>
+Let's talk.
+</h2>
+
+<p>
+Whether you have a question about a tool, want to report an issue,
+or simply have an idea that could make Weblixa better, you can send
+us a message using the form.
+</p>
+
+
+<div class="info-item">
+
+<div class="info-icon">
+?
+</div>
+
+<div>
+
+<h3>
+Questions & Support
+</h3>
+
+<p>
+Need help understanding or using one of our tools?
+Send us your question and we'll take a look.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="info-item">
+
+<div class="info-icon">
+!
+</div>
+
+<div>
+
+<h3>
+Report a Problem
+</h3>
+
+<p>
+If something isn't working as expected, tell us what happened
+and include as much useful information as possible.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="info-item">
+
+<div class="info-icon">
++
+</div>
+
+<div>
+
+<h3>
+Suggestions & Feedback
+</h3>
+
+<p>
+Have an idea for a new tool or an improvement?
+We welcome useful suggestions and feedback.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="response-note">
+
+<strong>Before sending:</strong><br>
+
+Please make sure your email address is correct so that we can
+respond to you if a reply is needed.
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     CONTACT FORM
+========================= -->
+
+<div class="contact-form-card">
+
+<div class="form-heading">
+
+<h2>
+Send us a message
+</h2>
+
+<p>
+Fill out the form below and send your message directly to the
+Weblixa contact email.
+</p>
+
+</div>
+
+
+<div id="formMessage" class="form-message"></div>
+
+
+<!--
+IMPORTANT:
+
+Replace YOUR_EMAIL@example.com below with your real Weblixa
+email address.
+
+Example:
+
+https://formsubmit.co/hello@yourdomain.com
+
+FormSubmit may require email activation the first time.
+-->
+
+<form
+    id="contactForm"
+    action="https://formsubmit.co/YOUR_EMAIL@example.com"
+    method="POST"
+>
+
+
+<!-- FormSubmit settings -->
+
+<input
+    type="hidden"
+    name="_subject"
+    value="New Contact Message - Weblixa"
+>
+
+<input
+    type="hidden"
+    name="_captcha"
+    value="true"
+>
+
+<input
+    type="hidden"
+    name="_template"
+    value="table"
+>
+
+<input
+    type="hidden"
+    name="_next"
+    value="https://example.com/"
+>
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label for="name">
+Full Name
+<span class="required">*</span>
+</label>
+
+<input
+    type="text"
+    id="name"
+    name="name"
+    placeholder="Enter your full name"
+    required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="email">
+Email Address
+<span class="required">*</span>
+</label>
+
+<input
+    type="email"
+    id="email"
+    name="email"
+    placeholder="you@example.com"
+    required
+>
+
+</div>
+
+</div>
+
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label for="subject">
+Subject
+<span class="required">*</span>
+</label>
+
+<input
+    type="text"
+    id="subject"
+    name="subject"
+    placeholder="What is your message about?"
+    required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="reason">
+Reason for Contact
+</label>
+
+<select
+    id="reason"
+    name="reason"
+>
+
+<option value="">
+Select a reason
+</option>
+
+<option value="General Question">
+General Question
+</option>
+
+<option value="Tool Support">
+Tool Support
+</option>
+
+<option value="Report a Problem">
+Report a Problem
+</option>
+
+<option value="Suggestion">
+Suggestion
+</option>
+
+<option value="Feedback">
+Feedback
+</option>
+
+<option value="Other">
+Other
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label for="phone">
+Phone Number
+<span style="font-weight:400;color:#9aaabd;">
+(Optional)
+</span>
+</label>
+
+<input
+    type="tel"
+    id="phone"
+    name="phone"
+    placeholder="Your phone number"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label for="website">
+Website
+<span style="font-weight:400;color:#9aaabd;">
+(Optional)
+</span>
+</label>
+
+<input
+    type="url"
+    id="website"
+    name="website"
+    placeholder="https://example.com"
+>
+
+</div>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label for="message">
+Your Message
+<span class="required">*</span>
+</label>
+
+<textarea
+    id="message"
+    name="message"
+    placeholder="Write your message here..."
+    required
+></textarea>
+
+</div>
+
+
+
+<div class="form-consent">
+
+<input
+    type="checkbox"
+    id="consent"
+    required
+>
+
+<label for="consent">
+
+I confirm that the information provided above is accurate and
+I agree to be contacted regarding my message.
+
+</label>
+
+</div>
+
+
+
+<button
+    type="submit"
+    class="submit-button"
+    id="submitButton"
+>
+Send Message →
+</button>
+
+
+<div class="form-security">
+Your message will be sent securely through the configured email form service.
+</div>
+
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     FAQ / HELP
+========================= -->
+
+<section class="faq-section">
+
+<div class="container">
+
+<div class="faq-wrapper">
+
+<div class="section-heading">
+
+<span>
+QUICK HELP
+</span>
+
+<h2>
+Before you contact us
+</h2>
+
+</div>
+
+
+<div class="faq-grid">
+
+
+<div class="faq-item">
+
+<h3>
+Which information should I include?
+</h3>
+
+<p>
+For tool-related problems, include the name of the tool and
+briefly explain what happened. This helps us understand your issue.
+</p>
+
+</div>
+
+
+<div class="faq-item">
+
+<h3>
+Can I suggest a new tool?
+</h3>
+
+<p>
+Yes. You can use the contact form to send ideas or suggestions
+for tools and improvements you would like to see on Weblixa.
+</p>
+
+</div>
+
+
+<div class="faq-item">
+
+<h3>
+Can I report a website problem?
+</h3>
+
+<p>
+Yes. Please describe the problem clearly and, if possible,
+mention the page or tool where you experienced it.
+</p>
+
+</div>
+
+
+<div class="faq-item">
+
+<h3>
+How should I provide my email?
+</h3>
+
+<p>
+Use an email address that you can access. This allows Weblixa
+to reply to your message when a response is necessary.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="site-footer">
+
+<div class="container footer-inner">
+
+<div class="footer-brand">
+
+<svg
+    class="footer-brand-svg"
+    viewBox="0 0 180 52"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+<path
+    d="M6 9L15 38L25 14L35 38L44 9"
+    stroke="#2563EB"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+/>
+
+<text
+    x="58"
+    y="35"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="27"
+    font-weight="700"
+    fill="#FFFFFF"
+>
+Weblixa
+</text>
+
+</svg>
+
+<p>
+Simple tools. Fast results.
+</p>
+
+</div>
+
+
+<div class="footer-links">
+
+<a href="../about/index.html">
+About
+</a>
+
+<a href="../privacy/index.html">
+Privacy
+</a>
+
+<a href="../terms/index.html">
+Terms
+</a>
+
+<a href="index.html">
+Contact
+</a>
+
+</div>
+
+</div>
+
+</footer>
+
+
+
+<!-- =========================
+     FORM JAVASCRIPT
+========================= -->
+
+<script>
+
+const contactForm = document.getElementById("contactForm");
+const formMessage = document.getElementById("formMessage");
+const submitButton = document.getElementById("submitButton");
+
+
+contactForm.addEventListener("submit", function(event){
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const subject =
+        document.getElementById("subject").value.trim();
+
+    const message =
+        document.getElementById("message").value.trim();
+
+    const consent =
+        document.getElementById("consent").checked;
+
+
+    formMessage.className = "form-message";
+    formMessage.textContent = "";
+
+
+    if(
+        name === "" ||
+        email === "" ||
+        subject === "" ||
+        message === ""
+    ){
+
+        event.preventDefault();
+
+        formMessage.className =
+            "form-message error";
+
+        formMessage.textContent =
+            "Please complete all required fields before sending your message.";
+
+        return;
+    }
+
+
+    if(!consent){
+
+        event.preventDefault();
+
+        formMessage.className =
+            "form-message error";
+
+        formMessage.textContent =
+            "Please confirm the checkbox before sending your message.";
+
+        return;
+    }
+
+
+    submitButton.textContent =
+        "Sending...";
+
+    submitButton.disabled =
+        true;
+
+});
+
+
+/* Prevent accidental double submission */
+
+contactForm.addEventListener("submit", function(){
+
+    setTimeout(function(){
+
+        submitButton.disabled = true;
+
+    },100);
+
+});
+
+</script>
+
+
+</body>
+</html>

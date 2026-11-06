@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Terms - Weblixa</title>
+
+<meta name="description"
+      content="Weblixa Terms of Use and information about the tools available on Weblixa.">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    color:#102a56;
+    background:#fff;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font-family:inherit;
+}
+
+.container{
+    width:min(1340px,calc(100% - 80px));
+    margin:auto;
+}
+
+
+/* ================= HEADER ================= */
+
+.site-header{
+    height:64px;
+    background:#fff;
+    border-bottom:1px solid #e5edf7;
+    position:relative;
+    z-index:20;
+}
+
+.header-inner{
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    min-width:180px;
+}
+
+.brand-logo-svg{
+    width:180px;
+    height:52px;
+    display:block;
+}
+
+
+/* ================= NAV ================= */
+
+.main-nav{
+    display:flex;
+    align-items:stretch;
+    height:64px;
+    gap:2px;
+}
+
+.nav-link{
+    position:relative;
+    height:64px;
+    padding:0 21px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:14px;
+    color:#172d51;
+    white-space:nowrap;
+}
+
+.nav-link span{
+    font-size:17px;
+    font-weight:700;
+}
+
+.nav-link:hover{
+    color:#1670e8;
+}
+
+.nav-link.active{
+    color:#096fe5;
+}
+
+.nav-link.active::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:10px;
+    right:10px;
+    height:4px;
+    border-radius:5px 5px 0 0;
+    background:#1678ef;
+}
+
+
+/* ================= HEADER ACTIONS ================= */
+
+.header-actions{
+    min-width:180px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:23px;
+}
+
+.theme-button{
+    border:0;
+    background:transparent;
+    color:#10264d;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.get-started{
+    background:linear-gradient(135deg,#1878ed,#1264df);
+    color:#fff;
+    padding:11px 22px;
+    border-radius:9px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 5px 15px rgba(23,112,231,.20);
+}
+
+
+/* ================= PAGE HERO ================= */
+
+.page-hero{
+    min-height:230px;
+    position:relative;
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #fff 0%,
+            #f2f9ff 62%,
+            #e9f5ff 100%
+        );
+
+    border-bottom:1px solid #edf4fb;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+}
+
+.page-hero::before{
+    content:"";
+    position:absolute;
+    width:410px;
+    height:250px;
+    left:-130px;
+    top:20px;
+    background:rgba(188,222,252,.27);
+    border-radius:55% 45% 60% 40%;
+    transform:rotate(-12deg);
+}
+
+.page-hero::after{
+    content:"";
+    position:absolute;
+    width:390px;
+    height:250px;
+    right:-100px;
+    top:-30px;
+    background:rgba(196,226,251,.28);
+    border-radius:50%;
+    transform:rotate(18deg);
+}
+
+.page-hero-content{
+    position:relative;
+    z-index:3;
+}
+
+.page-hero h1{
+    font-size:44px;
+    color:#102957;
+    font-weight:800;
+}
+
+.page-hero p{
+    margin-top:12px;
+    color:#526985;
+    font-size:16px;
+}
+
+
+/* ================= CONTENT ================= */
+
+.content-section{
+    padding:40px 0 50px;
+    background:#fff;
+}
+
+.content-box{
+    max-width:900px;
+    margin:auto;
+}
+
+.content-box h2{
+    font-size:24px;
+    color:#102957;
+    margin-bottom:12px;
+}
+
+.content-box h3{
+    font-size:17px;
+    color:#102957;
+    margin-top:28px;
+    margin-bottom:8px;
+}
+
+.content-box p{
+    color:#657992;
+    font-size:14px;
+    line-height:1.7;
+    margin-bottom:16px;
+}
+
+
+/* ================= TOOL INFORMATION ================= */
+
+.tool-list{
+    margin-top:10px;
+}
+
+.tool-item{
+    margin-bottom:22px;
+}
+
+.tool-item h3{
+    margin-top:0;
+    margin-bottom:7px;
+}
+
+.tool-item p{
+    margin-bottom:0;
+}
+
+
+/* ================= FOOTER ================= */
+
+.site-footer{
+    background:#122744;
+    color:#fff;
+    padding:18px 0;
+}
+
+.footer-inner{
+    min-height:54px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.footer-brand{
+    display:flex;
+    align-items:center;
+    gap:17px;
+}
+
+.footer-brand-svg{
+    width:150px;
+    height:auto;
+    display:block;
+}
+
+.footer-brand p{
+    color:#c8d4e4;
+    font-size:10px;
+}
+
+.footer-links{
+    display:flex;
+    align-items:center;
+    gap:24px;
+}
+
+.footer-links a{
+    color:#d7e0ed;
+    font-size:10px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:850px){
+
+    .site-header,
+    .header-inner{
+        height:auto;
+    }
+
+    .header-inner{
+        padding:12px 0;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    .main-nav{
+        order:3;
+        width:100%;
+        height:auto;
+        overflow-x:auto;
+        justify-content:center;
+    }
+
+    .nav-link{
+        height:42px;
+    }
+
+}
+
+
+@media(max-width:560px){
+
+    .container{
+        width:calc(100% - 28px);
+    }
+
+    .brand-logo-svg{
+        width:145px;
+        height:auto;
+    }
+
+    .header-actions{
+        gap:10px;
+    }
+
+    .get-started{
+        padding:9px 13px;
+        font-size:11px;
+    }
+
+    .main-nav{
+        justify-content:flex-start;
+    }
+
+    .nav-link{
+        padding:0 10px;
+        font-size:12px;
+    }
+
+    .page-hero h1{
+        font-size:36px;
+    }
+
+    .page-hero p{
+        font-size:14px;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .footer-links{
+        flex-wrap:wrap;
+        gap:15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="site-header">
+
+<div class="container header-inner">
+
+
+<a href="../../index.html" class="brand">
+
+<svg
+    class="brand-logo-svg"
+    viewBox="0 0 180 52"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+<defs>
+
+<linearGradient
+    id="weblixaGradient"
+    x1="4"
+    y1="4"
+    x2="44"
+    y2="48"
+    gradientUnits="userSpaceOnUse"
+>
+
+<stop offset="0" stop-color="#2563EB"/>
+<stop offset="0.5" stop-color="#7C3AED"/>
+<stop offset="1" stop-color="#06B6D4"/>
+
+</linearGradient>
+
+</defs>
+
+<path
+    d="M6 9L15 38L25 14L35 38L44 9"
+    stroke="url(#weblixaGradient)"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+/>
+
+<text
+    x="58"
+    y="35"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="27"
+    font-weight="700"
+    fill="#102A56"
+>
+Weblixa
+</text>
+
+</svg>
+
+</a>
+
+
+<nav class="main-nav">
+
+<a href="../../index.html" class="nav-link">
+<span>⌂</span>
+Home
+</a>
+
+<a href="../../index.html#popular-tools" class="nav-link">
+<span>▧</span>
+Image Tools
+</a>
+
+<a href="../../index.html#pdf-tools" class="nav-link">
+<span>▤</span>
+PDF Tools
+</a>
+
+<a href="../../index.html#text-tools" class="nav-link">
+<span>T</span>
+Text Tools
+</a>
+
+<a href="../../index.html" class="nav-link">
+<span>⊞</span>
+More Tools
+</a>
+
+</nav>
+
+
+<div class="header-actions">
+
+<button class="theme-button" type="button">
+☾
+</button>
+
+<a href="../../index.html#popular-tools" class="get-started">
+Get Started
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<!-- ================= PAGE HERO ================= -->
+
+<section class="page-hero">
+
+<div class="page-hero-content">
+
+<h1>Terms of Use</h1>
+
+<p>
+Terms for using Weblixa.
+</p>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= CONTENT ================= -->
+
+<section class="content-section">
+
+<div class="container">
+
+<div class="content-box">
+
+
+<h2>
+Terms of Use
+</h2>
+
+<p>
+By using Weblixa, you agree to use the website and its tools responsibly and for lawful purposes.
+</p>
+
+
+<h3>
+Use of Tools
+</h3>
+
+<p>
+Weblixa provides online tools for general digital tasks. Users are responsible for the files and information they process through the tools.
+</p>
+
+
+<h3>
+Our 22 Online Tools
+</h3>
+
+<p>
+Weblixa provides a collection of simple tools for images, PDFs, text and everyday digital tasks. The following tools are available on the website.
+</p>
+
+
+<div class="tool-list">
+
+
+<!-- 1 -->
+
+<div class="tool-item">
+
+<h3>
+1. Image Compressor
+</h3>
+
+<p>
+The Image Compressor is used to reduce the file size of an image while keeping the image quality as useful as possible. It can help make images easier to upload, share and store.
+</p>
+
+</div>
+
+
+<!-- 2 -->
+
+<div class="tool-item">
+
+<h3>
+2. Image Cropper
+</h3>
+
+<p>
+The Image Cropper is used to remove unwanted areas from an image and keep only the part you need. It is useful for preparing images for websites, profiles and other digital uses.
+</p>
+
+</div>
+
+
+<!-- 3 -->
+
+<div class="tool-item">
+
+<h3>
+3. Image Resizer
+</h3>
+
+<p>
+The Image Resizer is used to change the width and height of an image. It can be useful when an image needs to fit a specific size or dimension.
+</p>
+
+</div>
+
+
+<!-- 4 -->
+
+<div class="tool-item">
+
+<h3>
+4. Image Converter
+</h3>
+
+<p>
+The Image Converter is used to convert an image from one supported image format to another. It can help when a particular image format is required.
+</p>
+
+</div>
+
+
+<!-- 5 -->
+
+<div class="tool-item">
+
+<h3>
+5. PDF Maker
+</h3>
+
+<p>
+The PDF Maker is used to create a PDF document from supported content or images. It can be useful for creating a simple PDF file for sharing or storing information.
+</p>
+
+</div>
+
+
+<!-- 6 -->
+
+<div class="tool-item">
+
+<h3>
+6. QR Generator
+</h3>
+
+<p>
+The QR Generator is used to create a QR code from information such as text or a link. The generated QR code can then be scanned by compatible devices.
+</p>
+
+</div>
+
+
+<!-- 7 -->
+
+<div class="tool-item">
+
+<h3>
+7. Image Rotate & Flip
+</h3>
+
+<p>
+The Image Rotate & Flip tool is used to rotate an image or flip it horizontally or vertically. It is useful for correcting image orientation or creating a mirrored version.
+</p>
+
+</div>
+
+
+<!-- 8 -->
+
+<div class="tool-item">
+
+<h3>
+8. Metadata Remover
+</h3>
+
+<p>
+The Metadata Remover is used to remove supported metadata information from image files. This can help when users want to remove additional information stored inside an image file.
+</p>
+
+</div>
+
+
+<!-- 9 -->
+
+<div class="tool-item">
+
+<h3>
+9. PDF Compressor
+</h3>
+
+<p>
+The PDF Compressor is used to reduce the size of a PDF file. Smaller PDF files can be easier to store, upload and share.
+</p>
+
+</div>
+
+
+<!-- 10 -->
+
+<div class="tool-item">
+
+<h3>
+10. Image to PDF
+</h3>
+
+<p>
+The Image to PDF tool is used to create a PDF document from image files. It can be useful when images need to be collected into a PDF document.
+</p>
+
+</div>
+
+
+<!-- 11 -->
+
+<div class="tool-item">
+
+<h3>
+11. Merge PDF
+</h3>
+
+<p>
+The Merge PDF tool is used to combine multiple PDF files into a single PDF document. It can be useful when several separate PDF files need to be collected together.
+</p>
+
+</div>
+
+
+<!-- 12 -->
+
+<div class="tool-item">
+
+<h3>
+12. PDF Reorder
+</h3>
+
+<p>
+The PDF Reorder tool is used to change the order of pages inside a PDF document. It can help arrange pages into the desired sequence.
+</p>
+
+</div>
+
+
+<!-- 13 -->
+
+<div class="tool-item">
+
+<h3>
+13. PDF Rotate
+</h3>
+
+<p>
+The PDF Rotate tool is used to rotate PDF pages when their orientation needs to be corrected or changed.
+</p>
+
+</div>
+
+
+<!-- 14 -->
+
+<div class="tool-item">
+
+<h3>
+14. Split PDF
+</h3>
+
+<p>
+The Split PDF tool is used to separate pages from a PDF document or divide a PDF into smaller parts according to the available options.
+</p>
+
+</div>
+
+
+<!-- 15 -->
+
+<div class="tool-item">
+
+<h3>
+15. Base64
+</h3>
+
+<p>
+The Base64 tool is used for working with Base64 encoded data. It can be useful for converting supported text or data between normal and Base64 representations.
+</p>
+
+</div>
+
+
+<!-- 16 -->
+
+<div class="tool-item">
+
+<h3>
+16. Case Converter
+</h3>
+
+<p>
+The Case Converter is used to change text between different letter cases, such as uppercase and lowercase. It can save time when formatting text.
+</p>
+
+</div>
+
+
+<!-- 17 -->
+
+<div class="tool-item">
+
+<h3>
+17. Password Generator
+</h3>
+
+<p>
+The Password Generator is used to create random passwords based on the available options. It can help users create stronger and less predictable passwords.
+</p>
+
+</div>
+
+
+<!-- 18 -->
+
+<div class="tool-item">
+
+<h3>
+18. URL Encoder
+</h3>
+
+<p>
+The URL Encoder is used to encode text so it can be safely represented inside a URL. It is useful when special characters need to be converted into URL-compatible form.
+</p>
+
+</div>
+
+
+<!-- 19 -->
+
+<div class="tool-item">
+
+<h3>
+19. Character Counter
+</h3>
+
+<p>
+The Character Counter is used to count the number of characters in text. It can be useful when working with text that has character limits.
+</p>
+
+</div>
+
+
+<!-- 20 -->
+
+<div class="tool-item">
+
+<h3>
+20. Word Counter
+</h3>
+
+<p>
+The Word Counter is used to count words in a piece of text. It can be useful for articles, assignments, descriptions and other writing tasks.
+</p>
+
+</div>
+
+
+<!-- 21 -->
+
+<div class="tool-item">
+
+<h3>
+21. UUID Generator
+</h3>
+
+<p>
+The UUID Generator is used to generate unique identifier values known as UUIDs. These identifiers can be useful in software development and other digital applications.
+</p>
+
+</div>
+
+
+<!-- 22 -->
+
+<div class="tool-item">
+
+<h3>
+22. Video Resizer
+</h3>
+
+<p>
+The Video Resizer is used to change the size and dimensions of a video. It can be useful when a video needs to fit a specific size or aspect ratio for different digital platforms.
+</p>
+
+</div>
+
+
+</div>
+
+
+<h3>
+Responsible Use
+</h3>
+
+<p>
+You should not use Weblixa to process or distribute content that violates applicable laws or the rights of other people.
+</p>
+
+
+<h3>
+Files and Information
+</h3>
+
+<p>
+Users are responsible for the files, text and information they choose to process through Weblixa tools. Users should make sure they have the appropriate rights and permissions to use the content they process.
+</p>
+
+
+<h3>
+Changes to the Website
+</h3>
+
+<p>
+Weblixa may add, remove or update tools and features as the website develops. The available tools and their functionality may change over time.
+</p>
+
+
+<h3>
+Acceptance of These Terms
+</h3>
+
+<p>
+By accessing and using Weblixa, you acknowledge these Terms of Use and agree to use the website responsibly.
+</p>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="site-footer">
+
+<div class="container footer-inner">
+
+
+<div class="footer-brand">
+
+<svg
+    class="footer-brand-svg"
+    viewBox="0 0 180 52"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+<path
+    d="M6 9L15 38L25 14L35 38L44 9"
+    stroke="#2563EB"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+/>
+
+<text
+    x="58"
+    y="35"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="27"
+    font-weight="700"
+    fill="#FFFFFF"
+>
+Weblixa
+</text>
+
+</svg>
+
+<p>
+Simple tools. Fast results.
+</p>
+
+</div>
+
+
+<div class="footer-links">
+
+<a href="../about/index.html">
+About
+</a>
+
+<a href="../privacy/index.html">
+Privacy
+</a>
+
+<a href="index.html">
+Terms
+</a>
+
+<a href="../contact/index.html">
+Contact
+</a>
+
+</div>
+
+
+</div>
+
+</footer>
+
+
+</body>
+</html>

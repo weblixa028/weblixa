@@ -1,0 +1,687 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Merge - Weblixa</title>
+<meta name="description" content="Merge multiple PDF files into one PDF online with Weblixa.">
+
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb; color:#1f2937; min-height:100vh;
+}
+header {
+    background:#fff; border-bottom:1px solid #e5e7eb;
+    padding:18px 20px;
+}
+.header-inner {
+    max-width:1100px; margin:auto; display:flex;
+    align-items:center; justify-content:space-between;
+}
+.logo {
+    text-decoration:none; font-size:26px; font-weight:700;
+    color:#2563eb; display:flex; align-items:center;
+}
+.back-link {
+    text-decoration:none; color:#374151;
+    font-size:15px; font-weight:600;
+}
+.back-link:hover { color:#2563eb; }
+main { max-width:900px; margin:45px auto; padding:0 20px; }
+.tool-header { text-align:center; margin-bottom:30px; }
+.tool-header h1 {
+    font-size:34px; margin-bottom:10px; color:#111827;
+}
+.tool-header p { color:#6b7280; font-size:16px; line-height:1.6; }
+.tool-box {
+    background:#fff; border-radius:16px; padding:30px;
+    box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+.upload-area {
+    border:2px dashed #cbd5e1; border-radius:14px;
+    padding:45px 20px; text-align:center; cursor:pointer;
+    transition:.2s ease; background:#f8fafc;
+}
+.upload-area:hover,.upload-area.dragover {
+    border-color:#2563eb; background:#eff6ff;
+}
+.upload-icon { font-size:48px; margin-bottom:15px; }
+.upload-area h2 { font-size:20px; margin-bottom:8px; color:#111827; }
+.upload-area p { color:#6b7280; margin-bottom:18px; }
+.upload-button {
+    display:inline-block; background:#2563eb; color:#fff;
+    padding:12px 22px; border-radius:8px; font-weight:600;
+}
+#fileInput { display:none; }
+.file-list { display:none; margin-top:25px; }
+.file-list h3 { margin-bottom:12px; color:#111827; }
+.file-item {
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; background:#f8fafc; border:1px solid #e5e7eb;
+    padding:13px 15px; border-radius:9px; margin-bottom:18px;
+    flex-wrap:wrap;
+}
+.file-number {
+    min-width:28px; height:28px; display:flex;
+    align-items:center; justify-content:center;
+    background:#2563eb; color:#fff; border-radius:50%;
+    font-size:13px; font-weight:700;
+}
+.file-name {
+    flex:1; min-width:100px; word-break:break-word;
+    color:#374151; font-size:14px;
+}
+.file-size { color:#6b7280; font-size:13px; white-space:nowrap; }
+.remove-file {
+    border:none; background:#fee2e2; color:#b91c1c;
+    width:30px; height:30px; padding:0; border-radius:6px;
+    cursor:pointer; font-size:16px; flex-shrink:0;
+}
+.remove-file:hover { background:#fecaca; }
+.remove-file:disabled { opacity:.5; cursor:not-allowed; }
+.preview-wrap { width:100%; flex-basis:100%; }
+.preview-title { font-size:13px; color:#6b7280; margin:8px 0; }
+.pdf-preview {
+    width:100%; min-height:180px; display:block;
+    border:1px solid #cbd5e1; border-radius:8px;
+    background:#e5e7eb; padding:12px; overflow:auto;
+    text-align:center;
+}
+.pdf-preview canvas {
+    display:block; max-width:100%; height:auto;
+    margin:0 auto 10px; background:white;
+    border:1px solid #e5e7eb;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.preview-message {
+    text-align:center; color:#6b7280;
+    font-size:13px; padding:25px 10px;
+}
+.action-buttons {
+    display:flex; justify-content:center; gap:12px;
+    flex-wrap:wrap; margin-top:25px;
+}
+button {
+    border:none; cursor:pointer; padding:12px 22px;
+    border-radius:8px; font-size:15px; font-weight:600;
+    transition:.2s ease;
+}
+.merge-btn { background:#2563eb; color:#fff; }
+.merge-btn:hover { background:#1d4ed8; }
+.merge-btn:disabled { background:#93c5fd; cursor:not-allowed; }
+.reset-btn { background:#e5e7eb; color:#374151; }
+.reset-btn:hover { background:#d1d5db; }
+.download-btn { display:none; background:#16a34a; color:#fff; }
+.download-btn:hover { background:#15803d; }
+.status {
+    display:none; margin-top:20px; padding:14px;
+    border-radius:8px; text-align:center;
+    font-size:14px; line-height:1.5;
+}
+.success { background:#dcfce7; color:#166534; }
+.error { background:#fee2e2; color:#991b1b; }
+.info-box {
+    margin-top:30px; padding:18px; background:#eff6ff;
+    border-left:4px solid #2563eb; border-radius:8px;
+}
+.info-box h3 { margin-bottom:8px; color:#1e40af; }
+.info-box p { color:#374151; font-size:14px; line-height:1.6; }
+footer { text-align:center; padding:30px 20px; color:#6b7280; font-size:14px; }
+@media(max-width:600px) {
+    main { margin:25px auto; }
+    .tool-box { padding:20px; }
+    .tool-header h1 { font-size:28px; }
+    .upload-area { padding:35px 15px; }
+    .file-size { width:100%; margin-left:40px; }
+    .pdf-preview { min-height:150px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+    <div class="header-inner">
+        <a href="../../index.html" class="logo">
+            <svg width="180" height="52" viewBox="0 0 180 52"
+                 fill="none" xmlns="http://www.w3.org/2000/svg"
+                 aria-label="Weblixa logo" role="img">
+                <defs>
+                    <linearGradient id="weblixaGradient" x1="4" y1="4" x2="44" y2="48"
+                                    gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#2563EB"/>
+                        <stop offset="0.5" stop-color="#7C3AED"/>
+                        <stop offset="1" stop-color="#06B6D4"/>
+                    </linearGradient>
+                </defs>
+                <path d="M6 9L15 38L25 14L35 38L44 9"
+                      stroke="url(#weblixaGradient)" stroke-width="8"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="58" y="35" font-family="Arial, Helvetica, sans-serif"
+                      font-size="27" font-weight="700" fill="#102A56">Weblixa</text>
+            </svg>
+        </a>
+        <a href="../../index.html" class="back-link">← Back to Home</a>
+    </div>
+</header>
+
+<main>
+    <div class="tool-header">
+        <h1>Merge PDF Files</h1>
+        <p>Combine multiple PDF files into one PDF document quickly.</p>
+    </div>
+
+    <div class="tool-box">
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📄</div>
+            <h2>Select PDF Files</h2>
+            <p>Choose two or more PDF files</p>
+            <span class="upload-button">Choose PDF Files</span>
+            <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple>
+        </div>
+
+        <div class="file-list" id="fileList">
+            <h3>Selected PDF Files</h3>
+            <div id="filesContainer"></div>
+        </div>
+
+        <div class="action-buttons">
+            <button type="button" class="merge-btn" id="mergeBtn" disabled>Merge PDFs</button>
+            <button type="button" class="reset-btn" id="resetBtn">Clear All</button>
+            <button type="button" class="download-btn" id="downloadBtn">Download Merged PDF</button>
+        </div>
+
+        <div class="status" id="status"></div>
+
+        <div class="info-box">
+            <h3>How it works</h3>
+            <p>Select multiple PDF files and Weblixa will combine them into a single PDF document. The files are processed directly in your browser.</p>
+        </div>
+    </div>
+</main>
+
+<footer>© 2026 Weblixa. All rights reserved.</footer>
+
+<script>
+"use strict";
+
+const uploadArea = document.getElementById("uploadArea");
+const fileInput = document.getElementById("fileInput");
+const fileList = document.getElementById("fileList");
+const filesContainer = document.getElementById("filesContainer");
+const mergeBtn = document.getElementById("mergeBtn");
+const resetBtn = document.getElementById("resetBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const statusBox = document.getElementById("status");
+
+let selectedFiles = [];
+let mergedPdfUrl = null;
+let isMerging = false;
+let pdfLibPromise = null;
+let pdfJsPromise = null;
+
+const PDFJS_VERSION = "3.11.174";
+
+// Load a library from a list of CDN addresses.
+function loadScript(url) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = url;
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => {
+            script.remove();
+            reject(new Error("Could not load " + url));
+        };
+        document.head.appendChild(script);
+    });
+}
+
+// Load PDF-lib with fallback CDN.
+async function loadPdfLib() {
+    if (window.PDFLib && window.PDFLib.PDFDocument) {
+        return window.PDFLib;
+    }
+
+    if (!pdfLibPromise) {
+        pdfLibPromise = (async () => {
+            const urls = [
+                "https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js",
+                "https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"
+            ];
+
+            for (const url of urls) {
+                try {
+                    await loadScript(url);
+                    if (window.PDFLib && window.PDFLib.PDFDocument) {
+                        return window.PDFLib;
+                    }
+                } catch (error) {
+                    console.warn("PDF-lib CDN failed:", url, error);
+                }
+            }
+
+            throw new Error("PDF merge library could not load. Please check your internet connection.");
+        })().catch(error => {
+            pdfLibPromise = null;
+            throw error;
+        });
+    }
+
+    return pdfLibPromise;
+}
+
+// Load PDF.js with fallback CDN and configure its worker.
+async function loadPdfJs() {
+    if (window.pdfjsLib) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/" +
+            PDFJS_VERSION + "/pdf.worker.min.js";
+        return window.pdfjsLib;
+    }
+
+    if (!pdfJsPromise) {
+        pdfJsPromise = (async () => {
+            const urls = [
+                "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/" + PDFJS_VERSION + "/pdf.min.js",
+                "https://cdn.jsdelivr.net/npm/pdfjs-dist@" + PDFJS_VERSION + "/build/pdf.min.js"
+            ];
+
+            for (const url of urls) {
+                try {
+                    await loadScript(url);
+                    if (window.pdfjsLib) {
+                        pdfjsLib.GlobalWorkerOptions.workerSrc =
+                            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/" +
+                            PDFJS_VERSION + "/pdf.worker.min.js";
+                        return window.pdfjsLib;
+                    }
+                } catch (error) {
+                    console.warn("PDF.js CDN failed:", url, error);
+                }
+            }
+
+            throw new Error("PDF preview library could not load.");
+        })().catch(error => {
+            pdfJsPromise = null;
+            throw error;
+        });
+    }
+
+    return pdfJsPromise;
+}
+
+function showStatus(message, type) {
+    statusBox.textContent = message;
+    statusBox.className = "status " + type;
+    statusBox.style.display = "block";
+}
+
+function hideStatus() {
+    statusBox.style.display = "none";
+    statusBox.textContent = "";
+    statusBox.className = "status";
+}
+
+function formatBytes(bytes) {
+    if (!bytes) return "0 Bytes";
+    const units = ["Bytes", "KB", "MB", "GB"];
+    const index = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), 3);
+    return (bytes / Math.pow(1024, index)).toFixed(2) + " " + units[index];
+}
+
+function clearMergedResult() {
+    if (mergedPdfUrl) {
+        URL.revokeObjectURL(mergedPdfUrl);
+        mergedPdfUrl = null;
+    }
+    downloadBtn.style.display = "none";
+}
+
+function releasePreview(entry) {
+    if (entry && entry.previewUrl) {
+        URL.revokeObjectURL(entry.previewUrl);
+        entry.previewUrl = null;
+    }
+}
+
+// Draw the first page with PDF.js.
+// The explicit rotation setting avoids applying unusual PDF rotation metadata
+// to the preview. The merge itself retains the source page settings.
+async function renderPreview(entry, previewBox) {
+    try {
+        const pdfjs = await loadPdfJs();
+        if (!selectedFiles.includes(entry)) return;
+
+        const bytes = await entry.file.arrayBuffer();
+        const loadingTask = pdfjs.getDocument({
+            data: new Uint8Array(bytes)
+        });
+        const pdf = await loadingTask.promise;
+
+        if (!selectedFiles.includes(entry)) {
+            pdf.destroy();
+            return;
+        }
+
+        const page = await pdf.getPage(1);
+        const baseViewport = page.getViewport({
+            scale: 1,
+            rotation: 0
+        });
+
+        const maxWidth = Math.max(220, previewBox.clientWidth - 24);
+        const scale = Math.min(maxWidth / baseViewport.width, 1.5);
+        const viewport = page.getViewport({
+            scale: scale,
+            rotation: 0
+        });
+
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        if (!context) throw new Error("Canvas is not supported in this browser.");
+
+        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(viewport.width * pixelRatio);
+        canvas.height = Math.floor(viewport.height * pixelRatio);
+        canvas.style.width = Math.floor(viewport.width) + "px";
+        canvas.style.height = Math.floor(viewport.height) + "px";
+
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+        await page.render({
+            canvasContext: context,
+            viewport: viewport
+        }).promise;
+
+        if (!selectedFiles.includes(entry)) {
+            pdf.destroy();
+            return;
+        }
+
+        previewBox.innerHTML = "";
+        previewBox.appendChild(canvas);
+
+        const label = document.createElement("div");
+        label.className = "preview-message";
+        label.textContent = "Preview: page 1 of " + pdf.numPages;
+        previewBox.appendChild(label);
+
+        pdf.destroy();
+    } catch (error) {
+        console.error("PDF preview error:", error);
+        if (selectedFiles.includes(entry)) {
+            previewBox.innerHTML = "";
+            const message = document.createElement("div");
+            message.className = "preview-message";
+            message.textContent =
+                "Preview unavailable. You can still try merging this PDF.";
+            previewBox.appendChild(message);
+        }
+    }
+}
+
+function updateFileList() {
+    filesContainer.innerHTML = "";
+
+    if (selectedFiles.length === 0) {
+        fileList.style.display = "none";
+        mergeBtn.disabled = true;
+        return;
+    }
+
+    fileList.style.display = "block";
+    mergeBtn.disabled = selectedFiles.length < 2 || isMerging;
+
+    selectedFiles.forEach((entry, index) => {
+        const file = entry.file;
+        const item = document.createElement("div");
+        item.className = "file-item";
+
+        const number = document.createElement("div");
+        number.className = "file-number";
+        number.textContent = String(index + 1);
+
+        const name = document.createElement("div");
+        name.className = "file-name";
+        name.textContent = file.name;
+
+        const size = document.createElement("div");
+        size.className = "file-size";
+        size.textContent = formatBytes(file.size);
+
+        const remove = document.createElement("button");
+        remove.className = "remove-file";
+        remove.type = "button";
+        remove.textContent = "×";
+        remove.title = "Remove file";
+        remove.setAttribute("aria-label", "Remove " + file.name);
+        remove.disabled = isMerging;
+
+        remove.addEventListener("click", event => {
+            event.stopPropagation();
+            if (isMerging) return;
+
+            const removed = selectedFiles.splice(index, 1)[0];
+            releasePreview(removed);
+            clearMergedResult();
+            hideStatus();
+            updateFileList();
+        });
+
+        const previewWrap = document.createElement("div");
+        previewWrap.className = "preview-wrap";
+
+        const title = document.createElement("p");
+        title.className = "preview-title";
+        title.textContent = "PDF Preview";
+
+        const preview = document.createElement("div");
+        preview.className = "pdf-preview";
+
+        const loading = document.createElement("div");
+        loading.className = "preview-message";
+        loading.textContent = "Loading PDF preview...";
+        preview.appendChild(loading);
+
+        previewWrap.appendChild(title);
+        previewWrap.appendChild(preview);
+        item.append(number, name, size, remove, previewWrap);
+        filesContainer.appendChild(item);
+
+        renderPreview(entry, preview);
+    });
+}
+
+function addFiles(files) {
+    if (isMerging) return;
+
+    let added = 0;
+    let invalid = 0;
+
+    for (const file of files) {
+        const isPdf = file.type === "application/pdf" ||
+                      file.name.toLowerCase().endsWith(".pdf");
+
+        if (!isPdf) {
+            invalid++;
+            continue;
+        }
+
+        selectedFiles.push({
+            file: file,
+            previewUrl: URL.createObjectURL(file)
+        });
+        added++;
+    }
+
+    if (added > 0) {
+        clearMergedResult();
+        hideStatus();
+    }
+
+    updateFileList();
+
+    if (invalid > 0) {
+        showStatus(
+            "Only PDF files are supported. Non-PDF files were ignored.",
+            "error"
+        );
+    } else if (added === 0 && files.length > 0) {
+        showStatus("Please select valid PDF files.", "error");
+    }
+}
+
+uploadArea.addEventListener("click", () => {
+    if (!isMerging) fileInput.click();
+});
+
+fileInput.addEventListener("change", () => {
+    addFiles(fileInput.files);
+    fileInput.value = "";
+});
+
+uploadArea.addEventListener("dragover", event => {
+    event.preventDefault();
+    if (!isMerging) uploadArea.classList.add("dragover");
+});
+
+uploadArea.addEventListener("dragleave", () => {
+    uploadArea.classList.remove("dragover");
+});
+
+uploadArea.addEventListener("drop", event => {
+    event.preventDefault();
+    uploadArea.classList.remove("dragover");
+    if (!isMerging && event.dataTransfer) {
+        addFiles(event.dataTransfer.files);
+    }
+});
+
+// Merge all PDFs in the order they appear in the selected file list.
+mergeBtn.addEventListener("click", async () => {
+    if (isMerging) return;
+
+    if (selectedFiles.length < 2) {
+        showStatus("Please select at least two PDF files.", "error");
+        return;
+    }
+
+    isMerging = true;
+    mergeBtn.disabled = true;
+    mergeBtn.textContent = "Merging...";
+    clearMergedResult();
+    hideStatus();
+    updateFileList();
+
+    try {
+        const PDFLib = await loadPdfLib();
+        const PDFDocument = PDFLib.PDFDocument;
+        const mergedPdf = await PDFDocument.create();
+
+        const filesToMerge = selectedFiles.slice();
+
+        for (let i = 0; i < filesToMerge.length; i++) {
+            const file = filesToMerge[i].file;
+
+            showStatus(
+                "Processing PDF " + (i + 1) + " of " +
+                filesToMerge.length + "...",
+                "success"
+            );
+
+            const bytes = await file.arrayBuffer();
+            const sourcePdf = await PDFDocument.load(bytes);
+            const pageIndices = sourcePdf.getPageIndices();
+            const copiedPages = await mergedPdf.copyPages(
+                sourcePdf,
+                pageIndices
+            );
+
+            copiedPages.forEach(page => mergedPdf.addPage(page));
+        }
+
+        if (mergedPdf.getPageCount() === 0) {
+            throw new Error("No pages found in the selected PDFs.");
+        }
+
+        const pdfBytes = await mergedPdf.save();
+        const blob = new Blob([pdfBytes], {
+            type: "application/pdf"
+        });
+
+        mergedPdfUrl = URL.createObjectURL(blob);
+        downloadBtn.style.display = "inline-block";
+
+        showStatus(
+            "PDF files merged successfully. You can now download your PDF.",
+            "success"
+        );
+    } catch (error) {
+        console.error("PDF merge error:", error);
+        clearMergedResult();
+
+        let message =
+            "Could not merge the PDF files. Please make sure they are valid PDFs and try again.";
+
+        const errorText = String(error && error.message || "").toLowerCase();
+
+        if (errorText.includes("encrypt") ||
+            errorText.includes("password")) {
+            message =
+                "A password-protected PDF was detected. Please remove its password and try again.";
+        } else if (errorText.includes("library") ||
+                   errorText.includes("load")) {
+            message =
+                "PDF library could not load. Check your internet connection and reload the page.";
+        }
+
+        showStatus(message, "error");
+    } finally {
+        isMerging = false;
+        mergeBtn.textContent = "Merge PDFs";
+        mergeBtn.disabled = selectedFiles.length < 2;
+        updateFileList();
+    }
+});
+
+downloadBtn.addEventListener("click", () => {
+    if (!mergedPdfUrl) {
+        showStatus("Please merge your PDF files first.", "error");
+        return;
+    }
+
+    const link = document.createElement("a");
+    link.href = mergedPdfUrl;
+    link.download = "weblixa-merged.pdf";
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+});
+
+resetBtn.addEventListener("click", () => {
+    if (isMerging) return;
+
+    selectedFiles.forEach(releasePreview);
+    selectedFiles = [];
+    fileInput.value = "";
+    filesContainer.innerHTML = "";
+    fileList.style.display = "none";
+    mergeBtn.disabled = true;
+    mergeBtn.textContent = "Merge PDFs";
+    clearMergedResult();
+    hideStatus();
+});
+
+window.addEventListener("beforeunload", () => {
+    selectedFiles.forEach(releasePreview);
+    if (mergedPdfUrl) {
+        URL.revokeObjectURL(mergedPdfUrl);
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Word Counter - Weblixa</title>
+    <meta name="description" content="Count words, characters, sentences and paragraphs online with Weblixa Word Counter.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 20px;
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: #111827;
+            font-size: 26px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo svg {
+            width: 180px;
+            height: 52px;
+            display: block;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 1280px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tool-label {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #2563eb;
+            margin-bottom: 14px;
+        }
+
+        .tool-header h1 {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+            color: #1a1a24;
+        }
+
+        .tool-header h1 span {
+            color: #1d6fdc;
+        }
+
+        .tool-header p {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            color: #6b7280;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .tool-layout {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr) 230px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .side-box {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .side-box h2 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 14px;
+        }
+
+        .keyword-list {
+            list-style: none;
+        }
+
+        .keyword-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 9px 12px;
+            margin-bottom: 8px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1f2937;
+            word-break: break-word;
+        }
+
+        .keyword-list li span {
+            color: #2563eb;
+            font-weight: 800;
+        }
+
+        .keyword-list li.empty {
+            justify-content: center;
+            color: #6b7280;
+        }
+
+        .insight {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .insight:last-child {
+            border-bottom: none;
+        }
+
+        .insight span {
+            color: #6b7280;
+        }
+
+        .insight strong {
+            color: #111827;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        @media (max-width: 1100px) {
+            .tool-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .tool-box {
+                grid-column: 1 / -1;
+                order: -1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tool-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tool-box {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 320px;
+            resize: vertical;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 18px;
+            font-size: 17px;
+            line-height: 1.7;
+            outline: none;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .clear-btn {
+            background: #ef4444;
+            color: #ffffff;
+        }
+
+        .copy-btn {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat h3 {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .stat p {
+            color: #111827;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .info-box {
+            margin-top: 25px;
+            padding: 18px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            color: #1e40af;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .tool-header h1 {
+                font-size: 40px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            textarea {
+                min-height: 260px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .header-inner {
+                flex-direction: column;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-box {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <a href="../../index.html" class="logo">
+
+            <svg width="180" height="52" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="weblixaGradient"
+                                    x1="4"
+                                    y1="4"
+                                    x2="44"
+                                    y2="48"
+                                    gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#2563EB"/>
+                        <stop offset="0.5" stop-color="#7C3AED"/>
+                        <stop offset="1" stop-color="#06B6D4"/>
+                    </linearGradient>
+                </defs>
+
+                <path
+                    d="M6 9L15 38L25 14L35 38L44 9"
+                    stroke="url(#weblixaGradient)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+                <text
+                    x="58"
+                    y="35"
+                    font-family="Arial, Helvetica, sans-serif"
+                    font-size="27"
+                    font-weight="700"
+                    fill="#102A56">
+                    Weblixa
+                </text>
+            </svg>
+
+        </a>
+
+        <a href="../../index.html" class="back-link">
+            ← Back to Home
+        </a>
+    </div>
+</header>
+
+<main>
+
+    <div class="tool-header">
+        <div class="tool-label">Weblixa Text Tools</div>
+        <h1>Word <span>Counter</span></h1>
+        <p>Count words, characters, sentences, paragraphs and reading time.</p>
+    </div>
+
+    <div class="tool-layout">
+
+    <div class="side-box">
+        <h2>Top Keywords</h2>
+        <ul class="keyword-list" id="keywordList">
+            <li class="empty">No text yet</li>
+        </ul>
+    </div>
+
+    <div class="tool-box">
+
+        <textarea
+            id="textInput"
+            placeholder="Start typing or paste your text here..."
+        ></textarea>
+
+        <div class="buttons">
+            <button class="copy-btn" id="copyBtn">
+                Copy Text
+            </button>
+
+            <button class="clear-btn" id="clearBtn">
+                Clear
+            </button>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <h3>Words</h3>
+                <p id="wordCount">0</p>
+            </div>
+
+            <div class="stat">
+                <h3>Characters</h3>
+                <p id="characterCount">0</p>
+            </div>
+
+            <div class="stat">
+                <h3>Characters (No Spaces)</h3>
+                <p id="characterNoSpaceCount">0</p>
+            </div>
+
+            <div class="stat">
+                <h3>Sentences</h3>
+                <p id="sentenceCount">0</p>
+            </div>
+
+            <div class="stat">
+                <h3>Paragraphs</h3>
+                <p id="paragraphCount">0</p>
+            </div>
+
+            <div class="stat">
+                <h3>Reading Time</h3>
+                <p id="readingTime">0 min</p>
+            </div>
+
+        </div>
+
+        <div class="info-box" id="status">
+            Start typing to see your text statistics.
+        </div>
+
+    </div>
+
+    <div class="side-box">
+        <h2>Quick Insights</h2>
+        <div class="insight"><span>Speaking Time</span><strong id="speakingTime">0 sec</strong></div>
+        <div class="insight"><span>Avg Word Length</span><strong id="avgWordLength">0</strong></div>
+        <div class="insight"><span>Words / Sentence</span><strong id="avgSentence">0</strong></div>
+        <div class="insight"><span>Longest Word</span><strong id="longestWord">-</strong></div>
+    </div>
+
+    </div>
+
+</main>
+
+<footer>
+    © 2026 Weblixa. All rights reserved.
+</footer>
+
+<script>
+    const textInput = document.getElementById("textInput");
+
+    const wordCount = document.getElementById("wordCount");
+    const characterCount = document.getElementById("characterCount");
+    const characterNoSpaceCount = document.getElementById("characterNoSpaceCount");
+    const sentenceCount = document.getElementById("sentenceCount");
+    const paragraphCount = document.getElementById("paragraphCount");
+    const readingTime = document.getElementById("readingTime");
+
+    const clearBtn = document.getElementById("clearBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const status = document.getElementById("status");
+
+
+    function updateStats() {
+
+        const text = textInput.value;
+
+        characterCount.textContent = text.length;
+
+        const noSpaceText = text.replace(/\s/g, "");
+        characterNoSpaceCount.textContent = noSpaceText.length;
+
+
+        const trimmedText = text.trim();
+
+        if (trimmedText === "") {
+
+            wordCount.textContent = "0";
+            sentenceCount.textContent = "0";
+            paragraphCount.textContent = "0";
+            readingTime.textContent = "0 min";
+
+            status.textContent =
+                "Start typing to see your text statistics.";
+
+            return;
+        }
+
+
+        const words = trimmedText.split(/\s+/);
+
+        wordCount.textContent = words.length;
+
+
+        const sentences = trimmedText
+            .split(/[.!?]+/)
+            .filter(function(sentence) {
+                return sentence.trim().length > 0;
+            });
+
+        sentenceCount.textContent = sentences.length;
+
+
+        const paragraphs = trimmedText
+            .split(/\n\s*\n/)
+            .filter(function(paragraph) {
+                return paragraph.trim().length > 0;
+            });
+
+        paragraphCount.textContent = paragraphs.length;
+
+
+        const wordsPerMinute = 200;
+
+        const minutes = Math.ceil(
+            words.length / wordsPerMinute
+        );
+
+        readingTime.textContent =
+            minutes + (minutes === 1 ? " min" : " min");
+
+
+        status.textContent =
+            "Your text statistics are updated automatically.";
+    }
+
+
+    textInput.addEventListener("input", updateStats);
+
+
+    clearBtn.addEventListener("click", function() {
+
+        textInput.value = "";
+
+        updateStats();
+        updateExtras();
+
+        textInput.focus();
+
+    });
+
+
+    copyBtn.addEventListener("click", async function() {
+
+        const text = textInput.value;
+
+        if (!text) {
+
+            status.textContent =
+                "There is no text to copy.";
+
+            return;
+        }
+
+        try {
+
+            await navigator.clipboard.writeText(text);
+
+            status.textContent =
+                "Text copied successfully.";
+
+        } catch (error) {
+
+            textInput.select();
+
+            document.execCommand("copy");
+
+            status.textContent =
+                "Text copied successfully.";
+        }
+
+    });
+
+
+    const keywordList = document.getElementById("keywordList");
+    const speakingTime = document.getElementById("speakingTime");
+    const avgWordLength = document.getElementById("avgWordLength");
+    const avgSentence = document.getElementById("avgSentence");
+    const longestWord = document.getElementById("longestWord");
+
+    const stopWords = new Set(["the","and","for","that","this","with","from","have","are","was","were","you","your","not","but","they","their","will","would","there","been","has","had","can","its","our","all","any","who","what","when","which","also","into","than","then","them","these","those","about"]);
+
+    function updateExtras() {
+
+        keywordList.innerHTML = "";
+
+        const text = textInput.value.trim();
+        const words = text.match(/[\p{L}\p{N}']+/gu) || [];
+
+        if (words.length === 0) {
+            const empty = document.createElement("li");
+            empty.className = "empty";
+            empty.textContent = "No text yet";
+            keywordList.appendChild(empty);
+
+            speakingTime.textContent = "0 sec";
+            avgWordLength.textContent = "0";
+            avgSentence.textContent = "0";
+            longestWord.textContent = "-";
+            return;
+        }
+
+        const counts = {};
+        words.forEach(function(word) {
+            const w = word.toLowerCase();
+            if (w.length >= 4 && !stopWords.has(w)) {
+                counts[w] = (counts[w] || 0) + 1;
+            }
+        });
+
+        const top = Object.keys(counts)
+            .sort(function(a, b) { return counts[b] - counts[a]; })
+            .slice(0, 5);
+
+        if (top.length === 0) {
+            const empty = document.createElement("li");
+            empty.className = "empty";
+            empty.textContent = "No keywords yet";
+            keywordList.appendChild(empty);
+        }
+
+        top.forEach(function(word) {
+            const li = document.createElement("li");
+            li.textContent = word + " ";
+            const count = document.createElement("span");
+            count.textContent = counts[word];
+            li.appendChild(count);
+            keywordList.appendChild(li);
+        });
+
+        const seconds = Math.round(words.length / 130 * 60);
+        speakingTime.textContent = seconds < 60
+            ? seconds + " sec"
+            : Math.ceil(seconds / 60) + " min";
+
+        const totalLetters = words.join("").length;
+        avgWordLength.textContent = (totalLetters / words.length).toFixed(1);
+
+        const sentences = text.split(/[.!?]+/).filter(function(x) {
+            return x.trim().length > 0;
+        });
+        avgSentence.textContent = (words.length / Math.max(sentences.length, 1)).toFixed(1);
+
+        longestWord.textContent = words.reduce(function(a, b) {
+            return b.length > a.length ? b : a;
+        });
+    }
+
+    textInput.addEventListener("input", updateExtras);
+
+    updateStats();
+    updateExtras();
+</script>
+
+</body>
+</html>

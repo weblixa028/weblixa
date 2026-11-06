@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image Resizer - Weblixa</title>
+<meta name="description" content="Resize JPG, PNG and WebP images online with Weblixa. Set custom width and height and download your resized image.">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;background:#eef6ff;color:#111;min-height:100vh}
+.header{height:92px;background:#fff;display:flex;align-items:center;padding:0 30px;border-bottom:1px solid #e1e8ef;box-shadow:0 1px 5px rgba(0,0,0,.04)}
+.logo{display:flex;align-items:center;min-width:205px}.weblixa-logo{width:180px;height:52px;display:block}
+.nav{display:flex;align-items:center;gap:27px;height:100%}.nav a{height:100%;display:flex;align-items:center;text-decoration:none;color:#202020;font-size:17px;position:relative;white-space:nowrap}.nav a:hover{color:#1769aa}.nav a.active{color:#245f89}.nav a.active::after{content:"";position:absolute;bottom:0;left:0;right:0;height:4px;background:#1769aa;border-radius:4px 4px 0 0}
+.header-button{margin-left:auto}.get-started{border:0;background:#1769aa;color:#fff;font-size:17px;font-weight:700;padding:15px 25px;border-radius:9px;cursor:pointer;box-shadow:0 3px 7px rgba(23,105,170,.25)}.get-started:hover{background:#12598f}
+.main{padding:70px 28px 100px}.tool-card{max-width:1000px;margin:0 auto;background:#fff;border-radius:17px;overflow:hidden;border:1px solid #d9e1e8;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.tool-header{background:#eef6ff;text-align:center;padding:32px 20px 31px}.tool-header h1{font-size:42px;line-height:1.15;font-weight:800;margin-bottom:10px}.tool-header p{font-size:20px;line-height:1.4}.tool-body{padding:32px 30px 25px}
+.upload-box{height:325px;border:3px dotted #777;border-radius:25px;display:flex;align-items:center;justify-content:center;text-align:center;background:#fff;cursor:pointer;transition:.2s}.upload-box:hover{background:#fafcff;border-color:#1769aa}.upload-box.dragging{background:#eef7ff;border-color:#1769aa}.upload-content{display:flex;flex-direction:column;align-items:center}.upload-icon{font-size:50px;color:#1769aa;margin-bottom:13px}.upload-title{font-size:30px;font-weight:800;margin-bottom:7px}.upload-subtitle{font-size:21px;margin-bottom:12px}.choose-btn{border:0;background:#1769aa;color:#fff;padding:14px 31px;border-radius:10px;font-size:20px;font-weight:600;cursor:pointer}.choose-btn:hover{background:#12598f}#fileInput{display:none}
+.editor{display:none;margin-top:22px}.editor.show{display:block}.preview-box{background:#fff;border:1px solid #d9e1e8;border-radius:12px;padding:20px;text-align:center}.preview-title{font-size:22px;font-weight:700;margin-bottom:15px}.image-preview-wrap{width:100%;min-height:180px;display:flex;align-items:center;justify-content:center;background:#f3f7fb;border-radius:10px;overflow:hidden;padding:15px}#imagePreview{display:block;max-width:100%;max-height:400px;object-fit:contain}.image-info{margin-top:12px;color:#6b7280;font-size:15px}
+.controls{background:#fff;margin-top:20px;padding:25px;border:1px solid #d9e1e8;border-radius:15px}.control-group{margin-bottom:20px}.control-group:last-child{margin-bottom:0}.control-label{display:block;font-size:18px;font-weight:700;margin-bottom:10px}.dimensions{display:grid;grid-template-columns:1fr 1fr;gap:15px}.input-group label{display:block;font-weight:600;margin-bottom:8px}.input-group input{width:100%;padding:13px;border:1px solid #c9d2dc;border-radius:8px;font-size:17px;outline:none}.input-group input:focus{border-color:#1769aa}.checkbox-row{display:flex;align-items:center;gap:8px;margin-top:15px}.checkbox-row input{width:18px;height:18px;cursor:pointer}.checkbox-row label{cursor:pointer;font-size:16px}.format-select{width:100%;padding:13px;border:1px solid #c9d2dc;border-radius:8px;font-size:17px;background:#fff;cursor:pointer}
+.buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:22px}.action-btn{border:0;background:#1769aa;color:#fff;padding:13px 24px;border-radius:10px;font-size:18px;font-weight:700;cursor:pointer}.action-btn:hover{background:#12598f}.reset-btn{background:#9aaec0}.reset-btn:hover{background:#8399ad}.download-btn{border:0;background:#1769aa;color:#fff;padding:13px 30px;border-radius:10px;font-size:18px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}.download-btn:hover{background:#12598f}.download-btn.disabled{opacity:.55;pointer-events:none}
+.status-message{text-align:center;margin-top:14px;min-height:22px;font-size:15px;color:#1769aa;font-weight:600}.footer{height:100px;display:flex;align-items:center;justify-content:center;color:#777;font-size:15px}
+@media(max-width:950px){.header{height:auto;min-height:80px;flex-wrap:wrap;gap:15px;padding:15px 20px}.logo{min-width:auto}.nav{order:3;width:100%;justify-content:center;height:45px;gap:18px;overflow-x:auto}.nav a{font-size:14px}.header-button{margin-left:auto}.tool-header h1{font-size:38px}.tool-header p{font-size:19px}}
+@media(max-width:600px){.main{padding:35px 12px 70px}.tool-header{padding:27px 15px}.tool-header h1{font-size:32px}.tool-header p{font-size:17px}.tool-body{padding:20px 15px}.upload-box{height:270px}.upload-title{font-size:25px}.upload-subtitle{font-size:17px}.choose-btn{font-size:17px}.dimensions{grid-template-columns:1fr}.buttons{flex-direction:column}.action-btn,.download-btn{width:100%;text-align:center}.get-started{padding:11px 16px;font-size:14px}.weblixa-logo{width:155px;height:auto}#imagePreview{max-height:330px}}
+</style>
+</head>
+<body>
+<header class="header">
+<div class="logo">
+<svg width="180" height="52" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg" class="weblixa-logo">
+<defs><linearGradient id="weblixaGradient" x1="4" y1="4" x2="44" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2563EB"/><stop offset="0.5" stop-color="#7C3AED"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+<path d="M6 9L15 38L25 14L35 38L44 9" stroke="url(#weblixaGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="58" y="35" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#102A56">Weblixa</text>
+</svg>
+</div>
+<div class="header-button"><button class="get-started" type="button" id="getStartedBtn">Get Started</button></div>
+</header>
+
+<main class="main"><section class="tool-card">
+<div class="tool-header"><h1>Image Resizer</h1><p>Resize your image easily. Fast, free and easy to use.</p></div>
+<div class="tool-body">
+<div class="upload-box" id="uploadBox"><div class="upload-content"><div class="upload-icon">⇧</div><div class="upload-title">Upload Your Image</div><div class="upload-subtitle">Drag &amp; Drop your image here or</div><button class="choose-btn" type="button" id="chooseBtn">▣ &nbsp; Choose Image</button></div></div>
+<input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/gif">
+
+<div class="editor" id="editor">
+<div class="preview-box"><div class="preview-title">Image Preview</div><div class="image-preview-wrap"><img id="imagePreview" alt="Selected Image"></div><div class="image-info" id="imageInfo"></div></div>
+<div class="controls">
+<div class="control-group"><label class="control-label">New Dimensions</label><div class="dimensions">
+<div class="input-group"><label for="width">Width (px)</label><input type="number" id="width" min="1" placeholder="Width"></div>
+<div class="input-group"><label for="height">Height (px)</label><input type="number" id="height" min="1" placeholder="Height"></div>
+</div>
+<div class="checkbox-row"><input type="checkbox" id="lockRatio" checked><label for="lockRatio">Keep aspect ratio</label></div></div>
+<div class="control-group"><label class="control-label" for="format">Output Format</label>
+<select id="format" class="format-select"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>
+<div class="buttons">
+<button id="resizeBtn" class="action-btn" type="button">Resize Image</button>
+<button id="resetBtn" class="action-btn reset-btn" type="button">Choose Another</button>
+<a id="downloadBtn" class="download-btn disabled" href="#" download>⇩ &nbsp; Download</a>
+</div>
+<div id="statusMessage" class="status-message"></div>
+</div>
+</div>
+</div>
+</section></main>
+<footer class="footer">© 2026 Weblixa. All rights reserved.</footer>
+
+<script>
+const fileInput=document.getElementById("fileInput");
+const uploadBox=document.getElementById("uploadBox");
+const chooseBtn=document.getElementById("chooseBtn");
+const editor=document.getElementById("editor");
+const imagePreview=document.getElementById("imagePreview");
+const imageInfo=document.getElementById("imageInfo");
+const widthInput=document.getElementById("width");
+const heightInput=document.getElementById("height");
+const lockRatio=document.getElementById("lockRatio");
+const format=document.getElementById("format");
+const resizeBtn=document.getElementById("resizeBtn");
+const resetBtn=document.getElementById("resetBtn");
+const downloadBtn=document.getElementById("downloadBtn");
+const statusMessage=document.getElementById("statusMessage");
+const getStartedBtn=document.getElementById("getStartedBtn");
+
+let originalImage=null;
+let originalDataURL="";
+let resizedBlob=null;
+let resizedURL="";
+let aspectRatio=1;
+let originalWidth=0;
+let originalHeight=0;
+let outputFileName="weblixa-resized";
+
+function showStatus(message){statusMessage.textContent=message}
+function formatBytes(bytes){
+ if(!Number.isFinite(bytes)||bytes<=0)return"0 Bytes";
+ const units=["Bytes","KB","MB","GB"];
+ const i=Math.min(Math.floor(Math.log(bytes)/Math.log(1024)),units.length-1);
+ return parseFloat((bytes/Math.pow(1024,i)).toFixed(2))+" "+units[i];
+}
+function clearDownload(){
+ if(resizedURL){URL.revokeObjectURL(resizedURL);resizedURL=""}
+ resizedBlob=null;
+ downloadBtn.href="#";
+ downloadBtn.removeAttribute("download");
+ downloadBtn.classList.add("disabled");
+}
+function openFilePicker(e){
+ if(e){e.preventDefault();e.stopPropagation()}
+ fileInput.value="";
+ fileInput.click();
+}
+chooseBtn.addEventListener("click",openFilePicker);
+uploadBox.addEventListener("click",e=>{if(!e.target.closest("#chooseBtn"))openFilePicker(e)});
+
+function loadImage(file){
+ if(!file)return;
+ if(!file.type||!file.type.startsWith("image/")){alert("Please select a valid image file.");return}
+ clearDownload(); showStatus("Loading image...");
+ const reader=new FileReader();
+ reader.onload=e=>{
+  const dataURL=e.target.result;
+  if(typeof dataURL!=="string"||!dataURL.startsWith("data:image/")){alert("The selected image could not be read.");showStatus("");return}
+  originalDataURL=dataURL;
+  const img=new Image();
+  img.onload=()=>{
+   originalImage=img;
+   originalWidth=img.naturalWidth||img.width;
+   originalHeight=img.naturalHeight||img.height;
+   if(!originalWidth||!originalHeight){alert("Could not read the image dimensions.");showStatus("");return}
+   aspectRatio=originalWidth/originalHeight;
+   widthInput.value=originalWidth;
+   heightInput.value=originalHeight;
+   imagePreview.removeAttribute("src");
+   imagePreview.src=originalDataURL;
+   imageInfo.textContent="Original size: "+formatBytes(file.size)+" • "+originalWidth+" × "+originalHeight+" px";
+   uploadBox.style.display="none";
+   editor.classList.add("show");
+   showStatus("Image selected successfully. Set your new dimensions.");
+   setTimeout(()=>editor.scrollIntoView({behavior:"smooth",block:"start"}),100);
+  };
+  img.onerror=()=>{originalImage=null;originalDataURL="";alert("This image could not be opened.");showStatus("")};
+  img.src=dataURL;
+ };
+ reader.onerror=()=>{originalImage=null;originalDataURL="";alert("The image could not be read. Please try another image.");showStatus("")};
+ reader.readAsDataURL(file);
+}
+fileInput.addEventListener("change",e=>{const file=e.target.files&&e.target.files.length?e.target.files[0]:null;if(file)loadImage(file)});
+
+widthInput.addEventListener("input",()=>{
+ if(!lockRatio.checked||!originalImage)return;
+ const width=Number(widthInput.value);
+ if(width>0)heightInput.value=Math.max(1,Math.round(width/aspectRatio));
+});
+heightInput.addEventListener("input",()=>{
+ if(!lockRatio.checked||!originalImage)return;
+ const height=Number(heightInput.value);
+ if(height>0)widthInput.value=Math.max(1,Math.round(height*aspectRatio));
+});
+
+resizeBtn.addEventListener("click",()=>{
+ if(!originalImage){alert("Please select an image first.");return}
+ const newWidth=Math.round(Number(widthInput.value));
+ const newHeight=Math.round(Number(heightInput.value));
+ if(!Number.isFinite(newWidth)||!Number.isFinite(newHeight)||newWidth<1||newHeight<1){alert("Please enter valid width and height.");return}
+ showStatus("Resizing image...");
+ resizeBtn.disabled=true;
+ const canvas=document.createElement("canvas");
+ canvas.width=newWidth; canvas.height=newHeight;
+ const ctx=canvas.getContext("2d");
+ if(!ctx){alert("Your browser does not support canvas.");resizeBtn.disabled=false;return}
+ ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";
+ if(format.value==="image/jpeg"){ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height)}
+ ctx.drawImage(originalImage,0,0,newWidth,newHeight);
+
+ const outputType=format.value;
+ const quality=outputType==="image/png"?undefined:0.92;
+
+ canvas.toBlob(blob=>{
+  resizeBtn.disabled=false;
+  if(!blob){alert("Resize failed. Please try again.");showStatus("");return}
+  if(resizedURL)URL.revokeObjectURL(resizedURL);
+  resizedBlob=blob;
+  resizedURL=URL.createObjectURL(blob);
+  imagePreview.removeAttribute("src");
+  imagePreview.src=resizedURL;
+  let ext=outputType==="image/jpeg"?"jpg":outputType==="image/webp"?"webp":"png";
+  outputFileName="weblixa-resized-"+newWidth+"x"+newHeight+"."+ext;
+  downloadBtn.href=resizedURL;
+  downloadBtn.download=outputFileName;
+  downloadBtn.classList.remove("disabled");
+  imageInfo.textContent="Resized size: "+newWidth+" × "+newHeight+" px • "+formatBytes(blob.size);
+  showStatus("Image resized successfully. Click Download.");
+ },outputType,quality);
+});
+
+downloadBtn.addEventListener("click",async e=>{
+ e.preventDefault();
+ if(!resizedBlob){alert("Please resize the image first.");return}
+ try{
+  const blobURL=URL.createObjectURL(resizedBlob);
+  const a=document.createElement("a");
+  a.href=blobURL;
+  a.download=outputFileName;
+  a.style.display="none";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(blobURL),1500);
+ }catch(err){
+  // Fallback: keep the real blob URL on the button.
+  downloadBtn.href=resizedURL;
+  downloadBtn.download=outputFileName;
+  downloadBtn.target="_blank";
+  window.open(resizedURL,"_blank");
+ }
+});
+
+resetBtn.addEventListener("click",()=>{
+ clearDownload();originalImage=null;originalDataURL="";aspectRatio=1;originalWidth=0;originalHeight=0;
+ fileInput.value="";imagePreview.removeAttribute("src");imageInfo.textContent="";widthInput.value="";heightInput.value="";
+ editor.classList.remove("show");uploadBox.style.display="flex";showStatus("");
+});
+
+["dragenter","dragover"].forEach(n=>uploadBox.addEventListener(n,e=>{e.preventDefault();e.stopPropagation();uploadBox.classList.add("dragging")}));
+["dragleave","drop"].forEach(n=>uploadBox.addEventListener(n,e=>{e.preventDefault();e.stopPropagation();uploadBox.classList.remove("dragging")}));
+uploadBox.addEventListener("drop",e=>{const files=e.dataTransfer&&e.dataTransfer.files;if(files&&files.length)loadImage(files[0])});
+getStartedBtn.addEventListener("click",()=>{window.location.href="../../index.html#popular-tools"});
+window.addEventListener("beforeunload",()=>{if(resizedURL)URL.revokeObjectURL(resizedURL)});
+</script>
+</body>
+</html>

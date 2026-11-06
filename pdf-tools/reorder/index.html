@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Reorder - Weblixa</title>
+<meta name="description" content="Reorder PDF pages and download the rearranged PDF with Weblixa.">
+
+<!-- PDF LIB -->
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<!-- PDF JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, Helvetica, sans-serif; background: #f5f7fb; color: #1f2937; min-height: 100vh; }
+header { background: #ffffff; border-bottom: 1px solid #e5e7eb; padding: 18px 20px; }
+.header-inner { max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.logo { text-decoration: none; display: flex; align-items: center; }
+.logo-svg { width: 180px; height: 52px; display: block; }
+.back-link { text-decoration: none; color: #2563eb; font-weight: 600; }
+.back-link:hover { text-decoration: underline; }
+.container { width: 94%; max-width: 1100px; margin: 40px auto; }
+.tool-label-wrap { text-align: center; }
+.tool-label { display: inline-block; margin-bottom: 14px; padding: 6px 14px; border-radius: 999px; background: #eff6ff; color: #1d4ed8; font-size: 14px; font-weight: 700; }
+.title { text-align: center; font-size: 32px; margin-bottom: 10px; color: #111827; }
+.title span { color: #2563eb; }
+.subtitle { text-align: center; color: #6b7280; margin-bottom: 30px; }
+.tool-box { background: #ffffff; border-radius: 16px; padding: 25px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); }
+.upload-area { border: 2px dashed #cbd5e1; border-radius: 14px; padding: 35px 20px; text-align: center; background: #f8fafc; cursor: pointer; transition: 0.2s; }
+.upload-area:hover, .upload-area.dragover { border-color: #2563eb; background: #eff6ff; }
+.upload-icon { font-size: 42px; margin-bottom: 10px; }
+.upload-area h3 { margin-bottom: 8px; }
+.upload-area p { color: #6b7280; margin-bottom: 18px; }
+.file-input { display: none; }
+.btn { border: none; border-radius: 9px; padding: 11px 18px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-primary { background: #2563eb; color: #ffffff; }
+.btn-primary:hover:not(:disabled) { background: #1d4ed8; }
+.btn-secondary { background: #e5e7eb; color: #111827; }
+.btn-secondary:hover:not(:disabled) { background: #d1d5db; }
+.btn-download-ready { background: #16a34a; color: #ffffff; }
+.btn-download-ready:hover:not(:disabled) { background: #15803d; }
+.btn-danger { background: #fee2e2; color: #b91c1c; }
+.btn-danger:hover:not(:disabled) { background: #fecaca; }
+.file-info { display: none; margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 10px; line-height: 1.7; }
+.pages-section { display: none; margin-top: 25px; }
+.pages-header { display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 18px; }
+.pages-header h3 { font-size: 20px; }
+.hint { color: #6b7280; font-size: 14px; margin-top: 4px; }
+.pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 18px; }
+.page-card { background: #ffffff; border: 2px solid #e5e7eb; border-radius: 12px; padding: 10px; cursor: grab; transition: 0.2s; position: relative; }
+.page-card:hover { border-color: #93c5fd; transform: translateY(-2px); }
+.page-card:active { cursor: grabbing; }
+.page-card.dragging { opacity: 0.45; }
+.page-card.drag-over { border-color: #2563eb; background: #eff6ff; }
+.page-number { font-weight: 700; text-align: center; margin-bottom: 8px; color: #1f2937; }
+.page-preview { width: 100%; background: #e5e7eb; border-radius: 7px; overflow: hidden; min-height: 220px; display: flex; align-items: center; justify-content: center; }
+.page-preview canvas { display: block; width: 100%; height: auto; }
+.page-actions { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+.small-btn { border: 1px solid #d1d5db; background: #ffffff; border-radius: 7px; padding: 7px 10px; cursor: pointer; font-size: 13px; }
+.small-btn:hover:not(:disabled) { background: #f3f4f6; }
+.small-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.action-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 25px; }
+.status { display: none; margin-top: 18px; padding: 12px 14px; border-radius: 9px; background: #eff6ff; color: #1e40af; }
+.status.error { background: #fee2e2; color: #b91c1c; }
+.status.success { background: #dcfce7; color: #166534; }
+.info-box { margin-top: 25px; background: #f8fafc; border-left: 4px solid #2563eb; padding: 15px; border-radius: 8px; color: #475569; line-height: 1.6; font-size: 14px; }
+footer { text-align: center; color: #6b7280; padding: 30px 20px; font-size: 14px; }
+@media (max-width: 650px) {
+  .header-inner { gap: 10px; }
+  .container { width: 95%; margin: 28px auto; }
+  .tool-box { padding: 18px; }
+  .title { font-size: 27px; }
+  .logo-svg { width: 145px; height: auto; }
+  .back-link { font-size: 14px; }
+  .pages-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .page-preview { min-height: 150px; }
+  .action-buttons .btn { width: 100%; }
+}
+@media (max-width: 400px) {
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .header-inner .back-link { align-self: flex-end; }
+  .pages-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <!-- WEBLIXA LOGO -->
+    <a class="logo" href="../../index.html">
+      <svg class="logo-svg" width="180" height="52" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="weblixaGradient" x1="4" y1="4" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#2563EB"/>
+            <stop offset="0.5" stop-color="#7C3AED"/>
+            <stop offset="1" stop-color="#06B6D4"/>
+          </linearGradient>
+        </defs>
+        <path d="M6 9L15 38L25 14L35 38L44 9" stroke="url(#weblixaGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="58" y="35" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#102A56">Weblixa</text>
+      </svg>
+    </a>
+    <a class="back-link" href="../../index.html">← Back to Home</a>
+  </div>
+</header>
+
+<main class="container">
+  <div class="tool-label-wrap">
+    <div class="tool-label">Weblixa PDF Tool</div>
+  </div>
+
+  <h1 class="title">PDF <span>Reorder</span></h1>
+  <p class="subtitle">Rearrange PDF pages and create a new PDF in your preferred order.</p>
+
+  <section class="tool-box">
+
+    <!-- UPLOAD -->
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📑</div>
+      <h3>Upload Your PDF</h3>
+      <p>Select a PDF or drag and drop it here.</p>
+      <button type="button" class="btn btn-primary" id="selectBtn">Choose PDF</button>
+      <input type="file" id="fileInput" class="file-input" accept="application/pdf,.pdf">
+    </div>
+
+    <!-- FILE INFORMATION -->
+    <div class="file-info" id="fileInfo"></div>
+
+    <!-- PAGES -->
+    <div class="pages-section" id="pagesSection">
+      <div class="pages-header">
+        <div>
+          <h3>PDF Pages</h3>
+          <p class="hint">Drag pages to change their order.</p>
+        </div>
+      </div>
+
+      <div class="pages-grid" id="pagesGrid"></div>
+
+      <div class="action-buttons">
+        <button type="button" class="btn btn-primary" id="createBtn">Create Reordered PDF</button>
+        <button type="button" class="btn btn-secondary" id="downloadBtn" style="display:none;">Download Reordered PDF</button>
+        <button type="button" class="btn btn-secondary" id="resetBtn">Reset Order</button>
+        <button type="button" class="btn btn-danger" id="clearBtn">Clear PDF</button>
+      </div>
+    </div>
+
+    <!-- STATUS -->
+    <div class="status" id="status"></div>
+
+    <!-- INFO -->
+    <div class="info-box">
+      <strong>How to use:</strong><br>
+      1. Upload a PDF file.<br>
+      2. Your PDF pages will appear on the screen.<br>
+      3. Drag and drop pages into your desired order.<br>
+      4. You can also use the ↑ and ↓ buttons.<br>
+      5. Click "Create Reordered PDF".<br>
+      6. Click "Download Reordered PDF".<br><br>
+      Your PDF is processed in the browser. No PDF upload to a Weblixa server is required.
+    </div>
+
+  </section>
+</main>
+
+<footer>© 2026 Weblixa. All rights reserved.</footer>
+
+<script>
+/* PDF.JS WORKER */
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+/* ELEMENTS */
+const fileInput = document.getElementById("fileInput");
+const selectBtn = document.getElementById("selectBtn");
+const uploadArea = document.getElementById("uploadArea");
+const fileInfo = document.getElementById("fileInfo");
+const pagesSection = document.getElementById("pagesSection");
+const pagesGrid = document.getElementById("pagesGrid");
+const createBtn = document.getElementById("createBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const resetBtn = document.getElementById("resetBtn");
+const clearBtn = document.getElementById("clearBtn");
+const statusBox = document.getElementById("status");
+
+/* VARIABLES */
+let selectedFile = null;
+let originalPdfBytes = null;
+let pdfDocument = null;
+let pageOrder = [];
+let originalOrder = [];
+let draggedIndex = null;
+let downloadBlob = null;
+let downloadUrl = null;
+
+/* CHOOSE PDF */
+selectBtn.addEventListener("click", function (event) {
+  event.stopPropagation();
+  fileInput.click();
+});
+
+uploadArea.addEventListener("click", function (event) {
+  if (event.target === selectBtn) return;
+  fileInput.click();
+});
+
+fileInput.addEventListener("change", function () {
+  if (fileInput.files.length > 0) loadPDF(fileInput.files[0]);
+  fileInput.value = "";
+});
+
+/* DRAG & DROP PDF */
+uploadArea.addEventListener("dragover", function (event) {
+  event.preventDefault();
+  uploadArea.classList.add("dragover");
+});
+
+uploadArea.addEventListener("dragleave", function () {
+  uploadArea.classList.remove("dragover");
+});
+
+uploadArea.addEventListener("drop", function (event) {
+  event.preventDefault();
+  uploadArea.classList.remove("dragover");
+
+  const files = event.dataTransfer.files;
+  if (files.length > 0) loadPDF(files[0]);
+});
+
+/* LOAD PDF */
+async function loadPDF(file) {
+  if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+    showStatus("Please select a PDF file.", true);
+    return;
+  }
+
+  try {
+    selectedFile = file;
+    clearDownload();
+    createBtn.disabled = true;
+    showStatus("Loading PDF pages...", false);
+
+    originalPdfBytes = await file.arrayBuffer();
+
+    // PDF.js is used only to display the pages
+    pdfDocument = await pdfjsLib.getDocument({ data: originalPdfBytes.slice(0) }).promise;
+
+    const totalPages = pdfDocument.numPages;
+
+    // page order: 1, 2, 3, 4 ...
+    pageOrder = Array.from({ length: totalPages }, function (_, index) {
+      return index + 1;
+    });
+    originalOrder = [...pageOrder];
+
+    fileInfo.innerHTML =
+      "<strong>File:</strong> " + escapeHtml(file.name) + "<br>" +
+      "<strong>Size:</strong> " + formatBytes(file.size) + "<br>" +
+      "<strong>Pages:</strong> " + totalPages;
+
+    fileInfo.style.display = "block";
+    pagesSection.style.display = "block";
+
+    await renderPages();
+
+    createBtn.disabled = false;
+    showStatus("PDF loaded successfully. You can now reorder the pages.", false);
+  } catch (error) {
+    console.error("PDF loading error:", error);
+
+    selectedFile = null;
+    originalPdfBytes = null;
+    pdfDocument = null;
+    pageOrder = [];
+    originalOrder = [];
+
+    fileInfo.style.display = "none";
+    pagesSection.style.display = "none";
+    createBtn.disabled = true;
+
+    showStatus("Unable to open this PDF file. Please try another PDF.", true);
+  }
+}
+
+/* RENDER ALL PDF PAGES */
+async function renderPages() {
+  pagesGrid.innerHTML = "";
+
+  for (let i = 0; i < pageOrder.length; i++) {
+    const pdfPageNumber = pageOrder[i];
+
+    // PAGE CARD
+    const card = document.createElement("div");
+    card.className = "page-card";
+    card.draggable = true;
+    card.dataset.index = i;
+
+    card.addEventListener("dragstart", function (event) {
+      draggedIndex = Number(card.dataset.index);
+      card.classList.add("dragging");
+      if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+    });
+
+    card.addEventListener("dragend", function () {
+      card.classList.remove("dragging");
+      document.querySelectorAll(".page-card").forEach(function (item) {
+        item.classList.remove("drag-over");
+      });
+      draggedIndex = null;
+    });
+
+    card.addEventListener("dragover", function (event) {
+      event.preventDefault();
+      if (draggedIndex === null) return;
+      card.classList.add("drag-over");
+      if (event.dataTransfer) event.dataTransfer.dropEffect = "move";
+    });
+
+    card.addEventListener("dragleave", function () {
+      card.classList.remove("drag-over");
+    });
+
+    card.addEventListener("drop", function (event) {
+      event.preventDefault();
+      card.classList.remove("drag-over");
+
+      const targetIndex = Number(card.dataset.index);
+
+      if (draggedIndex === null) return;
+
+      if (draggedIndex === targetIndex) {
+        draggedIndex = null;
+        return;
+      }
+
+      const movedPage = pageOrder.splice(draggedIndex, 1)[0];
+      pageOrder.splice(targetIndex, 0, movedPage);
+
+      draggedIndex = null;
+      clearDownload();
+      renderPages();
+    });
+
+    // PAGE NUMBER
+    const number = document.createElement("div");
+    number.className = "page-number";
+    number.textContent = "Position " + (i + 1) + " • Page " + pdfPageNumber;
+
+    // PREVIEW
+    const preview = document.createElement("div");
+    preview.className = "page-preview";
+
+    const canvas = document.createElement("canvas");
+    preview.appendChild(canvas);
+
+    // ACTION BUTTONS
+    const actions = document.createElement("div");
+    actions.className = "page-actions";
+
+    const upBtn = document.createElement("button");
+    upBtn.type = "button";
+    upBtn.className = "small-btn";
+    upBtn.textContent = "↑ Up";
+    upBtn.disabled = i === 0;
+    upBtn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      movePage(i, i - 1);
+    });
+
+    const downBtnEl = document.createElement("button");
+    downBtnEl.type = "button";
+    downBtnEl.className = "small-btn";
+    downBtnEl.textContent = "↓ Down";
+    downBtnEl.disabled = i === pageOrder.length - 1;
+    downBtnEl.addEventListener("click", function (event) {
+      event.stopPropagation();
+      movePage(i, i + 1);
+    });
+
+    actions.appendChild(upBtn);
+    actions.appendChild(downBtnEl);
+
+    card.appendChild(number);
+    card.appendChild(preview);
+    card.appendChild(actions);
+    pagesGrid.appendChild(card);
+
+    // RENDER PDF PAGE
+    try {
+      await renderPdfPage(pdfPageNumber, canvas);
+    } catch (error) {
+      console.error("Page render error:", error);
+
+      const errorText = document.createElement("div");
+      errorText.style.padding = "30px 10px";
+      errorText.style.textAlign = "center";
+      errorText.style.color = "#b91c1c";
+      errorText.textContent = "Preview unavailable";
+
+      preview.innerHTML = "";
+      preview.appendChild(errorText);
+    }
+  }
+}
+
+/* RENDER SINGLE PDF PAGE */
+async function renderPdfPage(pageNumber, canvas) {
+  const page = await pdfDocument.getPage(pageNumber);
+
+  const baseViewport = page.getViewport({ scale: 1 });
+  const targetWidth = 360;
+  const scale = targetWidth / baseViewport.width;
+  const viewport = page.getViewport({ scale: scale });
+  const ratio = window.devicePixelRatio || 1;
+
+  canvas.width = Math.floor(viewport.width * ratio);
+  canvas.height = Math.floor(viewport.height * ratio);
+  canvas.style.width = Math.floor(viewport.width) + "px";
+  canvas.style.height = Math.floor(viewport.height) + "px";
+
+  const context = canvas.getContext("2d");
+  context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  await page.render({ canvasContext: context, viewport: viewport }).promise;
+}
+
+/* MOVE PAGE UP / DOWN */
+function movePage(fromIndex, toIndex) {
+  if (fromIndex < 0 || toIndex < 0 || fromIndex >= pageOrder.length || toIndex >= pageOrder.length) return;
+
+  const movedPage = pageOrder.splice(fromIndex, 1)[0];
+  pageOrder.splice(toIndex, 0, movedPage);
+
+  clearDownload();
+  renderPages();
+}
+
+/* RESET ORDER */
+resetBtn.addEventListener("click", function () {
+  if (originalOrder.length === 0) return;
+
+  pageOrder = [...originalOrder];
+  clearDownload();
+  renderPages();
+  showStatus("Page order has been reset.", false);
+});
+
+/* CREATE REORDERED PDF */
+createBtn.addEventListener("click", async function () {
+  if (!originalPdfBytes || pageOrder.length === 0) {
+    showStatus("Please upload a PDF first.", true);
+    return;
+  }
+
+  try {
+    createBtn.disabled = true;
+    downloadBtn.style.display = "none";
+    downloadBtn.classList.remove("btn-download-ready");
+
+    showStatus("Creating reordered PDF. Please wait...", false);
+
+    const { PDFDocument } = PDFLib;
+    const sourcePdf = await PDFDocument.load(originalPdfBytes);
+    const newPdf = await PDFDocument.create();
+
+    // copy pages in the current order
+    const copiedPages = await newPdf.copyPages(
+      sourcePdf,
+      pageOrder.map(function (pageNumber) {
+        return pageNumber - 1;
+      })
+    );
+
+    copiedPages.forEach(function (page) {
+      newPdf.addPage(page);
+    });
+
+    const pdfBytes = await newPdf.save();
+
+    downloadBlob = new Blob([pdfBytes], { type: "application/pdf" });
+
+    if (downloadUrl) URL.revokeObjectURL(downloadUrl);
+    downloadUrl = URL.createObjectURL(downloadBlob);
+
+    downloadBtn.classList.add("btn-download-ready");
+    downloadBtn.style.display = "inline-block";
+
+    showStatus("Reordered PDF created successfully. Click Download Reordered PDF.", false, true);
+  } catch (error) {
+    console.error("PDF creation error:", error);
+    clearDownload();
+    showStatus("Unable to create the reordered PDF. Please try again.", true);
+  } finally {
+    createBtn.disabled = false;
+  }
+});
+
+/* DOWNLOAD PDF */
+downloadBtn.addEventListener("click", function () {
+  if (!downloadBlob) {
+    showStatus("Please create the reordered PDF first.", true);
+    return;
+  }
+
+  try {
+    if (!downloadUrl) downloadUrl = URL.createObjectURL(downloadBlob);
+
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = getDownloadFileName();
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    showStatus("Your reordered PDF download has started.", false, true);
+  } catch (error) {
+    console.error("Download error:", error);
+
+    // fallback: open the PDF in a new tab
+    if (downloadUrl) window.open(downloadUrl, "_blank");
+  }
+});
+
+/* CLEAR PDF */
+clearBtn.addEventListener("click", function () {
+  selectedFile = null;
+  originalPdfBytes = null;
+  pdfDocument = null;
+  pageOrder = [];
+  originalOrder = [];
+  draggedIndex = null;
+
+  fileInput.value = "";
+  fileInfo.innerHTML = "";
+  fileInfo.style.display = "none";
+  pagesGrid.innerHTML = "";
+  pagesSection.style.display = "none";
+  createBtn.disabled = true;
+
+  clearDownload();
+  statusBox.style.display = "none";
+});
+
+/* CLEAR DOWNLOAD DATA */
+function clearDownload() {
+  downloadBlob = null;
+
+  if (downloadUrl) {
+    URL.revokeObjectURL(downloadUrl);
+    downloadUrl = null;
+  }
+
+  downloadBtn.classList.remove("btn-download-ready");
+  downloadBtn.style.display = "none";
+}
+
+/* DOWNLOAD FILE NAME */
+function getDownloadFileName() {
+  let baseName = "reordered-pdf";
+
+  if (selectedFile && selectedFile.name) {
+    baseName = selectedFile.name.replace(/\.pdf$/i, "").trim();
+    if (!baseName) baseName = "reordered-pdf";
+  }
+
+  return baseName + "-reordered.pdf";
+}
+
+/* STATUS MESSAGE */
+function showStatus(message, isError, isSuccess) {
+  statusBox.textContent = message;
+  statusBox.classList.remove("error", "success");
+
+  if (isError) statusBox.classList.add("error");
+  else if (isSuccess) statusBox.classList.add("success");
+
+  statusBox.style.display = "block";
+}
+
+/* FORMAT BYTES */
+function formatBytes(bytes) {
+  if (bytes === 0) return "0 Bytes";
+
+  const units = ["Bytes", "KB", "MB", "GB"];
+  const index = Math.floor(Math.log(bytes) / Math.log(1024));
+  const value = bytes / Math.pow(1024, index);
+
+  return value.toFixed(index === 0 ? 0 : 2) + " " + units[index];
+}
+
+/* ESCAPE HTML */
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+</script>
+
+</body>
+</html>

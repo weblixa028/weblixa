@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Image Compressor - Weblixa</title>
+
+    <meta
+        name="description"
+        content="Compress images quickly and easily with Weblixa."
+    >
+
+    <link rel="stylesheet" href="compressor.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="site-header">
+        <div class="container header-inner" style="display: flex; align-items: center; justify-content: space-between;">
+
+            <!-- Weblixa Logo -->
+            <a
+                href="../../index.html"
+                class="brand"
+                style="position: static; transform: none; margin-right: auto;"
+            >
+                <svg
+                    width="180"
+                    height="52"
+                    viewBox="0 0 180 52"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <defs>
+                        <linearGradient
+                            id="weblixaGradient"
+                            x1="4"
+                            y1="4"
+                            x2="44"
+                            y2="48"
+                            gradientUnits="userSpaceOnUse"
+                        >
+                            <stop offset="0" stop-color="#2563EB" />
+                            <stop offset="0.5" stop-color="#7C3AED" />
+                            <stop offset="1" stop-color="#06B6D4" />
+                        </linearGradient>
+                    </defs>
+
+                    <path
+                        d="M6 9L15 38L25 14L35 38L44 9"
+                        stroke="url(#weblixaGradient)"
+                        stroke-width="8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
+                    <text
+                        x="58"
+                        y="35"
+                        font-family="Arial, Helvetica, sans-serif"
+                        font-size="27"
+                        font-weight="700"
+                        fill="#102A56"
+                    >Weblixa</text>
+                </svg>
+            </a>
+
+            <!-- Header Actions -->
+            <div class="header-actions" style="margin-left: auto;">
+                <button
+                    type="button"
+                    class="theme-btn"
+                    aria-label="Toggle theme"
+                >
+                    ☾
+                </button>
+
+                <a
+                    href="../../index.html#popular-tools"
+                    class="get-started-btn"
+                >
+                    Get Started
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+        <!-- PAGE HERO -->
+        <section class="hero-section">
+            <div class="hero-icon">
+                ▧
+            </div>
+
+            <h1>
+                <span style="color: #2563EB;">Image</span>
+                <span style="color: #102A56;">Compressor</span>
+            </h1>
+
+            <p>
+                Reduce image size without losing quality.
+                Fast, free and easy to use.
+            </p>
+        </section>
+
+        <!-- ================= UPLOAD ================= -->
+
+        <section
+            class="upload-area"
+            id="uploadArea"
+        >
+            <div class="upload-icon">
+                ↑
+            </div>
+
+            <h2>
+                Upload Your Image
+            </h2>
+
+            <p>
+                Drag &amp; Drop your image here or
+            </p>
+
+            <label
+                for="imageInput"
+                class="choose-btn"
+            >
+                ↓ &nbsp; Choose Image
+            </label>
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/jpeg,image/png,image/webp"
+            >
+
+            <p class="supported-text">
+                JPG, PNG, WebP images supported
+            </p>
+        </section>
+
+        <!-- ================= EDITOR ================= -->
+
+        <section
+            class="editor"
+            id="editor"
+            hidden
+        >
+            <div class="editor-grid">
+
+                <!-- ORIGINAL IMAGE -->
+                <div class="image-card">
+                    <div class="card-title">
+                        <span class="title-icon">
+                            ▧
+                        </span>
+
+                        <h3>
+                            Original Image
+                        </h3>
+                    </div>
+
+                    <div class="image-preview">
+                        <img
+                            id="originalPreview"
+                            alt="Original image"
+                        >
+                    </div>
+
+                    <div
+                        class="image-info"
+                        id="originalInfo"
+                    ></div>
+                </div>
+
+                <!-- COMPRESSED IMAGE -->
+                <div class="image-card">
+                    <div class="card-title">
+                        <span class="title-icon">
+                            ▧
+                        </span>
+
+                        <h3>
+                            Compressed Image
+                        </h3>
+                    </div>
+
+                    <div class="image-preview">
+                        <img
+                            id="compressedPreview"
+                            alt="Compressed image"
+                        >
+                    </div>
+
+                    <div
+                        class="image-info"
+                        id="compressedInfo"
+                    >
+                        Your compressed image will appear here.
+                    </div>
+                </div>
+
+                <!-- CONTROLS -->
+                <div class="control-card">
+
+                    <!-- QUALITY -->
+                    <div class="control-section">
+                        <div class="control-heading">
+                            <label for="quality">
+                                Quality
+                            </label>
+
+                            <strong id="qualityValue">
+                                80%
+                            </strong>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="quality"
+                            min="10"
+                            max="100"
+                            value="80"
+                        >
+                    </div>
+
+                    <!-- FORMAT -->
+                    <div class="control-section">
+                        <label for="format">
+                            Output Format
+                        </label>
+
+                        <select id="format">
+                            <option value="image/jpeg">
+                                JPG
+                            </option>
+
+                            <option value="image/webp">
+                                WebP
+                            </option>
+
+                            <option value="image/png">
+                                PNG
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- COMPRESS -->
+                    <button
+                        type="button"
+                        id="compressBtn"
+                        class="compress-btn"
+                    >
+                        ↓ &nbsp; Compress Image
+                    </button>
+
+                    <!-- RESET -->
+                    <button
+                        type="button"
+                        id="resetBtn"
+                        class="another-btn"
+                    >
+                        ↻ &nbsp; Choose Another
+                    </button>
+
+                    <!-- DOWNLOAD -->
+                    <a
+                        id="downloadBtn"
+                        class="download-btn disabled"
+                        href="#"
+                    >
+                        ↓ &nbsp; Download Compressed Image
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= FEATURES ================= -->
+
+        <section class="features">
+
+            <div class="feature">
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <div>
+                    <h3>
+                        Fast &amp; Secure
+                    </h3>
+
+                    <p>
+                        Your files are processed instantly
+                        and never stored.
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    ▣
+                </div>
+
+                <div>
+                    <h3>
+                        Works on All Devices
+                    </h3>
+
+                    <p>
+                        Use Weblixa on desktop,
+                        tablet or mobile.
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    ♢
+                </div>
+
+                <div>
+                    <h3>
+                        High Quality
+                    </h3>
+
+                    <p>
+                        Get excellent compression
+                        with great quality.
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">
+                    ♡
+                </div>
+
+                <div>
+                    <h3>
+                        100% Free
+                    </h3>
+
+                    <p>
+                        No hidden charges.
+                        Always free.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+
+            <div class="footer-brand">
+                <div class="footer-mark">
+                    W
+                </div>
+
+                <div>
+                    <strong>
+                        Weblixa
+                    </strong>
+
+                    <p>
+                        © 2026 Weblixa. All rights reserved.
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+                <a href="#">
+                    Terms &amp; Conditions
+                </a>
+
+                <a href="#">
+                    Contact
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="compressor.js"></script>
+
+</body>
+</html>

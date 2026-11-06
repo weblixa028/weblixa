@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Image Rotate & Flip - Weblixa</title>
+
+    <meta
+        name="description"
+        content="Rotate, flip and download your images easily with Weblixa."
+    >
+
+    <link rel="stylesheet" href="rotate.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+
+        <a href="../../index.html" class="brand">
+
+            <svg
+                class="brand-logo-svg"
+                width="180"
+                height="52"
+                viewBox="0 0 180 52"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+                    <linearGradient
+                        id="weblixaGradient"
+                        x1="4"
+                        y1="4"
+                        x2="44"
+                        y2="48"
+                        gradientUnits="userSpaceOnUse"
+                    >
+                        <stop offset="0" stop-color="#2563EB"/>
+                        <stop offset="0.5" stop-color="#7C3AED"/>
+                        <stop offset="1" stop-color="#06B6D4"/>
+                    </linearGradient>
+                </defs>
+
+                <path
+                    d="M6 9L15 38L25 14L35 38L44 9"
+                    stroke="url(#weblixaGradient)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+                <text
+                    x="58"
+                    y="35"
+                    font-family="Arial, Helvetica, sans-serif"
+                    font-size="27"
+                    font-weight="700"
+                    fill="#102A56"
+                >
+                    Weblixa
+                </text>
+
+            </svg>
+
+        </a>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="tool-hero">
+
+        <div class="container">
+
+            <div class="eyebrow">
+                IMAGE TOOL
+            </div>
+
+            <h1>
+                Image Rotate & Flip
+            </h1>
+
+            <p>
+                Rotate, flip and download your image easily.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="tool-section">
+
+        <div class="container">
+
+            <!-- Upload Area -->
+            <div class="upload-card" id="uploadArea">
+
+                <div class="upload-icon">
+                    ↻
+                </div>
+
+                <h2>
+                    Upload Your Image
+                </h2>
+
+                <p>
+                    Drag & drop your image here
+                </p>
+
+                <div class="upload-or">
+                    or
+                </div>
+
+                <label class="choose-btn">
+
+                    Choose Image
+
+                    <input
+                        type="file"
+                        id="imageInput"
+                        accept="image/*"
+                        hidden
+                    >
+
+                </label>
+
+                <div class="upload-info">
+                    JPG, PNG, WEBP and other image formats
+                </div>
+
+            </div>
+
+
+            <!-- Editor -->
+            <div class="editor" id="editor">
+
+                <div class="editor-grid">
+
+                    <!-- Preview -->
+                    <div class="preview-card">
+
+                        <div class="preview-title">
+
+                            <span>
+                                Image Preview
+                            </span>
+
+                            <span class="preview-badge">
+                                Preview
+                            </span>
+
+                        </div>
+
+                        <div class="preview-area">
+
+                            <img
+                                id="imagePreview"
+                                src=""
+                                alt="Image Preview"
+                            >
+
+                        </div>
+
+                        <div
+                            class="image-info"
+                            id="imageInfo"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- Controls -->
+                    <div class="controls-card">
+
+                        <div class="control-group">
+
+                            <div class="control-title">
+                                Rotate
+                            </div>
+
+                            <div class="button-row">
+
+                                <button
+                                    type="button"
+                                    class="control-btn"
+                                    id="rotateLeft"
+                                >
+                                    ↶ Rotate Left
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="control-btn"
+                                    id="rotateRight"
+                                >
+                                    ↷ Rotate Right
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="control-group">
+
+                            <div class="control-title">
+                                Flip
+                            </div>
+
+                            <div class="button-row">
+
+                                <button
+                                    type="button"
+                                    class="control-btn"
+                                    id="flipHorizontal"
+                                >
+                                    ↔ Flip Horizontal
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="control-btn"
+                                    id="flipVertical"
+                                >
+                                    ↕ Flip Vertical
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="control-group">
+
+                            <div class="control-title">
+                                Actions
+                            </div>
+
+                            <div class="button-row">
+
+                                <button
+                                    type="button"
+                                    class="control-btn secondary-btn"
+                                    id="resetTransform"
+                                >
+                                    Reset Changes
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="control-btn primary-btn"
+                                    id="saveBtn"
+                                >
+                                    Apply Changes
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="button-row bottom-actions">
+
+                            <button
+                                type="button"
+                                class="choose-another-btn"
+                                id="chooseAnother"
+                            >
+                                Choose Another Image
+                            </button>
+
+                            <a
+                                href="#"
+                                class="download-btn disabled"
+                                id="downloadBtn"
+                            >
+                                Download Image
+                            </a>
+
+                        </div>
+
+
+                        <div
+                            class="result"
+                            id="result"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <p>
+            © 2026 Weblixa. Simple tools. Fast results.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="rotate.js"></script>
+
+</body>
+</html>

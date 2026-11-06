@@ -1,0 +1,814 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PDF Maker - Weblixa</title>
+
+    <meta name="description"
+          content="Create PDF documents easily from text and images with Weblixa PDF Maker.">
+
+    <link rel="stylesheet"
+          href="pdf-maker.css">
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="site-header">
+
+    <div class="header-container">
+
+        <a href="../../index.html"
+           class="brand">
+
+            <svg width="180"
+                 height="52"
+                 viewBox="0 0 180 52"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+
+                <defs>
+
+                    <linearGradient id="weblixaGradient"
+                                    x1="4"
+                                    y1="4"
+                                    x2="44"
+                                    y2="48"
+                                    gradientUnits="userSpaceOnUse">
+
+                        <stop offset="0"
+                              stop-color="#2563EB"/>
+
+                        <stop offset="0.5"
+                              stop-color="#7C3AED"/>
+
+                        <stop offset="1"
+                              stop-color="#06B6D4"/>
+
+                    </linearGradient>
+
+                </defs>
+
+                <path
+                    d="M6 9L15 38L25 14L35 38L44 9"
+                    stroke="url(#weblixaGradient)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+                <text
+                    x="58"
+                    y="35"
+                    font-family="Arial, Helvetica, sans-serif"
+                    font-size="27"
+                    font-weight="700"
+                    fill="#102A56">
+
+                    Weblixa
+
+                </text>
+
+            </svg>
+
+        </a>
+
+
+        <div class="header-actions">
+
+            <button type="button"
+                    class="theme-button"
+                    id="themeButton"
+                    aria-label="Toggle dark mode">
+
+                ☾
+
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+
+    <!-- PAGE TITLE -->
+
+    <section class="page-intro">
+
+        <div class="container">
+
+            <a href="../index.html"
+               class="back-link">
+
+                ← Back to PDF Tools
+
+            </a>
+
+
+            <div class="section-label">
+                PDF TOOL
+            </div>
+
+
+            <h1>
+                PDF Maker
+            </h1>
+
+
+            <p>
+                Create a PDF document from text and images quickly and easily.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         PDF MAKER
+    ========================= -->
+
+    <section class="maker-section">
+
+        <div class="container">
+
+            <div class="maker-layout">
+
+
+                <!-- LEFT TOOL PANEL -->
+
+                <aside class="tool-panel">
+
+
+                    <div class="panel-title">
+
+                        <h2>
+                            Document Tools
+                        </h2>
+
+                        <p>
+                            Build your PDF document
+                        </p>
+
+                    </div>
+
+
+                    <!-- DOCUMENT TITLE -->
+
+                    <div class="control-group">
+
+                        <label for="documentTitle">
+                            Document Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="documentTitle"
+                            placeholder="My Document"
+                        >
+
+                    </div>
+
+
+                    <!-- FONT SIZE -->
+
+                    <div class="control-group">
+
+                        <label for="fontSize">
+                            Font Size
+                        </label>
+
+                        <select id="fontSize">
+
+                            <option value="14">
+                                14 px
+                            </option>
+
+                            <option value="16"
+                                    selected>
+                                16 px
+                            </option>
+
+                            <option value="18">
+                                18 px
+                            </option>
+
+                            <option value="20">
+                                20 px
+                            </option>
+
+                            <option value="24">
+                                24 px
+                            </option>
+
+                            <option value="28">
+                                28 px
+                            </option>
+
+                            <option value="32">
+                                32 px
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- TEXT FORMATTING -->
+
+                    <div class="control-group">
+
+                        <label>
+                            Text Formatting
+                        </label>
+
+                        <div class="format-buttons">
+
+                            <button type="button"
+                                    id="boldButton"
+                                    title="Bold">
+
+                                <strong>
+                                    B
+                                </strong>
+
+                            </button>
+
+
+                            <button type="button"
+                                    id="italicButton"
+                                    title="Italic">
+
+                                <em>
+                                    I
+                                </em>
+
+                            </button>
+
+
+                            <button type="button"
+                                    id="underlineButton"
+                                    title="Underline">
+
+                                <u>
+                                    U
+                                </u>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TEXT ALIGNMENT -->
+
+                    <div class="control-group">
+
+                        <label>
+                            Text Alignment
+                        </label>
+
+                        <div class="alignment-buttons">
+
+                            <button type="button"
+                                    id="alignLeft"
+                                    title="Align Left">
+
+                                ☰
+
+                            </button>
+
+
+                            <button type="button"
+                                    id="alignCenter"
+                                    title="Align Center">
+
+                                ≡
+
+                            </button>
+
+
+                            <button type="button"
+                                    id="alignRight"
+                                    title="Align Right">
+
+                                ☷
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PAGE SIZE -->
+
+                    <div class="control-group">
+
+                        <label for="pageSize">
+                            Page Size
+                        </label>
+
+                        <select id="pageSize">
+
+                            <option value="A4"
+                                    selected>
+                                A4
+                            </option>
+
+                            <option value="LETTER">
+                                Letter
+                            </option>
+
+                            <option value="LEGAL">
+                                Legal
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- ORIENTATION -->
+
+                    <div class="control-group">
+
+                        <label>
+                            Orientation
+                        </label>
+
+                        <div class="orientation-buttons">
+
+                            <button type="button"
+                                    id="portraitButton"
+                                    class="selected">
+
+                                <span>
+                                    ▯
+                                </span>
+
+                                Portrait
+
+                            </button>
+
+
+                            <button type="button"
+                                    id="landscapeButton">
+
+                                <span>
+                                    ▭
+                                </span>
+
+                                Landscape
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADD IMAGE -->
+
+                    <div class="control-group">
+
+                        <label>
+                            Add Image
+                        </label>
+
+                        <button type="button"
+                                class="secondary-button"
+                                id="addImageButton">
+
+                            + Add Image
+
+                        </button>
+
+                        <input
+                            type="file"
+                            id="imageInput"
+                            accept="image/*"
+                            hidden
+                        >
+
+                    </div>
+
+
+                    <!-- ADD PAGE -->
+
+                    <div class="control-group">
+
+                        <button type="button"
+                                class="secondary-button"
+                                id="addPageButton">
+
+                            + Add New Page
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- CLEAR -->
+
+                    <div class="control-group">
+
+                        <button type="button"
+                                class="clear-button"
+                                id="clearButton">
+
+                            Clear Document
+
+                        </button>
+
+                    </div>
+
+                </aside>
+
+
+
+                <!-- RIGHT EDITOR -->
+
+                <section class="editor-area">
+
+
+                    <!-- EDITOR TOP BAR -->
+
+                    <div class="editor-topbar">
+
+                        <div>
+
+                            <h2>
+                                Document Editor
+                            </h2>
+
+                            <span id="pageCounter">
+                                Page 1
+                            </span>
+
+                        </div>
+
+
+                        <div class="editor-actions">
+
+                            <button type="button"
+                                    class="preview-button"
+                                    id="previewButton">
+
+                                Preview
+
+                            </button>
+
+
+                            <button type="button"
+                                    class="create-button"
+                                    id="createPdfButton">
+
+                                Create PDF
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- DOCUMENT EDITOR -->
+
+                    <div class="document-workspace">
+
+                        <div class="pdf-page"
+                             id="pdfPage">
+
+
+                            <!-- DOCUMENT TITLE -->
+
+                            <div
+                                class="editable-title"
+                                id="titleEditor"
+                                contenteditable="true"
+                                data-placeholder="Document Title">
+
+                                My Document
+
+                            </div>
+
+
+                            <!-- DOCUMENT CONTENT -->
+
+                            <div
+                                class="editable-content"
+                                id="contentEditor"
+                                contenteditable="true"
+                                data-placeholder="Write your text here...">
+
+                                Write your text here...
+
+                            </div>
+
+
+                            <!-- IMAGE AREA -->
+
+                            <div class="image-container"
+                                 id="imageContainer">
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PAGE NAVIGATION -->
+
+                    <div class="page-navigation">
+
+                        <button type="button"
+                                id="previousPageButton">
+
+                            ← Previous
+
+                        </button>
+
+
+                        <div id="pageNumber">
+                            1
+                        </div>
+
+
+                        <button type="button"
+                                id="nextPageButton">
+
+                            Next →
+
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         FEATURES
+    ========================= -->
+
+    <section class="features-section">
+
+        <div class="container">
+
+
+            <div class="section-heading">
+
+                <div class="section-label">
+                    SIMPLE & FAST
+                </div>
+
+                <h2>
+                    Create PDFs Easily
+                </h2>
+
+                <p>
+                    Build simple PDF documents directly in your browser.
+                </p>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ✎
+                    </div>
+
+                    <h3>
+                        Write Text
+                    </h3>
+
+                    <p>
+                        Add and format your document text easily.
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🖼
+                    </div>
+
+                    <h3>
+                        Add Images
+                    </h3>
+
+                    <p>
+                        Add images to your PDF document.
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📄
+                    </div>
+
+                    <h3>
+                        Multiple Pages
+                    </h3>
+
+                    <p>
+                        Create documents with multiple pages.
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ↓
+                    </div>
+
+                    <h3>
+                        Download PDF
+                    </h3>
+
+                    <p>
+                        Create your document and download it as a PDF.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+
+        <div class="footer-brand">
+
+            <svg width="180"
+                 height="52"
+                 viewBox="0 0 180 52"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+
+                <defs>
+
+                    <linearGradient id="footerGradient"
+                                    x1="4"
+                                    y1="4"
+                                    x2="44"
+                                    y2="48"
+                                    gradientUnits="userSpaceOnUse">
+
+                        <stop offset="0"
+                              stop-color="#2563EB"/>
+
+                        <stop offset="0.5"
+                              stop-color="#7C3AED"/>
+
+                        <stop offset="1"
+                              stop-color="#06B6D4"/>
+
+                    </linearGradient>
+
+                </defs>
+
+                <path
+                    d="M6 9L15 38L25 14L35 38L44 9"
+                    stroke="url(#footerGradient)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+                <text
+                    x="58"
+                    y="35"
+                    font-family="Arial, Helvetica, sans-serif"
+                    font-size="27"
+                    font-weight="700"
+                    fill="#FFFFFF">
+
+                    Weblixa
+
+                </text>
+
+            </svg>
+
+
+            <p>
+                Simple, fast and free online tools for everyday tasks.
+            </p>
+
+        </div>
+
+
+
+        <div class="footer-links">
+
+            <a href="../../index.html">
+                Home
+            </a>
+
+            <a href="../../pages/about.html">
+                About
+            </a>
+
+            <a href="../../pages/contact.html">
+                Contact
+            </a>
+
+            <a href="../../pages/privacy.html">
+                Privacy
+            </a>
+
+            <a href="../../pages/terms.html">
+                Terms
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Weblixa. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script src="pdf-maker.js"></script>
+
+</body>
+
+</html>
